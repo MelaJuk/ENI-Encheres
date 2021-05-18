@@ -1,6 +1,7 @@
 package fr.eni.eniEncheres.bo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ArticleVendu {
 
@@ -16,9 +17,10 @@ public class ArticleVendu {
 	private Utilisateur vendeur;
 	private Categorie categorieArticle;
 	private Retrait lieuRetrait;
+	private List<Enchere> listeEncheresArticle; 
 	
 	
-	
+
 	/**
 	 * 
 	 * @param noArticle
@@ -33,7 +35,7 @@ public class ArticleVendu {
 	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAprix, Utilisateur vendeur, Categorie categorieArticle) {
 		
-		//créer par la base de donnée
+		//crée par la base de donnée --> du coup il est quand meme dans le constructeur ? 
 		this.noArticle = noArticle;
 		
 		this.nomArticle = nomArticle;
@@ -44,7 +46,7 @@ public class ArticleVendu {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorieArticle;
 		
-		//par defaut adresse du vendeur
+		//par defaut adresse du vendeur --> contrainte en BD ? 
 		this.lieuRetrait.setRue(vendeur.getRue()); 
 		this.lieuRetrait.setCode_postal(vendeur.getCodePostal());
 		this.lieuRetrait.setVille(vendeur.getVille());

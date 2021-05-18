@@ -1,5 +1,7 @@
 package fr.eni.eniEncheres.bo;
 
+import java.util.List;
+
 public class Utilisateur {
 
 	private int noUtilisateur;
@@ -13,8 +15,11 @@ public class Utilisateur {
 	private String ville;
 	private String motDePasse;
 	private int credit;
-	private boolean adminstrateur;
-	//private List<ArticleVendu> listeAchat;
+	private boolean administrateur;
+	private List<ArticleVendu> listeVente; // faire méthode vend dans utilisateur daoImpl ? 
+	private List<Enchere> listeEncheresUtilisateur; // faire méthode enchérit dans utilisateur daoImpl ? 
+	
+	//private List<ArticleVendu> listeAchat; pas besoin de liste d'achat ?!
 	//private List<ArticleVendu> listeVend;
 	
 	
@@ -41,7 +46,7 @@ public class Utilisateur {
 	}
 
 
-
+	// setter à enlever ?
 	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
@@ -169,13 +174,13 @@ public class Utilisateur {
 
 
 	public boolean isAdminstrateur() {
-		return adminstrateur;
+		return administrateur;
 	}
 
 
 
 	public void setAdminstrateur(boolean adminstrateur) {
-		this.adminstrateur = adminstrateur;
+		this.administrateur = adminstrateur;
 	}
 
 
@@ -185,7 +190,7 @@ public class Utilisateur {
 		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
 				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal="
 				+ codePostal + ", ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit
-				+ ", adminstrateur=" + adminstrateur + "]";
+				+ ", adminstrateur=" + administrateur + "]";
 	}
 	
 

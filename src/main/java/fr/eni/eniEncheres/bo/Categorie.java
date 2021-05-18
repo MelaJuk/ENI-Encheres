@@ -1,9 +1,12 @@
 package fr.eni.eniEncheres.bo;
 
+import java.util.List;
+
 public class Categorie {
 
 	private  int noCategorie;
 	private String libelle;
+	private List<ArticleVendu> categorieArticle ; 
 	
 	
 	/**
@@ -11,7 +14,7 @@ public class Categorie {
 	 * @param noCategorie
 	 * @param libelle
 	 */
-	public Categorie(int noCategorie, String libelle) {
+	public Categorie(int noCategorie, String libelle) { // y'a un identity sur nocat du coup on le met pas dans le constructeur non ? 
 		
 		this.noCategorie = noCategorie;
 		this.libelle = libelle;
