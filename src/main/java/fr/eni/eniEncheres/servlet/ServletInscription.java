@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.eniEncheres.bll.UtilisateurManager;
+import fr.eni.eniEncheres.dal.BusinessException;
 
 
 /**
@@ -45,8 +46,13 @@ public class ServletInscription extends HttpServlet {
 			String email = request.getParameter("email");
 			String ville = request.getParameter("ville");
 			
-			listeCourseManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
-			System.out.println("test1");
+			try {
+				listeCourseManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 	}
