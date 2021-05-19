@@ -34,7 +34,11 @@ public class Utilisateur {
 		this.credit = 0;
 	}
 	
-	//création d'un utlisateur avec  telephone
+	public Utilisateur() {
+		super();
+	}
+
+		//création d'un utlisateur avec  telephone
 		public Utilisateur(String pseudo, String nom, String prenom, String email, String rue,
 				String codePostal, String ville, String motDePasse) {
 			this.pseudo = pseudo;
@@ -49,19 +53,24 @@ public class Utilisateur {
 		}
 
 
-	public Utilisateur(String pseudo, String motDePasse) {
-		super();
-		this.pseudo = pseudo;
-		this.motDePasse = motDePasse;
-	}
+	
+
+	
+	
 	
 	
 
-	public Utilisateur(String email, String motDePasse) {
-		super();
-		this.email = email;
-		this.motDePasse = motDePasse;
-	}
+	public Utilisateur(String login, String motDePasse) {
+		if(login.contains("@")) {
+			this.email = login;
+		}else {
+			this.pseudo = login;
+		}
+			
+			this.motDePasse = motDePasse;
+		}
+
+	
 
 	public int getNoUtilisateur() {
 		return noUtilisateur;
