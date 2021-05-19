@@ -37,6 +37,9 @@
            <div class="row">
            		<div class="col-2">
            		<input type="submit" value="Connexion"/>
+           		<c:if test="${erreur=='erreur'}">
+           		<p>Erreur à la connexion</p>
+           		</c:if>
            		</div>
            		
            		<div class="col-4">

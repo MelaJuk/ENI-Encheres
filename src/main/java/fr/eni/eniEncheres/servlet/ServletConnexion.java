@@ -56,6 +56,7 @@ public class ServletConnexion extends HttpServlet {
 				PrintWriter out = response.getWriter();
 				out.println("Le login ou le mot de passe n'est pas correcte");
 				session.setAttribute(ATT_SESSION_USER, null);
+				request.setAttribute("erreur", "erreur");
 				RequestDispatcher rd = request.getRequestDispatcher(VUE_ECHEC);
 				rd.forward(request, response);
 			}else {
