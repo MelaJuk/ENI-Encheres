@@ -42,13 +42,13 @@
                  </div>
            </div>
            
-           <div class="form-group row">
-				<div class="col-2">
-                   <label for="codePostal" >Pseudo</label>
-            	</div>
-                 <div class="col-3">
-                   <input type="text" class="form-control" name="nom" placeholder="nom" required="required">
-                 </div>
+          <div class="form-group row">
+           		<div class="col-2">
+                   <label for="nom">Code postal</label>
+                </div>
+                <div class="col-3">
+                   <input type="text" class="form-control" name="codePostal"  required="required">
+                </div>   
            </div>
            
            <div class="form-group row">
@@ -56,35 +56,62 @@
                    <label for="motDePasse">Mot de passe</label>
                 </div>
                 <div class="col-3">
-                   <input type="password" class="form-control" name="motDePasse" placeholder="Mot de passe">
+                   <input type="password" class="form-control" name="motDePasse"  required="required">
+                </div>   
+           </div>
+           
+           <div class="form-group row">
+           		<div class="col-2">
+                   <label for="confirmation">Confirmation</label>
+                </div>
+                <div class="col-3">
+                   <input type="password" class="form-control" name="confirmation"  required="required">
+                </div>   
+           </div>
+           
+           
+           
+           <div class="form-group row">
+           		<div class="col-2">
+                   <label for="email">Email</label>
+                </div>
+                <div class="col-3">
+                   <input type="text" class="form-control" name="email"  required="required">
+                </div>   
+           </div>
+          
+           
+           <div class="form-group row">
+           		<div class="col-2">
+                   <label for="rue">Rue</label>
+                </div>
+                <div class="col-3">
+                   <input type="text" class="form-control" name="rue"  required="required">
+                </div>   
+           </div>
+           
+            <div class="form-group row">
+           		<div class="col-2">
+                   <label for="rue">Ville</label>
+                </div>
+                <div class="col-3">
+                   <input type="text" class="form-control" name="ville"  required="required">
                 </div>   
            </div>
            
            <div class="row">
            		<div class="col-2">
-           		<input type="submit" value="Connexion"/>
-           		<c:if test="${erreur=='erreur'}">
-           		<p>Erreur à la connexion</p>
-           		</c:if>
+           		<input type="submit" value="Créer"/>
            		</div>
            		
-           		<div class="col-4">
-	           		<div class="row form-check">
-	           			<input type="checkbox" name="souvenir" >
-	           			<label for="souvenir">Se souvenir de moi</label>
-	           		</div>
-	           		<div class="row">
-	           			<a href="">Mot de passe oublié</a>
-	           		</div>
+           		<div class="col-3">
+           		<input type="submit" value="Annuler"/>
            		</div>
+           		
+
            </div>
            
-            <div class="form-group row">
-           		
-                <div class="col-3 text-center">
-                   <a href="">Créer un compte</a>
-                </div>
-           </div>
+           
            
 		
 		</form>
