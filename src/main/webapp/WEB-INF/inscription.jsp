@@ -14,7 +14,7 @@
 	<div class="container">
 		<h1 class="text-center">Mon profil</h1>
 	
-		<form action="<%=request.getContextPath()%>/ServletInscrition" method="post">
+		<form action="<%=request.getContextPath()%>/creer" method="post">
 			<div class="form-group row">
 				<div class="col-2">
                    <label for="pseudo" >Pseudo</label>
@@ -35,6 +35,15 @@
            
            <div class="form-group row">
 				<div class="col-2">
+                   <label for="nom" >Prénom</label>
+            	</div>
+                 <div class="col-3">
+                   <input type="text" class="form-control" name="nom" placeholder="prenom" required="required">
+                 </div>
+           </div>
+           
+           <div class="form-group row">
+				<div class="col-2">
                    <label for="telephone" >Téléphone</label>
             	</div>
                  <div class="col-3">
@@ -44,7 +53,7 @@
            
           <div class="form-group row">
            		<div class="col-2">
-                   <label for="nom">Code postal</label>
+                   <label for="codePostal">Code postal</label>
                 </div>
                 <div class="col-3">
                    <input type="text" class="form-control" name="codePostal"  required="required">

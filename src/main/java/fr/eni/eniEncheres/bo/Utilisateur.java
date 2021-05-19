@@ -38,7 +38,7 @@ public class Utilisateur {
 		super();
 	}
 
-		//création d'un utlisateur avec  telephone
+		//création d'un utlisateur sans  telephone
 		public Utilisateur(String pseudo, String nom, String prenom, String email, String rue,
 				String codePostal, String ville, String motDePasse) {
 			this.pseudo = pseudo;
@@ -50,6 +50,7 @@ public class Utilisateur {
 			this.ville = ville;
 			this.motDePasse = motDePasse;
 			this.credit = 0;
+			this.adminstrateur = false;
 		}
 
 

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.eniEncheres.bll.UtilisateurManager;
 import fr.eni.eniEncheres.bo.Utilisateur;
 
 /**
@@ -49,9 +50,8 @@ public class ServletConnexion extends HttpServlet {
 		try {
 			login = request.getParameter(LOGIN);
 			motDePasse = request.getParameter(MOT_DE_PASSE);
-			//UtilisateurManager utilisateurManageur = new UtilisateurManager();
-			//Utilisateur utilisateur = utilisateurManageur.connection(login,motDePasse);
-			Utilisateur utilisateur = new Utilisateur(login, motDePasse, motDePasse, motDePasse, motDePasse, motDePasse, motDePasse, login, motDePasse);
+			UtilisateurManager utilisateurManageur = new UtilisateurManager();
+			Utilisateur utilisateur = utilisateurManageur.connection(login,motDePasse);
 			if (utilisateur == null) {
 				PrintWriter out = response.getWriter();
 				out.println("Le login ou le mot de passe n'est pas correcte");

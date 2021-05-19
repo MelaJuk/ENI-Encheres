@@ -11,7 +11,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
 	public void insert(Utilisateur utilisateur) throws BusinessException;
-	public Utilisateur select(String string);
+	public Utilisateur select(String login,String motDePasse);
 //	public Utilisateur selectByLoginMotDePasse(String login,String motDePasse) throws BusinessException;
 //	public void delete(int id) throws BusinessException;
 //	public List<Utilisateur> selectAll() throws BusinessException;

@@ -9,10 +9,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.eniEncheres.bll.UtilisateurManager;
+
+
 /**
  * Servlet implementation class ServletInscription
  */
-@WebServlet("/ServletInscrition")
+@WebServlet(urlPatterns={"/creer","/annuler"})
 public class ServletInscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,15 +26,33 @@ public class ServletInscription extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 		rd.forward(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		if(request.getServletPath().equals("/creer")) {
+			UtilisateurManager listeCourseManager = new UtilisateurManager();
+			String pseudo = request.getParameter("pseudo");
+			String prenom = request.getParameter("prenom");
+			String telephone = request.getParameter("telephone");
+			String codepostal = request.getParameter("codePostal");
+			String motDePasse = request.getParameter("motDePasse");
+			String confirmation = request.getParameter("confirmation");
+			String nom = request.getParameter("nom");
+			String email = request.getParameter("email");
+			String ville = request.getParameter("ville");
+			
+			listeCourseManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
+			System.out.println("test1");
+		}
+		
 	}
 
+	
+	
+	
+	
 }
