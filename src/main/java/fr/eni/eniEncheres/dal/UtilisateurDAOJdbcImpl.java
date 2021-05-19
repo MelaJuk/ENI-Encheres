@@ -47,7 +47,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				utilisateur.setEmail(email);
 				utilisateur.setMotDePasse(motDePasse);
 				
-				utilisateurs.add(utilisateur);
+				utilisateur.add(utilisateur);
 			}
 			
 		}
@@ -55,7 +55,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			e.printStackTrace();
 		}
 
-		return utilisateurs;
+		return utilisateur;
 	}
 		
 	}
@@ -86,7 +86,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 		
 		
-//		// récupérer une liste d'utilisateurs
+//		// rï¿½cupï¿½rer une liste d'utilisateurs
 //		@Override
 //		public List<Utilisateur> lister() {
 //			List<Utilisateur>utilisateurs = new ArrayList<Utilisateur>();
