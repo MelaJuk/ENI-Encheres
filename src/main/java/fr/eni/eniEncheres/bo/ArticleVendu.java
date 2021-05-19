@@ -52,6 +52,14 @@ public class ArticleVendu {
 		
 	}
 
+	
+	
+
+
+	
+
+
+
 
 
 	public int getNoArticle() {
