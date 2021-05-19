@@ -18,9 +18,8 @@ public class Utilisateur {
 	private boolean administrateur;
 	private List<ArticleVendu> listeVente; // faire méthode vend dans utilisateur daoImpl ? 
 	private List<Enchere> listeEncheresUtilisateur; // faire méthode enchérit dans utilisateur daoImpl ? 
+	private List<ArticleVendu> listeAchat; 
 	
-	//private List<ArticleVendu> listeAchat; pas besoin de liste d'achat ?!
-	//private List<ArticleVendu> listeVend;
 	
 	
 	
@@ -46,7 +45,7 @@ public class Utilisateur {
 	}
 
 
-	// setter à enlever ?
+	
 	public void setNoUtilisateur(int noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}

@@ -14,22 +14,9 @@ public class Categorie {
 	 * @param noCategorie
 	 * @param libelle
 	 */
-	public Categorie(int noCategorie, String libelle) { // y'a un identity sur nocat du coup on le met pas dans le constructeur non ? 
-		
-		this.noCategorie = noCategorie;
+	public Categorie(String libelle) { 
 		this.libelle = libelle;
 	}
-
-
-	/**
-	 * 
-	 * @param libelle
-	 */
-	public Categorie(String libelle) {
-		this.libelle = libelle;
-	}
-
-	
 	
 
 	public int getNoCategorie() {

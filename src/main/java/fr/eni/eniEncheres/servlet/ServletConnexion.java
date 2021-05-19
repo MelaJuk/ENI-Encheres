@@ -18,7 +18,9 @@ import fr.eni.eniEncheres.bo.Utilisateur;
  */
 @WebServlet("/ServletConnexion")
 public class ServletConnexion extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
 	 	public static final String LOGIN        = "login";
 	    public static final String MOT_DE_PASSE         = "motDePasse";
 	    public static final String ATT_USER = "utilisateur";
@@ -41,7 +43,7 @@ public class ServletConnexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//création ou récupération de la session
+		//crï¿½ation ou rï¿½cupï¿½ration de la session
 		HttpSession session = request.getSession();
 		String login;
 		String motDePasse;
@@ -49,8 +51,9 @@ public class ServletConnexion extends HttpServlet {
 		try {
 			login = request.getParameter(LOGIN);
 			motDePasse = request.getParameter(MOT_DE_PASSE);
-			//UtilisateurManager utilisateurManageur = new UtilisateurManager();
-			//Utilisateur utilisateur = utilisateurManageur.connection(login,motDePasse);
+			//UtilisateurManager utilisateurManager = new UtilisateurManager();
+			//Utilisateur utilisateur = utilisateurManager.connection(login,motDePasse);
+			
 			Utilisateur utilisateur = new Utilisateur(login, motDePasse, motDePasse, motDePasse, motDePasse, motDePasse, motDePasse, login, motDePasse);
 			if (utilisateur == null) {
 				PrintWriter out = response.getWriter();
@@ -58,7 +61,7 @@ public class ServletConnexion extends HttpServlet {
 				session.setAttribute(ATT_SESSION_USER, null);
 				RequestDispatcher rd = request.getRequestDispatcher(VUE_ECHEC);
 				rd.forward(request, response);
-			}else {
+			} else {
 				session.setAttribute(ATT_SESSION_USER, utilisateur);
 				RequestDispatcher rd = request.getRequestDispatcher(VUE_USER);
 				rd.forward(request, response);
