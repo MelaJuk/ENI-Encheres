@@ -15,51 +15,13 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 	public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
-		private static final String SELECT_ALL = "SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal FROM Utilisateurs";
 		private static final String INSERT_UTILATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,ville,code_postal,mot_de_passe) VALUES(?,?,?,?,?,?,?,?,?)";
-		private static final String SELECT_BY_EMAIL = "SELECT email, motDePasse FROM utilisateur where (email=? AND motDePasse=?) ";
-		private static final String SELECT_BY_PSEUDO = "SELECT pseudo, motDePasse FROM utilisateur where email=? ";
+		private static final String SELECT_BY_EMAIL = "select email, motDePasse from utilisateur where (email=? AND motDePasse=?) ";
+		private static final String SELECT_BY_PSEUDO = "select pseudo, motDePasse from utilisateur where email=? ";
 		private static final String AJOUTER = "insert into utilisateur (email, motDePasse) values (?, ?)";
 
 	
-		
-		@Override
-		public List<Utilisateur> selectAll() throws BusinessException {
-			return null;
-		}
-		
-		/*
-		// r�cup�rer une liste d'utilisateurs
-		@Override
-		public List<Utilisateur> lister() {
-			List<Utilisateur>utilisateurs = new ArrayList<Utilisateur>();
-			Connection connexion = null;
-			Statement requete = null;
-			ResultSet resultat = null;
-			
-			try {
-				
-				connexion = ConnectionProvider.getConnection();
-				requete = connexion.prepareStatement(SELECT_BY_EMAIL);
-				
-				while(resultat.next()) {
-					String email = resultat.getString("Email");
-					String motDePasse = resultat.getString("motDePasse");
-					
-					Utilisateur utilisateur = new Utilisateur();
-					utilisateur.setEmail(email);
-					utilisateur.setMotDePasse(motDePasse);
-					
-					utilisateurs.add(utilisateur);
-				}
-				
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}	
-		return utilisateurs;
-		}
-		
+	
 	public Utilisateur select(String email,String motDePasse) {
 		Utilisateur utilisateur;
 		
@@ -95,7 +57,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 		return utilisateur;
 	}
-	*/	
+		
 
 	
 
@@ -119,7 +81,38 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		
 	}
 	
-
+		
+//		// r�cup�rer une liste d'utilisateurs
+//		@Override
+//		public List<Utilisateur> lister() {
+//			List<Utilisateur>utilisateurs = new ArrayList<Utilisateur>();
+//			Connection connexion = null;
+//			Statement requete = null;
+//			ResultSet resultat = null;
+//			
+//			try {
+//				
+//				connexion = ConnectionProvider.getConnection();
+//				requete = connexion.prepareStatement(SELECT_BY_EMAIL);
+//				
+//				while(resultat.next()) {
+//					String email = resultat.getString("Email");
+//					String motDePasse = resultat.getString("motDePasse");
+//					
+//					Utilisateur utilisateur = new Utilisateur();
+//					utilisateur.setEmail(email);
+//					utilisateur.setMotDePasse(motDePasse);
+//					
+//					utilisateurs.add(utilisateur);
+//				}
+//				
+//			}
+//			catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//	
+//			return utilisateurs;
+//		}
 	
 	@Override
 	public void insert(Utilisateur utilisateur) throws BusinessException {
@@ -157,7 +150,11 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 	}
 
 
-
+@Override
+public Utilisateur select(String string) {
+	// TODO Auto-generated method stub
+	return null;
+}
 	
 	
 }

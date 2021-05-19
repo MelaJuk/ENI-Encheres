@@ -1,6 +1,7 @@
 package fr.eni.eniEncheres.bo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ArticleVendu {
 
@@ -11,14 +12,15 @@ public class ArticleVendu {
 	private LocalDate dateFinEncheres;
 	private int miseAprix;
 	private int prixVente;
-	private int EtatVente;
+	private int etatVente;
 	private Utilisateur acheteur;
 	private Utilisateur vendeur;
 	private Categorie categorieArticle;
 	private Retrait lieuRetrait;
+	private List<Enchere> listeEncheresArticle; 
 	
 	
-	
+
 	/**
 	 * 
 	 * @param noArticle
@@ -30,11 +32,8 @@ public class ArticleVendu {
 	 * @param vend
 	 * @param categorieArticle
 	 */
-	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
 			LocalDate dateFinEncheres, int miseAprix, Utilisateur vendeur, Categorie categorieArticle) {
-		
-		//créer par la base de donnée
-		this.noArticle = noArticle;
 		
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -44,23 +43,30 @@ public class ArticleVendu {
 		this.vendeur = vendeur;
 		this.categorieArticle = categorieArticle;
 		
-		//par defaut adresse du vendeur
+		//par defaut adresse du vendeur 
 		this.lieuRetrait.setRue(vendeur.getRue()); 
 		this.lieuRetrait.setCode_postal(vendeur.getCodePostal());
 		this.lieuRetrait.setVille(vendeur.getVille());
-		
-		
+			
 	}
-
 	
-	
+	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
+			LocalDate dateFinEncheres, int miseAprix, int prixVente, Utilisateur acheteur,
+			Utilisateur vendeur, Categorie categorieArticle, Retrait lieuRetrait) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAprix = miseAprix;
+		this.prixVente = prixVente;
+		this.acheteur = acheteur;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorieArticle;
+		this.lieuRetrait = lieuRetrait;
 
-
-	
-
-
-
-
+	}
 
 	public int getNoArticle() {
 		return noArticle;
@@ -147,13 +153,13 @@ public class ArticleVendu {
 
 
 	public int getEtatVente() {
-		return EtatVente;
+		return etatVente;
 	}
 
 
 
 	public void setEtatVente(int etatVente) {
-		EtatVente = etatVente;
+		this.etatVente = etatVente;
 	}
 
 
