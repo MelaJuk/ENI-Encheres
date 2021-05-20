@@ -116,7 +116,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 	}
 
 	@Override
-	public List<Utilisateur> selectAll() throws BusinessException {
+	public List<Utilisateur> selectAllUtilisateur() throws BusinessException {
 		List<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>(); 
 	
 		
