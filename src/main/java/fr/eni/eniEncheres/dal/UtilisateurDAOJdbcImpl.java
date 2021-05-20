@@ -31,6 +31,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "      ,ville=?\r\n"
 				+ "     \r\n"
 				+ "WHERE pseudo=?";
+		private static final String SELECT_BY_PSEUDO = ""; 
 
 	@Override
 	public Utilisateur selectByLogin(String login,String motDePasse) {
@@ -186,6 +187,9 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 			pstmt.setString(7, ville);
 			pstmt.setString(8, utilisateur.getPseudo());
 			pstmt.executeUpdate();
+			
+			pstmt.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			BusinessException businessException = new BusinessException();
@@ -194,6 +198,14 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		}
 		
 		return utilisateur;
+	}
+
+
+
+	@Override
+	public Utilisateur selectByPseudo(String pseudo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

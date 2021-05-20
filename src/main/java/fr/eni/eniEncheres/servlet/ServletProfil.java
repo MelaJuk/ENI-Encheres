@@ -28,7 +28,21 @@ public class ServletProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		if (request.getServletPath().equals("/afficherProfil")) {
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
+			String nom = request.getParameter("nom");
+			String prenom = request.getParameter("prenom");
+			String email = request.getParameter("email");
+			String telephone = request.getParameter("telephone");
+			String rue = request.getParameter("rue");
+			String codepostal = request.getParameter("codePostal");
+			String ville = request.getParameter("ville");
+			
+			//utilisateurManager.selectByPseudo(Utilisateur);
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfilUtilisateur.jsp");
+		rd.forward(request, response);
+		
 	}
 
 	/**
@@ -65,7 +79,7 @@ public class ServletProfil extends HttpServlet {
 					request.setAttribute("erreurTelephone","erreurCodePostal");
 				}
 				
-				//email déjà existant
+				//email dï¿½jï¿½ existant
 				if(utilisateurManager.loginExiste(email)==1) {
 					request.setAttribute("emailExist","emailExist");
 				}
