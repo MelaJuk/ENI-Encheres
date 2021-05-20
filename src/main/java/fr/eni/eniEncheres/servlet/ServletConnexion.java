@@ -52,8 +52,8 @@ public class ServletConnexion extends HttpServlet {
 		try {
 			login = request.getParameter(LOGIN);
 			motDePasse = request.getParameter(MOT_DE_PASSE);
-			UtilisateurManager utilisateurManageur = new UtilisateurManager();
-			Utilisateur utilisateur = utilisateurManageur.connection(login,motDePasse);
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
+			Utilisateur utilisateur = utilisateurManager.connection(login, motDePasse); 
 			if (utilisateur == null) {
 				PrintWriter out = response.getWriter();
 				out.println("Le login ou le mot de passe n'est pas correcte");

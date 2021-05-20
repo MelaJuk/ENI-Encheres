@@ -59,13 +59,6 @@ public class Utilisateur {
 		}
 
 
-	
-
-	
-	
-	
-	
-
 	public Utilisateur(String login, String motDePasse) {
 		if(login.contains("@")) {
 			this.email = login;

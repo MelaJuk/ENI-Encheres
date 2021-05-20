@@ -36,7 +36,7 @@ public class ServletInscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getServletPath().equals("/creer")) {
-			UtilisateurManager listeCourseManager = new UtilisateurManager();
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			String pseudo = request.getParameter("pseudo");
 			String prenom = request.getParameter("prenom");
 			String telephone = request.getParameter("telephone");
@@ -58,11 +58,11 @@ public class ServletInscription extends HttpServlet {
 					request.setAttribute("email","email");
 				}
 				if(!confirmation.equals(motDePasse)){
-					out.println("Les mots de passes sont différents");
+					out.println("Les mots de passes sont diffï¿½rents");
 					request.setAttribute("erreurMotDePasse","erreurMotDePasse");
 				}
 				
-				//codepostal est un nombre et à 5 chiffres
+				//codepostal est un nombre et ï¿½ 5 chiffres
 				if(!codepostal.matches("\\p{Digit}+") |codepostal.length()!=5 ){
 					
 					request.setAttribute("erreurCodePostal","erreurCodePostal");
@@ -74,7 +74,7 @@ public class ServletInscription extends HttpServlet {
 				
 				try {
 					
-					listeCourseManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
+					utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

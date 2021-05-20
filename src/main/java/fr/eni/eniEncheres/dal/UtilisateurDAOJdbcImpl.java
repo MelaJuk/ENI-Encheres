@@ -23,8 +23,9 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
 	
-	
-		public Utilisateur select(String login,String motDePasse) {
+
+		@Override
+		public Utilisateur selectByLogin(String login,String motDePasse) {
 			Utilisateur utilisateur = new Utilisateur();
 			Connection connexion = null;
 			PreparedStatement requete_login = null;
@@ -85,25 +86,6 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 	
 
-	// ajouter un compte utilisateur avec juste email et mot de passe
-	public void ajouter(Utilisateur utilisateur) {
-		Connection connexion = null;
-		PreparedStatement requete = null;
-		
-		try {
-			connexion = ConnectionProvider.getConnection();
-			requete = connexion.prepareStatement(AJOUTER);
-			
-			requete.setString(1, utilisateur.getEmail());
-			requete.setString(2, utilisateur.getMotDePasse());
-			requete.executeUpdate();
-			
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
 	
 		
 //		// r�cup�rer une liste d'utilisateurs
@@ -184,13 +166,9 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 	}
 
 
-//@Override
-//public Utilisateur select(String string) {
-//	// TODO Auto-generated method stub
-//	return null;
-//}
-	
-	
+
+
+
 }
 
 

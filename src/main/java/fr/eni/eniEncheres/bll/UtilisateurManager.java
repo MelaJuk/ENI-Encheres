@@ -19,6 +19,7 @@ public class UtilisateurManager {
 	}
 	
 	
+	
 	// ajouter les méthodes qui permettent de vérifier les règles à respecter sur les variables 
 		// les méthodes dont va avoir besoin l'utilisateur 
 		
@@ -35,6 +36,12 @@ public class UtilisateurManager {
 		}
 		this.utilisateurDAO.insert(utilisateur);
 		return utilisateur;
+	}
+
+
+
+	public Utilisateur connection(String login, String motDePasse) {
+		return this.utilisateurDAO.selectByLogin(login, motDePasse);
 	}
 	
 	
