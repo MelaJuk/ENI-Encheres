@@ -49,7 +49,7 @@ public class ServletInscription extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			//test si l'email est valide
 			
-			
+			System.out.println(utilisateurManager.loginExiste(pseudo));
 			
 			
 			if (utilisateurManager.loginExiste(pseudo)==1 | utilisateurManager.loginExiste(pseudo)==2 | !confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
