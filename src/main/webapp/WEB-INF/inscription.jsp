@@ -35,10 +35,10 @@
            
            <div class="form-group row">
 				<div class="col-2">
-                   <label for="nom" >Prénom</label>
+                   <label for="nom" >Nom</label>
             	</div>
                  <div class="col-3">
-                   <input type="text" class="form-control" name="nom" placeholder="prenom" required="required">
+                   <input type="text" class="form-control" name="nom" placeholder="nom" required="required">
                  </div>
            </div>
            
@@ -58,6 +58,9 @@
                 <div class="col-3">
                    <input type="text" class="form-control" name="codePostal"  required="required">
                 </div>   
+                <c:if test="${erreurCodePostal=='erreurCodePostal'}">
+           		<p>Le code postal n'est pas valide</p>
+           		</c:if> 
            </div>
            
            <div class="form-group row">
@@ -66,7 +69,10 @@
                 </div>
                 <div class="col-3">
                    <input type="password" class="form-control" name="motDePasse"  required="required">
-                </div>   
+                </div>  
+                
+ 
+           		 
            </div>
            
            <div class="form-group row">
@@ -75,7 +81,10 @@
                 </div>
                 <div class="col-3">
                    <input type="password" class="form-control" name="confirmation"  required="required">
-                </div>   
+                </div>  
+                <c:if test="${erreurMotDePasse=='erreurMotDePasse'}">
+           		<p>Les mots de passes sont différents</p>
+           		</c:if> 
            </div>
            
            
@@ -87,6 +96,9 @@
                 <div class="col-3">
                    <input type="text" class="form-control" name="email"  required="required">
                 </div>   
+                <c:if test="${email=='email'}">
+           		<p>L'email n'est pas valide</p>
+           		</c:if>
            </div>
           
            

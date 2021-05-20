@@ -36,7 +36,7 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = 0;
-		this.adminstrateur = false;
+		this.administrateur = false;
 	}
 	
 	public Utilisateur() {
@@ -55,7 +55,7 @@ public class Utilisateur {
 			this.ville = ville;
 			this.motDePasse = motDePasse;
 			this.credit = 0;
-			this.adminstrateur = false;
+			this.administrateur = false;
 		}
 
 

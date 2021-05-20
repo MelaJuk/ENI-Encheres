@@ -1,6 +1,7 @@
 package fr.eni.eniEncheres.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,13 +46,43 @@ public class ServletInscription extends HttpServlet {
 			String nom = request.getParameter("nom");
 			String email = request.getParameter("email");
 			String ville = request.getParameter("ville");
+			PrintWriter out = response.getWriter();
+			//test si l'email est valide
 			
-			try {
-				listeCourseManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
-			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			
+			
+			if (!confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+")) {
+			
+				if(!email.contains("@")) {
+				
+					request.setAttribute("email","email");
+				}
+				if(!confirmation.equals(motDePasse)){
+					out.println("Les mots de passes sont différents");
+					request.setAttribute("erreurMotDePasse","erreurMotDePasse");
+				}
+				
+				//codepostal est un nombre et à 5 chiffres
+				if(!codepostal.matches("\\p{Digit}+") |codepostal.length()!=5 ){
+					
+					request.setAttribute("erreurCodePostal","erreurCodePostal");
+				}
+				
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
+				rd.forward(request, response);	
+			}else {
+				
+				try {
+					
+					listeCourseManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
+			
+			
 			
 		}
 		

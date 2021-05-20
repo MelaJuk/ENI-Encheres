@@ -12,8 +12,7 @@ public interface UtilisateurDAO {
 //	public void delete(int id) throws BusinessException;
 //	public List<Utilisateur> selectAll() throws BusinessException;
 //	public Utilisateur selectById(int id) throws BusinessException;
-	void ajouter(Utilisateur utilisateur);
-
+	
 	//public void ajouter(Utilisateur utilisateur);
 
 
