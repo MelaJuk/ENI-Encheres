@@ -48,6 +48,9 @@
             	</div>
                  <div class="col-3">
                    <input type="text" class="form-control" name="telephone" placeholder="téléphone" >
+                    <c:if test="${erreurTelephone=='erreurTelephone'}">
+           				<p>Le numéro de téléphone n'est pas valide</p>
+           			</c:if>
                  </div>
            </div>
            
@@ -126,7 +129,7 @@
            		</div>
            		
            		<div class="col-3">
-           		<input type="submit" value="Annuler"/>
+           		<input type="reset" value="Annuler"/>
            		</div>
            		
 

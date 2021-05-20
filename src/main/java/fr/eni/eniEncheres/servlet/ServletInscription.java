@@ -36,7 +36,7 @@ public class ServletInscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getServletPath().equals("/creer")) {
-			UtilisateurManager listeCourseManager = new UtilisateurManager();
+			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			String pseudo = request.getParameter("pseudo");
 			String prenom = request.getParameter("prenom");
 			String telephone = request.getParameter("telephone");
@@ -51,12 +51,14 @@ public class ServletInscription extends HttpServlet {
 			
 			
 			
-			if (!confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+")) {
-			
+			if (!confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
+				
+				//mail
 				if(!email.contains("@")) {
 				
 					request.setAttribute("email","email");
 				}
+				//mot de passe
 				if(!confirmation.equals(motDePasse)){
 					out.println("Les mots de passes sont différents");
 					request.setAttribute("erreurMotDePasse","erreurMotDePasse");
@@ -68,13 +70,18 @@ public class ServletInscription extends HttpServlet {
 					request.setAttribute("erreurCodePostal","erreurCodePostal");
 				}
 				
+				//telephone
+				if(!telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
+					request.setAttribute("erreurTelephone","erreurCodePostal");
+				}
+				
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 				rd.forward(request, response);	
 			}else {
 				
 				try {
 					
-					listeCourseManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
+					utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, email, codepostal, ville, motDePasse);
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

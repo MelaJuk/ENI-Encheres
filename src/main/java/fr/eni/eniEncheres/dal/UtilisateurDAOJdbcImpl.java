@@ -17,12 +17,12 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 		private static final String INSERT_UTILATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,ville,code_postal,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,0,0)";
 		private static final String SELECT_BY_EMAIL = "select email, motDePasse from utilisateur where (email=? AND motDePasse=?) ";
-		private static final String SELECT_BY_PSEUDO = "select pseudo, motDePasse from utilisateur where email=? ";
+		private static final String SELECT_BY_PSEUDO = "select pseudo from utilisateur where pseudo=? ";
 		private static final String AJOUTER = "insert into utilisateur (email, motDePasse) values (?, ?)";
 		private static final String SELECT_BY_LOGIN = "select * from UTILISATEURS u \r\n"
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
-	
+		
 	
 		public Utilisateur select(String login,String motDePasse) {
 			Utilisateur utilisateur = new Utilisateur();
@@ -85,25 +85,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 	
 
-	// ajouter un compte utilisateur avec juste email et mot de passe
-	public void ajouter(Utilisateur utilisateur) {
-		Connection connexion = null;
-		PreparedStatement requete = null;
-		
-		try {
-			connexion = ConnectionProvider.getConnection();
-			requete = connexion.prepareStatement(AJOUTER);
-			
-			requete.setString(1, utilisateur.getEmail());
-			requete.setString(2, utilisateur.getMotDePasse());
-			requete.executeUpdate();
-			
-		}
-		catch(SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
+	
 	
 		
 //		// r�cup�rer une liste d'utilisateurs
@@ -189,6 +171,8 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 //	// TODO Auto-generated method stub
 //	return null;
 //}
+	
+	
 	
 	
 }
