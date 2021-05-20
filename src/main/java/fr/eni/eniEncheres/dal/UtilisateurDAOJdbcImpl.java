@@ -138,7 +138,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				utilisateur.setRue(rs.getString("rue")); 
 				utilisateur.setCodePostal(rs.getString("code_postal")); 
 				utilisateur.setVille(rs.getString("ville")); 
-				utilisateur.setMotDePasse(rs.getString("mot_de_Passe")); 
+				utilisateur.setMotDePasse(rs.getString("mot_de_passe")); 
 				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setAdminstrateur(rs.getBoolean("administrateur"));	
 				

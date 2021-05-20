@@ -59,14 +59,14 @@ public class ServletConnexion extends HttpServlet {
 			motDePasse = request.getParameter(MOT_DE_PASSE);
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			Utilisateur utilisateur = utilisateurManager.connection(login, motDePasse); 
-			System.out.println(utilisateur);
-			if (utilisateurManager.utilisateurExiste(login,motDePasse)) {
+			
+			if (!utilisateurManager.utilisateurExiste(login,motDePasse)) {
 				
 				PrintWriter out = response.getWriter();
 				out.println("Le login ou le mot de passe n'est pas correcte");
 				session.setAttribute(ATT_SESSION_USER, null);
 				request.setAttribute("erreur", "erreur");
-				RequestDispatcher rd = request.getRequestDispatcher(VUE_ECHEC);
+				RequestDispatcher rd = request.getRequestDispatcher(VUE);
 				rd.forward(request, response);
 			} else {
 				session.setAttribute(ATT_SESSION_USER, utilisateur);

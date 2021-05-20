@@ -47,33 +47,55 @@ public class UtilisateurManager {
 	}
 	
 	
-	//test si un utilisateur existe
-	//retourne 0 : l'utilisateur n'existe pas
-	//retourne 1 : un utilisateur à le même email
-	//retourne 2 : un utilisateur à le même pseudo
-//	public int loginExiste(String login) {
-//		List<Utilisateur> listeUtililsateur = this.listeUtilisateur();
-//		for(Utilisateur utilisateur : listeUtilisateur) {
-//			if(utilisateur.getEmail().trim()==login) {
-//				return 1;
-//			}
-//			if(utilisateur.getPseudo().trim()==login) {
-//				return 2;
-//			}
-//		}
-//		return 0;
-//		
-//	}
+	public List<Utilisateur> listeUtilisateur() throws BusinessException {
+
+			return this.utilisateurDAO.selectAllUtilisateur();
+
+	}
+	
+	
+//	test si un utilisateur existe
+//	retourne 0 : l'utilisateur n'existe pas
+//	retourne 1 : un utilisateur à le même email
+//	retourne 2 : un utilisateur à le même pseudo
+	public int loginExiste(String login){
+		List<Utilisateur> listeUtililsateur;
+		try {
+			listeUtililsateur = this.listeUtilisateur();
+			for(Utilisateur utilisateur : listeUtililsateur) {
+				System.out.println(utilisateur.toString());
+			}
+		} catch (BusinessException e) {
+			System.err.println("erreur");
+			return 0;
+		}
+		for(Utilisateur utilisateur : listeUtililsateur) {
+			if(utilisateur.getEmail().trim().equals(login)) {
+				return 1;
+			}
+			if(utilisateur.getPseudo().trim().equals(login)) {
+				return 2;
+			}
+		}
+		return 0;
+		
+	}
 	
 //	//teste si le mot de passe et le login correspond à un utilisateur
-//	public boolean utilisateurExiste(String login, String motDePasse) {
-//		List<Utilisateur> listeUtililsateur = this.listeUtilisateur();
-//		for(Utilisateur utilisateur : listeUtililsateur) {
-//			if ((utilisateur.getEmail().trim()==login && utilisateur.getMotDePasse().trim()==motDePasse ) || (utilisateur.getEmail().trim()==login && utilisateur.getMotDePasse().trim()==motDePasse ) ) {
-//				return true;
-//			}
-//		}
-//	}
+	public boolean utilisateurExiste(String login, String motDePasse){
+		List<Utilisateur> listeUtililsateur;
+		try {
+			listeUtililsateur = this.listeUtilisateur();
+		} catch (BusinessException e) {
+			return false;
+		}
+		for(Utilisateur utilisateur : listeUtililsateur) {
+			if ((utilisateur.getEmail().trim().equals(login) && utilisateur.getMotDePasse().trim().equals(motDePasse) ) || (utilisateur.getPseudo().trim().equals(login) && utilisateur.getMotDePasse().trim().equals(motDePasse) ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 }
