@@ -13,6 +13,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 
 
+
 	public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 		private static final String INSERT_UTILATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,ville,code_postal,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,0,0)";
@@ -23,6 +24,16 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
 		private static final String SELECT_ALL = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
+		private static final String UPDATE_PROFIL = "UPDATE UTILISATEURS \r\n"
+				+ "SET nom=?\r\n"
+				+ "    ,prenom=?\r\n"
+				+ "      ,email=?\r\n"
+				+ "      ,telephone=?\r\n"
+				+ "      ,rue=?\r\n"
+				+ "      ,code_postal=?\r\n"
+				+ "      ,ville=?\r\n"
+				+ "     \r\n"
+				+ "WHERE pseudo=?";
 
 	@Override
 	public Utilisateur selectByLogin(String login,String motDePasse) {
@@ -153,6 +164,33 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 	}
 
 
+
+	@Override
+	public Utilisateur updateProfil(Utilisateur utilisateur,String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException {
+		
+		try(Connection cnx = ConnectionProvider.getConnection())
+		{
+			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_PROFIL);
+			pstmt.setString(1, nom);
+			pstmt.setString(2,prenom);
+			pstmt.setString(3, email);
+			pstmt.setString(4,telephone);
+			pstmt.setString(5,rue);
+			pstmt.setString(6, codePostal);
+			pstmt.setString(7, ville);
+			pstmt.setString(8, utilisateur.getPseudo());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			
+			throw businessException;
+		}
+		
+		return utilisateur;
+	}
+
+	
 }
 
 

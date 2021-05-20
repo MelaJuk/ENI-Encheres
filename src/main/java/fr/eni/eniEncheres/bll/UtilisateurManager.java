@@ -62,9 +62,7 @@ public class UtilisateurManager {
 		List<Utilisateur> listeUtililsateur;
 		try {
 			listeUtililsateur = this.listeUtilisateur();
-			for(Utilisateur utilisateur : listeUtililsateur) {
-				System.out.println(utilisateur.toString());
-			}
+			
 		} catch (BusinessException e) {
 			System.err.println("erreur");
 			return 0;
@@ -97,5 +95,11 @@ public class UtilisateurManager {
 		return false;
 	}
 	
+	
+	//modifier un utilisateur
+	public Utilisateur modifierProfil(Utilisateur utilisateur,String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException {
+		return this.utilisateurDAO.updateProfil(utilisateur, nom, prenom, email, telephone, rue, codePostal, ville);
+		
+	}
 	
 }
