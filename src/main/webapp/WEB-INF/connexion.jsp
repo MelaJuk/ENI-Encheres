@@ -56,9 +56,13 @@
             <div class="form-group row">
            		
                 <div class="col-3 text-center">
-                   <a href="">Créer un compte</a>
+                   <a href="ServletInscription">Créer un compte</a>
                 </div>
            </div>
+           
+           <div class="col-3">
+           		<a href="index.html">Retourner à l'accueil</a>
+           		</div>
            
 		
 		</form>

@@ -126,7 +126,11 @@
            		</div>
            		
            		<div class="col-3">
-           		<input type="submit" value="Annuler"/>
+           		<input type="reset" value="Annuler"/>
+           		</div>
+           		
+           		<div class="col-3">
+           		<a href="index.html">Retourner à l'accueil</a>
            		</div>
            		
 
