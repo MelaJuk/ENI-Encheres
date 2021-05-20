@@ -17,9 +17,6 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 	public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 		private static final String INSERT_UTILATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,ville,code_postal,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,0,0)";
-		private static final String SELECT_BY_EMAIL = "select email, motDePasse from utilisateur where (email=? AND motDePasse=?) ";
-		private static final String SELECT_BY_PSEUDO = "select pseudo from utilisateur where pseudo=? ";
-		private static final String AJOUTER = "insert into utilisateur (email, motDePasse) values (?, ?)";
 		private static final String SELECT_BY_LOGIN = "select * from UTILISATEURS u \r\n"
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
@@ -40,7 +37,6 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		Utilisateur utilisateur = new Utilisateur();
 		Connection connexion = null;
 		PreparedStatement requete_login = null;
-		PreparedStatement requete_pseudo = null;
 		ResultSet resultat = null;
 		
 		try {
@@ -79,7 +75,10 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				utilisateur.setVille(resultat.getString("ville"));
 				utilisateur.setCredit(resultat.getInt("credit"));
 				utilisateur.setAdminstrateur(resultat.getBoolean("administrateur"));				
-			}		
+			}
+			resultat.close();
+			requete_login.close();
+			
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -116,6 +115,9 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 			{
 				utilisateur.setNoUtilisateur(rs.getInt(1));
 			}
+			
+			rs.close();
+			pstmt.close();
 		}
 		catch(Exception e)
 		{
@@ -152,6 +154,10 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				utilisateur.setAdminstrateur(rs.getBoolean("administrateur"));	
 				
 				listeUtilisateurs.add(utilisateur); 
+				
+				rs.close();
+				stmt.close();
+	
 			}
 	
 		} catch (Exception e) {
