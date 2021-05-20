@@ -51,7 +51,8 @@ public class ServletInscription extends HttpServlet {
 			
 			
 			
-			if (!confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
+			
+			if (utilisateurManager.loginExiste(pseudo)==1 | utilisateurManager.loginExiste(pseudo)==2 | !confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
 				
 				//mail
 				if(!email.contains("@")) {
@@ -74,6 +75,17 @@ public class ServletInscription extends HttpServlet {
 				if(!telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
 					request.setAttribute("erreurTelephone","erreurCodePostal");
 				}
+				
+				//email déjà existant
+				if(utilisateurManager.loginExiste(pseudo)==1) {
+					request.setAttribute("emailExist","emailExist");
+				}
+				
+				//pseudo déjà existant
+				if(utilisateurManager.loginExiste(pseudo)==2) {
+					request.setAttribute("pseudo","pseudo");
+				}
+				
 				
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 				rd.forward(request, response);	

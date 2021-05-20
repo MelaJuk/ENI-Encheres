@@ -14,7 +14,7 @@
 	<h1>Liste des encheres</h1>
 	
 	<p> Test </p>
-	
+	<a href=""<%=request.getContextPath()%>/creer"">déconnection</a> 
 	
                
              
