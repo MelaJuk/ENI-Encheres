@@ -17,7 +17,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 /**
  * Servlet implementation class ServletConnexion
  */
-@WebServlet("/ServletConnexion")
+@WebServlet(urlPatterns={"/ServletConnexion","/ServletDeconnexion"})
 public class ServletConnexion extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,6 +34,11 @@ public class ServletConnexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(request.getServletPath().equals("/ServletDeconnexion")) {
+			/* Récupération et destruction de la session en cours */
+			 HttpSession session = request.getSession();
+		     session.invalidate();      
+		}
 		RequestDispatcher rd = request.getRequestDispatcher(VUE);
 		rd.forward(request, response);
 		
@@ -54,12 +59,14 @@ public class ServletConnexion extends HttpServlet {
 			motDePasse = request.getParameter(MOT_DE_PASSE);
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			Utilisateur utilisateur = utilisateurManager.connection(login, motDePasse); 
-			if (utilisateur == null) {
+			
+			if (!utilisateurManager.utilisateurExiste(login,motDePasse)) {
+				
 				PrintWriter out = response.getWriter();
 				out.println("Le login ou le mot de passe n'est pas correcte");
 				session.setAttribute(ATT_SESSION_USER, null);
 				request.setAttribute("erreur", "erreur");
-				RequestDispatcher rd = request.getRequestDispatcher(VUE_ECHEC);
+				RequestDispatcher rd = request.getRequestDispatcher(VUE);
 				rd.forward(request, response);
 			} else {
 				session.setAttribute(ATT_SESSION_USER, utilisateur);

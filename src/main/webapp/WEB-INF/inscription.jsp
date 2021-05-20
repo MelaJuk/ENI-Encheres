@@ -22,6 +22,9 @@
                  <div class="col-3">
                    <input type="text" class="form-control" name="pseudo" placeholder="pseudo" required="required">
                  </div>
+                  <c:if test="${pseudo=='pseudo'}">
+           				<p>Le pseudo existe déjà</p>
+           			</c:if>
            </div>
            
            <div class="form-group row">
@@ -64,6 +67,7 @@
                 <c:if test="${erreurCodePostal=='erreurCodePostal'}">
            		<p>Le code postal n'est pas valide</p>
            		</c:if> 
+           		
            </div>
            
            <div class="form-group row">
@@ -101,6 +105,9 @@
                 </div>   
                 <c:if test="${email=='email'}">
            		<p>L'email n'est pas valide</p>
+           		</c:if>
+           		<c:if test="${emailExist=='emailExist'}">
+           		<p>Un utilisateur a déjà cet email</p>
            		</c:if>
            </div>
           
