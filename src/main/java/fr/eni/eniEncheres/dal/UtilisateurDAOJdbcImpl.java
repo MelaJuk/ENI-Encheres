@@ -22,9 +22,10 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		private static final String SELECT_BY_LOGIN = "select * from UTILISATEURS u \r\n"
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
-		
 	
-		public Utilisateur select(String login,String motDePasse) {
+
+		@Override
+		public Utilisateur selectByLogin(String login,String motDePasse) {
 			Utilisateur utilisateur = new Utilisateur();
 			Connection connexion = null;
 			PreparedStatement requete_login = null;

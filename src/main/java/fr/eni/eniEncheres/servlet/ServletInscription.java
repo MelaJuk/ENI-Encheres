@@ -60,11 +60,11 @@ public class ServletInscription extends HttpServlet {
 				}
 				//mot de passe
 				if(!confirmation.equals(motDePasse)){
-					out.println("Les mots de passes sont différents");
+					out.println("Les mots de passes sont diffï¿½rents");
 					request.setAttribute("erreurMotDePasse","erreurMotDePasse");
 				}
 				
-				//codepostal est un nombre et à 5 chiffres
+				//codepostal est un nombre et ï¿½ 5 chiffres
 				if(!codepostal.matches("\\p{Digit}+") |codepostal.length()!=5 ){
 					
 					request.setAttribute("erreurCodePostal","erreurCodePostal");
