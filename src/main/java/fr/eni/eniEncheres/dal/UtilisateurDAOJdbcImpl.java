@@ -17,108 +17,67 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 		private static final String INSERT_UTILATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,ville,code_postal,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,0,0)";
 		private static final String SELECT_BY_EMAIL = "select email, motDePasse from utilisateur where (email=? AND motDePasse=?) ";
-		private static final String SELECT_BY_PSEUDO = "select pseudo, motDePasse from utilisateur where email=? ";
+		private static final String SELECT_BY_PSEUDO = "select pseudo from utilisateur where pseudo=? ";
 		private static final String AJOUTER = "insert into utilisateur (email, motDePasse) values (?, ?)";
 		private static final String SELECT_BY_LOGIN = "select * from UTILISATEURS u \r\n"
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
-	
+		private static final String SELECT_ALL = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
 
-		@Override
-		public Utilisateur selectByLogin(String login,String motDePasse) {
-			Utilisateur utilisateur = new Utilisateur();
-			Connection connexion = null;
-			PreparedStatement requete_login = null;
-			PreparedStatement requete_pseudo = null;
-			ResultSet resultat = null;
+	@Override
+	public Utilisateur selectByLogin(String login,String motDePasse) {
+		Utilisateur utilisateur = new Utilisateur();
+		Connection connexion = null;
+		PreparedStatement requete_login = null;
+		PreparedStatement requete_pseudo = null;
+		ResultSet resultat = null;
+		
+		try {
 			
-			try {
-				
-				connexion = ConnectionProvider.getConnection();
-				
-				
-				requete_login = connexion.prepareStatement(SELECT_BY_LOGIN);
-				
-				requete_login.setString(1,login);
-				requete_login.setString(2,motDePasse);
-				requete_login.setString(3,login);
-				requete_login.setString(4,motDePasse);
-				resultat = requete_login.executeQuery();
-				boolean premiereLigne=true;
-				
-				while(resultat.next()) {
-					if(premiereLigne) {
-						if(login.contains("@")) {
-							utilisateur.setEmail(login);
-						}else {
-							utilisateur.setPseudo(login);
-						}
-						premiereLigne=false;
+			connexion = ConnectionProvider.getConnection();
+			
+			
+			requete_login = connexion.prepareStatement(SELECT_BY_LOGIN);
+			
+			requete_login.setString(1,login);
+			requete_login.setString(2,motDePasse);
+			requete_login.setString(3,login);
+			requete_login.setString(4,motDePasse);
+			resultat = requete_login.executeQuery();
+			boolean premiereLigne=true;
+			
+			while(resultat.next()) {
+				if(premiereLigne) {
+					if(login.contains("@")) {
+						utilisateur.setEmail(login);
+					}else {
+						utilisateur.setPseudo(login);
 					}
-					
-					utilisateur.setMotDePasse(motDePasse);
-					utilisateur.setNom(resultat.getString("nom"));
-					utilisateur.setPrenom(resultat.getString("prenom"));
-					if(resultat.getString("telephone")!=null) {
-						utilisateur.setTelephone(resultat.getString("telephone"));
-					}
-					
-					utilisateur.setRue(resultat.getString("rue"));
-					utilisateur.setCodePostal(resultat.getString("code_postal"));
-					utilisateur.setVille(resultat.getString("ville"));
-					utilisateur.setCredit(resultat.getInt("credit"));
-					utilisateur.setAdminstrateur(resultat.getBoolean("administrateur"));
-					
-					
-					
+					premiereLigne=false;
 				}
 				
-					
+				utilisateur.setMotDePasse(motDePasse);
+				utilisateur.setNom(resultat.getString("nom"));
+				utilisateur.setPrenom(resultat.getString("prenom"));
+				if(resultat.getString("telephone")!=null) {
+					utilisateur.setTelephone(resultat.getString("telephone"));
+				}
 				
-			}
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-			return utilisateur;
+				utilisateur.setRue(resultat.getString("rue"));
+				utilisateur.setCodePostal(resultat.getString("code_postal"));
+				utilisateur.setVille(resultat.getString("ville"));
+				utilisateur.setCredit(resultat.getInt("credit"));
+				utilisateur.setAdminstrateur(resultat.getBoolean("administrateur"));				
+			}		
 		}
-		
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 
+		return utilisateur;
+	}
 	
 
-	
-		
-//		// r�cup�rer une liste d'utilisateurs
-//		@Override
-//		public List<Utilisateur> lister() {
-//			List<Utilisateur>utilisateurs = new ArrayList<Utilisateur>();
-//			Connection connexion = null;
-//			Statement requete = null;
-//			ResultSet resultat = null;
-//			
-//			try {
-//				
-//				connexion = ConnectionProvider.getConnection();
-//				requete = connexion.prepareStatement(SELECT_BY_EMAIL);
-//				
-//				while(resultat.next()) {
-//					String email = resultat.getString("Email");
-//					String motDePasse = resultat.getString("motDePasse");
-//					
-//					Utilisateur utilisateur = new Utilisateur();
-//					utilisateur.setEmail(email);
-//					utilisateur.setMotDePasse(motDePasse);
-//					
-//					utilisateurs.add(utilisateur);
-//				}
-//				
-//			}
-//			catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-//	
-//			return utilisateurs;
-//		}
 	
 	@Override
 	public void insert(Utilisateur utilisateur) throws BusinessException {
@@ -156,17 +115,42 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		
 	}
 
-
-
-
 	@Override
-	public List<Utilisateur> selectAll() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Utilisateur> selectAllUtilisateur() throws BusinessException {
+		List<Utilisateur> listeUtilisateurs = new ArrayList<Utilisateur>(); 
+	
+		
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			Statement stmt = cnx.createStatement(); 
+			ResultSet rs = stmt.executeQuery(SELECT_ALL); 
+			
+			while(rs.next()) {
+				Utilisateur utilisateur = new Utilisateur(); 
+				utilisateur.setNoUtilisateur(rs.getInt("noUtilisateur"));
+				utilisateur.setPseudo(rs.getString("pseudo"));
+				utilisateur.setNom(rs.getString("nom")); 
+				utilisateur.setPrenom(rs.getString("prenom")); 
+				utilisateur.setEmail(rs.getString("email")); 
+				utilisateur.setTelephone(rs.getString("telephone")); 
+				utilisateur.setRue(rs.getString("rue")); 
+				utilisateur.setCodePostal(rs.getString("codePostal")); 
+				utilisateur.setVille(rs.getString("ville")); 
+				utilisateur.setMotDePasse(rs.getString("motDePasse")); 
+				utilisateur.setCredit(rs.getInt("credit"));
+				utilisateur.setAdminstrateur(rs.getBoolean("administrateur"));	
+				
+				listeUtilisateurs.add(utilisateur); 
+			}
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException(); 
+			System.err.println("error");
+		} 
+		
+		return listeUtilisateurs;
 	}
-
-
-
 
 
 }

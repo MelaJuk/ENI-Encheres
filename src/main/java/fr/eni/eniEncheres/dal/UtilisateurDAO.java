@@ -5,7 +5,7 @@ import java.util.List;
 import fr.eni.eniEncheres.bo.Utilisateur;
 
 public interface UtilisateurDAO {
-	public List<Utilisateur> selectAll () throws BusinessException; 
+	public List<Utilisateur> selectAllUtilisateur () throws BusinessException; 
 	public void insert(Utilisateur utilisateur) throws BusinessException;
 	public Utilisateur selectByLogin(String login, String motDePasse);
 

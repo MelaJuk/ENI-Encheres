@@ -1,5 +1,7 @@
 package fr.eni.eniEncheres.bll;
 
+import java.util.List;
+
 import fr.eni.eniEncheres.bo.Utilisateur;
 import fr.eni.eniEncheres.dal.BusinessException;
 import fr.eni.eniEncheres.dal.DAOFactory;
@@ -43,6 +45,25 @@ public class UtilisateurManager {
 	public Utilisateur connection(String login, String motDePasse) {
 		return this.utilisateurDAO.selectByLogin(login, motDePasse);
 	}
+	
+	
+	//test si un utilisateur existe
+	//retourne 0 : l'utilisateur n'existe pas
+	//retourne 1 : un utilisateur à le même email
+	//retourne 2 : un utilisateur à le même pseudo
+//	public int utilisateurExiste(String login) {
+//		List<Utilisateur> listeUtililsateur = this.listeUtilisateur();
+//		for(Utilisateur utilisateur : listeUtilisateur) {
+//			if(utilisateur.getEmail().trim()==login) {
+//				return 1;
+//			}
+//			if(utilisateur.getPseudo().trim()==login) {
+//				return 2;
+//			}
+//		}
+//		return 0;
+//		
+//	}
 	
 	
 }

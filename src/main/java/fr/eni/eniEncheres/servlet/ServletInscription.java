@@ -51,12 +51,14 @@ public class ServletInscription extends HttpServlet {
 			
 			
 			
-			if (!confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+")) {
-			
+			if (!confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
+				
+				//mail
 				if(!email.contains("@")) {
 				
 					request.setAttribute("email","email");
 				}
+				//mot de passe
 				if(!confirmation.equals(motDePasse)){
 					out.println("Les mots de passes sont diff�rents");
 					request.setAttribute("erreurMotDePasse","erreurMotDePasse");
@@ -66,6 +68,11 @@ public class ServletInscription extends HttpServlet {
 				if(!codepostal.matches("\\p{Digit}+") |codepostal.length()!=5 ){
 					
 					request.setAttribute("erreurCodePostal","erreurCodePostal");
+				}
+				
+				//telephone
+				if(!telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
+					request.setAttribute("erreurTelephone","erreurCodePostal");
 				}
 				
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
