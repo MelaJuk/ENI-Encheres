@@ -39,9 +39,13 @@ public class ServletProfil extends HttpServlet {
 			String ville = request.getParameter("ville");
 			
 			//utilisateurManager.selectByPseudo(Utilisateur);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfilUtilisateur.jsp");
+			rd.forward(request, response);
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfilUtilisateur.jsp");
-		rd.forward(request, response);
+		if (request.getServletPath().equals("/modifierProfil")) {
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/modifierProfilUtilisateur.jsp");
+			rd.forward(request, response);
+		}
 		
 	}
 
@@ -87,9 +91,20 @@ public class ServletProfil extends HttpServlet {
 				//rd.forward(request, response);		
 				
 		}else {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(false);
+			
 			try {
-				utilisateurManager.modifierProfil((Utilisateur) session.getAttribute("utilisateur"), nom, prenom, email, telephone, rue, codepostal, ville);
+				utilisateurManager.modifierProfil((Utilisateur) session.getAttribute("sessionUtilisateur"), nom, prenom, email, telephone, rue, codepostal, ville);
+				Utilisateur modifUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+				modifUtilisateur.setNom(nom);
+				modifUtilisateur.setPrenom(prenom);
+				modifUtilisateur.setEmail(email);
+				modifUtilisateur.setTelephone(telephone);
+				modifUtilisateur.setRue(rue);
+				modifUtilisateur.setCodePostal(codepostal);
+				modifUtilisateur.setVille(ville);
+				session.setAttribute("sessionUtilisateur",modifUtilisateur);
+				
 			} catch (BusinessException e) {
 				
 				e.printStackTrace();

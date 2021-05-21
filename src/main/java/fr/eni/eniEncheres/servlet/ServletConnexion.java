@@ -39,10 +39,12 @@ public class ServletConnexion extends HttpServlet {
 			 HttpSession session = request.getSession();
 		     session.invalidate();   
 		     RequestDispatcher rd = request.getRequestDispatcher("index.html");
-				rd.forward(request, response);
+		     rd.forward(request, response);
+		}else {
+			RequestDispatcher rd = request.getRequestDispatcher(VUE);
+			rd.forward(request, response);
 		}
-		RequestDispatcher rd = request.getRequestDispatcher(VUE);
-		rd.forward(request, response);
+		
 		
 		
 	}

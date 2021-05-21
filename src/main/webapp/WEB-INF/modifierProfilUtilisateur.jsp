@@ -8,25 +8,16 @@
 </head>
 <body>
 	<div>
-		<h1>Profil utilisateur</h1>
+		<h1>${sessionScope.sessionUtilisateur.pseudo}</h1>
 		
 		<form action="<%=request.getContextPath()%>/modifierProfil" method="post">
 		
-			<div>
-				<div>
-					<label for="pseudo">Pseudo : </label>
-				</div>
-				<div>
-					<input type="text" name="pseudo">
-				</div>
-			</div>
-		
-			<div>
+			<h1>Profil utilisateur</h1>
 				<div>
 					<label for="nom">Nom : </label>
 				</div>
 				<div>
-					<input type="text" name="nom">
+					<input type="text" name="nom" value="${sessionScope.sessionUtilisateur.nom}">
 				</div>
 			</div>
 		
@@ -35,7 +26,7 @@
 					<label for="prenom">Prénom : </label>
 				</div>
 				<div>
-					<input type="text" name="prenom">
+					<input type="text" name="prenom" value="${sessionScope.sessionUtilisateur.prenom}">
 				</div>
 			</div>
 			
@@ -44,7 +35,7 @@
 					<label for="email">Email : </label>
 				</div>
 				<div>
-					<input type="text" name="email">
+					<input type="text" name="email" value="${sessionScope.sessionUtilisateur.email}">
 				</div>
 			</div>
 			
@@ -53,7 +44,7 @@
 					<label for="telephone">Téléphone : </label>
 				</div>
 				<div>
-					<input type="text" name="telephone">
+					<input type="text"  name="telephone" value="${sessionScope.sessionUtilisateur.telephone}">
 				</div>
 			</div>
 		
@@ -62,7 +53,7 @@
 					<label for="rue">Rue : </label>
 				</div>
 				<div>
-					<input type="text" name="rue">
+					<input type="text" name="rue" value="${sessionScope.sessionUtilisateur.rue}">
 				</div>
 			</div>
 			
@@ -71,20 +62,18 @@
 					<label for="code_postal">Code Postal : </label>
 				</div>
 				<div>
-					<input type="text" name="code_postal">
+					<input type="text" name="codePostal" value="${sessionScope.sessionUtilisateur.codePostal}">
 				</div>
 			</div>
 		
 			<div>
 				<div>
-					<label for="ville">Ville : </label>
+					<label for="ville" >Ville : </label>
 				</div>
 				<div>
-					<input type="text" name="ville">
+					<input type="text" name="ville" value="${sessionScope.sessionUtilisateur.ville}">
 				</div>
-			</div>
 			
-			<div>
            		<input type="submit" value="Modifier"/>
 			</div>
 		</form>

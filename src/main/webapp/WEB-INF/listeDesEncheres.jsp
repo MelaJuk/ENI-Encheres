@@ -15,7 +15,7 @@
 	
 	<p> Test </p>
 
-	<a href=""<%=request.getContextPath()%>/creer"">déconnection</a> 
+	<a href="<%=request.getContextPath()%>/creer">déconnection</a> 
 	
                
              
@@ -42,7 +42,7 @@
             <li class="nav-item">
               <a class="nav-link" href="ServletNouvelleVente">Vendre un article</a>
               <li class="nav-item">
-              <a class="nav-link" href="#">Mon profil</a>
+              <a class="nav-link" href="modifierProfil">Mon profil</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="ServletDeconnexion">Déconnexion</a>

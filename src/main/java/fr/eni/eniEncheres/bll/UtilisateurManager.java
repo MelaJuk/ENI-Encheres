@@ -97,8 +97,8 @@ public class UtilisateurManager {
 	
 	
 	//modifier un utilisateur
-	public Utilisateur modifierProfil(Utilisateur utilisateur,String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException {
-		return this.utilisateurDAO.updateProfil(utilisateur, nom, prenom, email, telephone, rue, codePostal, ville);
+	public void modifierProfil(Utilisateur utilisateur,String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException {
+		 this.utilisateurDAO.updateProfil(utilisateur, nom, prenom, email, telephone, rue, codePostal, ville);
 		
 	}
 	
