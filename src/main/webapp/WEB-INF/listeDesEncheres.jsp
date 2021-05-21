@@ -40,7 +40,7 @@
               <a class="nav-link" href="#">Enchères</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="ServletNouvelleVente">Vendre un article</a>
+              <a class="nav-link" href="ServletAjouterVente">Vendre un article</a>
               <li class="nav-item">
               <a class="nav-link" href="modifierProfil">Mon profil</a>
             </li>

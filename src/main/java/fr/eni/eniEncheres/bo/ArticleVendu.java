@@ -24,15 +24,13 @@ public class ArticleVendu implements Serializable {
 	
 	
 	// Constructeur pour test
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAprix,
-			Utilisateur vendeur, Categorie categorieArticle) {
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAprix, Categorie categorieArticle) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAprix = miseAprix;
-		this.vendeur = vendeur;
 		this.categorieArticle = categorieArticle;
 		
 		
