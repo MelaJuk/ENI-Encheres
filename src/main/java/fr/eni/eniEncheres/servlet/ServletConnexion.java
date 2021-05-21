@@ -37,7 +37,9 @@ public class ServletConnexion extends HttpServlet {
 		if(request.getServletPath().equals("/ServletDeconnexion")) {
 			/* Récupération et destruction de la session en cours */
 			 HttpSession session = request.getSession();
-		     session.invalidate();      
+		     session.invalidate();   
+		     RequestDispatcher rd = request.getRequestDispatcher("index.html");
+				rd.forward(request, response);
 		}
 		RequestDispatcher rd = request.getRequestDispatcher(VUE);
 		rd.forward(request, response);
