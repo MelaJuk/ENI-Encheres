@@ -35,7 +35,7 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(request.getServletPath().equals("/ServletDeconnexion")) {
-			/* Récupération et destruction de la session en cours */
+			/* Rï¿½cupï¿½ration et destruction de la session en cours */
 			 HttpSession session = request.getSession();
 		     session.invalidate();   
 		     RequestDispatcher rd = request.getRequestDispatcher("index.html");
