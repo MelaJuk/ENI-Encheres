@@ -11,6 +11,9 @@ public interface UtilisateurDAO {
 	public void updateProfil(Utilisateur utilisateur, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException;
 	public Utilisateur selectByPseudo (String pseudo); 
 
+	
+	
+
 //	public void delete(int id) throws BusinessException;
 
 //	public Utilisateur selectById(int id) throws BusinessException;

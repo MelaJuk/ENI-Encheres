@@ -1,6 +1,7 @@
 package fr.eni.eniEncheres.bo;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -9,8 +10,8 @@ public class ArticleVendu implements Serializable {
 	private int noArticle;
 	private String nomArticle;
 	private String description;
-	private LocalDate dateDebutEncheres;
-	private LocalDate dateFinEncheres;
+	private LocalDate dateDebutEncheres;	
+	private LocalDate dateFinEncheres;	
 	private int miseAprix;
 	private int prixVente;
 	private int etatVente;
@@ -21,61 +22,40 @@ public class ArticleVendu implements Serializable {
 	private List<Enchere> listeEncheresArticle; 
 	
 	
-	// petit constructeur 2 paramètres pour test
+	
+	// Constructeur pour test
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAprix,
+			Utilisateur vendeur, Categorie categorieArticle) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAprix = miseAprix;
+		this.vendeur = vendeur;
+		this.categorieArticle = categorieArticle;
+		
+		
+		//par defaut adresse du vendeur 
+				//this.lieuRetrait.setRue(vendeur.getRue()); 
+				//this.lieuRetrait.setCode_postal(vendeur.getCodePostal());
+				//this.lieuRetrait.setVille(vendeur.getVille());
+					
+	}
+	
+	
+	
+	
+	//Petit constructeur 2 paramètres pour test
 	public ArticleVendu(String nomArticle, String description) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
 	}
 
-	/**
-	 * 
-	 * @param noArticle
-	 * @param nomArticle
-	 * @param description
-	 * @param dateDebutEncheres
-	 * @param dateFinEncheres
-	 * @param miseAprix
-	 * @param vend
-	 * @param categorieArticle
-	 */
-	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAprix, Utilisateur vendeur, Categorie categorieArticle) {
+	
 		
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAprix = miseAprix;
-		this.vendeur = vendeur;
-		this.categorieArticle = categorieArticle;
-		
-		//par defaut adresse du vendeur 
-		this.lieuRetrait.setRue(vendeur.getRue()); 
-		this.lieuRetrait.setCode_postal(vendeur.getCodePostal());
-		this.lieuRetrait.setVille(vendeur.getVille());
-			
-	}
-	
-	public ArticleVendu(int noArticle, String nomArticle, String description, LocalDate dateDebutEncheres,
-			LocalDate dateFinEncheres, int miseAprix, int prixVente, Utilisateur acheteur,
-			Utilisateur vendeur, Categorie categorieArticle, Retrait lieuRetrait) {
-		super();
-		this.noArticle = noArticle;
-		this.nomArticle = nomArticle;
-		this.description = description;
-		this.dateDebutEncheres = dateDebutEncheres;
-		this.dateFinEncheres = dateFinEncheres;
-		this.miseAprix = miseAprix;
-		this.prixVente = prixVente;
-		this.acheteur = acheteur;
-		this.vendeur = vendeur;
-		this.categorieArticle = categorieArticle;
-		this.lieuRetrait = lieuRetrait;
-
-	}
-	
-	
+	// getters and setters
 
 	public int getNoArticle() {
 		return noArticle;

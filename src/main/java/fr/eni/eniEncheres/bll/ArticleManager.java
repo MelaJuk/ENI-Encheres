@@ -1,6 +1,10 @@
 package fr.eni.eniEncheres.bll;
 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.dal.BusinessException;
 import fr.eni.eniEncheres.dal.DAOFactory;
@@ -20,7 +24,7 @@ public class ArticleManager {
 		
 	// Méthode pour ajouter une vente
 		
-		public ArticleVendu ajouterVente(String nomArticle, String description) throws BusinessException {
+		public ArticleVendu ajouterVente(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere, int miseAPrix) throws BusinessException {
 			BusinessException exception = new BusinessException();
 			
 			ArticleVendu articleVendu = new ArticleVendu (nomArticle, description);

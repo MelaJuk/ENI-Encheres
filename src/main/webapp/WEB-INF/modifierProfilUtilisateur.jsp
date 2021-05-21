@@ -23,7 +23,7 @@
 		
 			<div>
 				<div>
-					<label for="nom">Prénom : </label>
+					<label for="prenom">Prénom : </label>
 				</div>
 				<div>
 					<input type="text" name="prenom" value="${sessionScope.sessionUtilisateur.prenom}">
