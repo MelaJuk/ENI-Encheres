@@ -64,7 +64,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 		
 	}
 
-	//retourne le numéro de la catégorie
+	//retourne le numï¿½ro de la catï¿½gorie
 	public int noCategorie(String libelle) {
 		int noCategorie = 0;
 		Connection connexion = null;
