@@ -58,8 +58,10 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				if(premiereLigne) {
 					if(login.contains("@")) {
 						utilisateur.setEmail(login);
+						utilisateur.setEmail(resultat.getString("pseudo"));
 					}else {
 						utilisateur.setPseudo(login);
+						utilisateur.setEmail(resultat.getString("email"));
 					}
 					premiereLigne=false;
 				}
@@ -77,8 +79,8 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				utilisateur.setCredit(resultat.getInt("credit"));
 				utilisateur.setAdminstrateur(resultat.getBoolean("administrateur"));				
 			}
-			resultat.close();
-			requete_login.close();
+			//resultat.close();
+			//requete_login.close();
 			
 		}
 		catch (SQLException e) {
@@ -117,8 +119,8 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				utilisateur.setNoUtilisateur(rs.getInt(1));
 			}
 			
-			rs.close();
-			pstmt.close();
+			//rs.close();
+			//pstmt.close();
 		}
 		catch(Exception e)
 		{
@@ -156,8 +158,8 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				
 				listeUtilisateurs.add(utilisateur); 
 				
-				rs.close();
-				stmt.close();
+				//rs.close();
+				//stmt.close();
 	
 			}
 	
@@ -173,7 +175,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 
 	@Override
-	public Utilisateur updateProfil(Utilisateur utilisateur,String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException {
+	public void updateProfil(Utilisateur utilisateur,String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException {
 		
 		try(Connection cnx = ConnectionProvider.getConnection())
 		{
@@ -187,8 +189,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 			pstmt.setString(7, ville);
 			pstmt.setString(8, utilisateur.getPseudo());
 			pstmt.executeUpdate();
-			
-			pstmt.close();
+			//pstmt.close();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -197,7 +198,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 			throw businessException;
 		}
 		
-		return utilisateur;
+		
 	}
 
 
