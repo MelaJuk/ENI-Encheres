@@ -31,7 +31,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "      ,ville=?\r\n"
 				+ "     \r\n"
 				+ "WHERE pseudo=?";
-		private static final String SELECT_BY_PSEUDO = ""; 
+		private static final String SELECT_BY_PSEUDO = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo=?"; 
 
 	@Override
 	public Utilisateur selectByLogin(String login,String motDePasse) {
@@ -204,8 +204,34 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 	@Override
 	public Utilisateur selectByPseudo(String pseudo) {
-		// TODO Auto-generated method stub
-		return null;
+		Utilisateur utilisateur = new Utilisateur();
+		
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			ResultSet rs = stmt.executeQuery(); 
+			
+			stmt.setString(1, pseudo);
+			while (rs.next()) {
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setPrenom(rs.getString("prenom")); 
+				utilisateur.setEmail(rs.getString("email")); 
+				utilisateur.setTelephone(rs.getString("telephone")); 
+				utilisateur.setRue(rs.getString("rue")); 
+				utilisateur.setCodePostal(rs.getString("code_postal")); 
+				utilisateur.setVille(rs.getString("ville")); 
+				
+				rs.close();
+				stmt.close();
+				
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException(); 
+		} 
+	
+		return utilisateur;
 	}
 
 	
