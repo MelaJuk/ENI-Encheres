@@ -17,7 +17,7 @@
 					<label for="pseudo">Pseudo : </label>
 				</div>
 				<div>
-					<input type="text" name="pseudo" value="${utilisateur.pseudo}">
+					<input type="text" name="pseudo" value="toto">
 				</div>
 			</div>
 		
@@ -71,7 +71,7 @@
 					<label for="code_postal">Code Postal : </label>
 				</div>
 				<div>
-					<input type="text" name="code_postal" value="${utilisateur.code_postal}">
+					<input type="text" name="code_postal" value="${utilisateur.codePostal}">
 				</div>
 			</div>
 		

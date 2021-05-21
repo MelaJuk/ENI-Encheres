@@ -30,6 +30,7 @@ public class ServletProfil extends HttpServlet {
 		
 		if (request.getServletPath().equals("/afficherProfil")) {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
+			String pseudo = request.getParameter("pseudo"); 
 			String nom = request.getParameter("nom");
 			String prenom = request.getParameter("prenom");
 			String email = request.getParameter("email");
@@ -38,13 +39,16 @@ public class ServletProfil extends HttpServlet {
 			String codepostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
 			
-			//utilisateurManager.selectByPseudo(Utilisateur);
+			request.setAttribute("utilisateur", utilisateurManager.afficherProfil(pseudo));
+	
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfilUtilisateur.jsp");
 			rd.forward(request, response);
 		}
 		if (request.getServletPath().equals("/modifierProfil")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/modifierProfilUtilisateur.jsp");
 			rd.forward(request, response);
+
+
 		}
 		
 	}
@@ -116,4 +120,4 @@ public class ServletProfil extends HttpServlet {
 		doGet(request, response);
 	}
 
-}
+} 

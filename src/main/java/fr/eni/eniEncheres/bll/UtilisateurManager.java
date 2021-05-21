@@ -56,8 +56,8 @@ public class UtilisateurManager {
 	
 //	test si un utilisateur existe
 //	retourne 0 : l'utilisateur n'existe pas
-//	retourne 1 : un utilisateur à le même email
-//	retourne 2 : un utilisateur à le même pseudo
+//	retourne 1 : un utilisateur ï¿½ le mï¿½me email
+//	retourne 2 : un utilisateur ï¿½ le mï¿½me pseudo
 	public int loginExiste(String login){
 		List<Utilisateur> listeUtililsateur;
 		try {
@@ -79,7 +79,7 @@ public class UtilisateurManager {
 		
 	}
 	
-//	//teste si le mot de passe et le login correspond à un utilisateur
+//	//teste si le mot de passe et le login correspond ï¿½ un utilisateur
 	public boolean utilisateurExiste(String login, String motDePasse){
 		List<Utilisateur> listeUtililsateur;
 		try {
@@ -100,6 +100,11 @@ public class UtilisateurManager {
 	public void modifierProfil(Utilisateur utilisateur,String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException {
 		 this.utilisateurDAO.updateProfil(utilisateur, nom, prenom, email, telephone, rue, codePostal, ville);
 		
+	}
+	
+	//afficher un utilisateur 
+	public Utilisateur afficherProfil (String pseudo) {
+		return this.utilisateurDAO.selectByPseudo(pseudo); 
 	}
 	
 }
