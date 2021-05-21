@@ -1,9 +1,10 @@
 package fr.eni.eniEncheres.bo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class ArticleVendu {
+public class ArticleVendu implements Serializable {
 
 	private int noArticle;
 	private String nomArticle;
@@ -20,6 +21,12 @@ public class ArticleVendu {
 	private List<Enchere> listeEncheresArticle; 
 	
 	
+	// petit constructeur 2 paramètres pour test
+	public ArticleVendu(String nomArticle, String description) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+	}
 
 	/**
 	 * 
@@ -67,6 +74,8 @@ public class ArticleVendu {
 		this.lieuRetrait = lieuRetrait;
 
 	}
+	
+	
 
 	public int getNoArticle() {
 		return noArticle;
