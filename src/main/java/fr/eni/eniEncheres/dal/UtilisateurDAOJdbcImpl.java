@@ -33,7 +33,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "      ,ville=?\r\n"
 				+ "     \r\n"
 				+ "WHERE pseudo=?";
-		private static final String SELECT_BY_PSEUDO = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo=?"; 
+		private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo=?"; 
 
 
 	@Override
@@ -68,7 +68,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 					}
 					premiereLigne=false;
 				}
-				
+				utilisateur.setNoUtilisateur(resultat.getInt("no_utilisateur"));
 				utilisateur.setMotDePasse(motDePasse);
 				utilisateur.setNom(resultat.getString("nom"));
 				utilisateur.setPrenom(resultat.getString("prenom"));

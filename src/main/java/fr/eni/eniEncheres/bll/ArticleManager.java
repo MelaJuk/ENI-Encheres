@@ -22,7 +22,7 @@ public class ArticleManager {
 		
 	// Méthode pour ajouter une vente
 		
-		public ArticleVendu ajouterVente(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere, int miseAPrix, Categorie categorieArticle) throws BusinessException {
+		public ArticleVendu ajouterVente(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere, int miseAPrix, Categorie categorieArticle,int noUtilisateur) throws BusinessException {
 			BusinessException exception = new BusinessException();
 			
 			ArticleVendu articleVendu = new ArticleVendu (nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix, categorieArticle);
@@ -33,13 +33,15 @@ public class ArticleManager {
 
 			if(!exception.hasErreurs())
 			{
-				this.venteDAO.insert(articleVendu);
+				this.venteDAO.insert(articleVendu,noUtilisateur);
+				System.out.println(articleVendu);
 			}
 			
 			if(exception.hasErreurs())
 			{
 				throw exception;
 			}
+			
 			return articleVendu;
 		}
 		
@@ -47,7 +49,7 @@ public class ArticleManager {
 		private void validerDescriptionArticle(ArticleVendu articleVendu, BusinessException exception) {
 			if(articleVendu.getDescription()==null  || articleVendu.getDescription().equals("")|| articleVendu.getDescription().length()>150)
 			{
-				
+				 
 			}
 		
 	}

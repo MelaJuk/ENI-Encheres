@@ -6,6 +6,6 @@ public interface VenteDAO {
 	
 	
 
-	public void insert(ArticleVendu articleVendu) throws BusinessException;
+	public void insert(ArticleVendu articleVendu,int noUtilisateur) throws BusinessException;
 
 }

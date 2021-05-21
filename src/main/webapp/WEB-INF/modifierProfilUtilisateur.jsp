@@ -77,6 +77,7 @@
            		<input type="submit" value="Modifier"/>
 			</div>
 		</form>
+		<a href="ServletConnexion">Retour</a>
 	</div>
 </body>
 </html>

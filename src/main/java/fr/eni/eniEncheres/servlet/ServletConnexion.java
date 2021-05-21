@@ -74,6 +74,7 @@ public class ServletConnexion extends HttpServlet {
 				rd.forward(request, response);
 			} else {
 				session.setAttribute(ATT_SESSION_USER, utilisateur);
+				
 				RequestDispatcher rd = request.getRequestDispatcher(VUE_USER);
 				rd.forward(request, response);
 			}

@@ -9,6 +9,30 @@ public class Categorie {
 	private List<ArticleVendu> categorieArticle ; 
 	
 	
+	
+	
+	
+	public Categorie() {
+		
+	}
+
+
+	public Categorie(String libelle, List<ArticleVendu> categorieArticle) {
+		
+		this.libelle = libelle;
+		this.categorieArticle = categorieArticle;
+	}
+
+	
+	public Categorie(int noCategorie, String libelle, List<ArticleVendu> categorieArticle) {
+		this.noCategorie = noCategorie;
+		this.libelle = libelle;
+		this.categorieArticle = categorieArticle;
+	}
+
+	
+	
+	
 	/**
 	 * 
 	 * @param noCategorie

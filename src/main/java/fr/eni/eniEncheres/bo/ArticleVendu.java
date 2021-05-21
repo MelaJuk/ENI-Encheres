@@ -35,7 +35,7 @@ public class ArticleVendu implements Serializable {
 		
 		
 		//par defaut adresse du vendeur 
-				//this.lieuRetrait.setRue(vendeur.getRue()); 
+			//	this.lieuRetrait.setRue(vendeur.getRue()); 
 				//this.lieuRetrait.setCode_postal(vendeur.getCodePostal());
 				//this.lieuRetrait.setVille(vendeur.getVille());
 					
@@ -195,6 +195,18 @@ public class ArticleVendu implements Serializable {
 
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAprix="
+				+ miseAprix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", acheteur=" + acheteur
+				+ ", vendeur=" + vendeur + ", categorieArticle=" + categorieArticle + ", lieuRetrait=" + lieuRetrait
+				+ ", listeEncheresArticle=" + listeEncheresArticle + "]";
 	}
 	
 

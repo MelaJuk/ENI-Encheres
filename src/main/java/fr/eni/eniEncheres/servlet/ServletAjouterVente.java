@@ -3,6 +3,7 @@ package fr.eni.eniEncheres.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -57,27 +58,32 @@ public class ServletAjouterVente extends HttpServlet {
 			String description=null;
 			LocalDate dateDebutEnchere=null;
 			LocalDate dateFinEnchere=null;
-			
-			
+			int noUtilisateur;
+			System.out.println(request.getParameter("noUtilisateur"));
+			//lecture utilisateur
+			System.out.println(request.getParameter("noUtilisateur"));
+			noUtilisateur =Integer.parseInt(request.getParameter("noUtilisateur")) ;
 			
 			
 			// Lecture du nom
-			nomArticle = request.getParameter("nomArticle");
+			nomArticle = request.getParameter("article");
 			// lecture description
 			description= request.getParameter("description");
 			// Lecture date début enchère
-			dateDebutEnchere = LocalDate.parse(request.getParameter("dateDebutEnchere"));
-			// Lecture date fin enchère
-			dateFinEnchere = LocalDate.parse(request.getParameter("dateFinEnchere"));
-			// Lecture mise à prix 
-			miseAPrix = Integer.parseInt("miseAPrix");
 			
+			dateDebutEnchere = LocalDate.parse(request.getParameter("debut"));
+			// Lecture date fin enchère
+			dateFinEnchere = LocalDate.parse(request.getParameter("fin"));
+			// Lecture mise à prix 
+			
+			int miseAPrix = Integer.parseInt(request.getParameter("credit"));
+			Categorie categorie= new Categorie(request.getParameter("categories"));
 			
 			
 			//Ajouter une vente
 			ArticleManager articleManager = new ArticleManager();
 			try {
-				articleManager.ajouterVente(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix);
+				articleManager.ajouterVente(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix,categorie,noUtilisateur);
 				// si tout se passe bien, aller à la page de détail d'une vente
 				RequestDispatcher rd = request.getRequestDispatcher("/detailVente");
 				try {
