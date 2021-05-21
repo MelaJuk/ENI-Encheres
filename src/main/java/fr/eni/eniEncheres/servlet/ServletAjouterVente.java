@@ -53,11 +53,12 @@ public class ServletAjouterVente extends HttpServlet {
 			}
 			
 			// lire les paramètres
-			String nomArticle;
-			String description;
-			LocalDateTime dateDebutEnchere;
-			LocalDateTime dateFinEnchere;
-			int miseAPrix;
+			String nomArticle=null;
+			String description=null;
+			LocalDate dateDebutEnchere=null;
+			LocalDate dateFinEnchere=null;
+			
+			
 			
 			
 			// Lecture du nom
@@ -65,9 +66,9 @@ public class ServletAjouterVente extends HttpServlet {
 			// lecture description
 			description= request.getParameter("description");
 			// Lecture date début enchère
-			dateDebutEnchere = LocalDateTime.parse(request.getParameter("dateDebutEnchere"));
+			dateDebutEnchere = LocalDate.parse(request.getParameter("dateDebutEnchere"));
 			// Lecture date fin enchère
-			dateFinEnchere = LocalDateTime.parse(request.getParameter("dateFinEnchere"));
+			dateFinEnchere = LocalDate.parse(request.getParameter("dateFinEnchere"));
 			// Lecture mise à prix 
 			miseAPrix = Integer.parseInt("miseAPrix");
 			
