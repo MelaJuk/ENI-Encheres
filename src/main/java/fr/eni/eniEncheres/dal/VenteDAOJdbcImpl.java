@@ -53,8 +53,8 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			{
 				articleVendu.setNoArticle(rs.getInt(1));
 			}
-			rs.close();
-			requete.close();
+			//rs.close();
+			//requete.close();
 		}
 		catch(Exception e){
 			e.printStackTrace();

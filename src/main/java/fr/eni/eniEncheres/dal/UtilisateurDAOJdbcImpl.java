@@ -34,6 +34,9 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "     \r\n"
 				+ "WHERE pseudo=?";
 		private static final String SELECT_BY_PSEUDO = "SELECT pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo=?"; 
+		
+		
+		private static final String DELETE_UTILISATEUR = "delete from utilisateur where pseudo=?";
 
 
 	@Override
@@ -233,12 +236,29 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			
 			BusinessException businessException = new BusinessException(); 
 		} 
 	
 		return utilisateur;
 	}
 
+
+
+
+
+	
+	
+		
+	
+
+	
+	
+	
+
+	
+	
 	
 }
 

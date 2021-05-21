@@ -10,6 +10,9 @@ public interface UtilisateurDAO {
 	public Utilisateur selectByLogin(String login, String motDePasse);
 	public void updateProfil(Utilisateur utilisateur, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville) throws BusinessException;
 	public Utilisateur selectByPseudo (String pseudo); 
+	
+	//Supprimer un compte utilisateur
+	//public void delete(String peudo) throws BusinessException;
 
 	
 	
