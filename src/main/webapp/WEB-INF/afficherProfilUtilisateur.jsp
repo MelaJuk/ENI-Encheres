@@ -17,7 +17,7 @@
 					<label for="pseudo">Pseudo : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="pseudo">
 				</div>
 			</div>
 		
@@ -26,16 +26,16 @@
 					<label for="nom">Nom : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="nom">
 				</div>
 			</div>
 			
 			<div>
 				<div>
-					<label for="nom">Prénom : </label>
+					<label for="prenom">Prénom : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="prenom">
 				</div>
 			</div>
 		
@@ -44,7 +44,7 @@
 					<label for="email">Email : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="email">
 				</div>
 			</div>
 			
@@ -53,7 +53,7 @@
 					<label for="telephone">Téléphone : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="telephone">
 				</div>
 			</div>
 		
@@ -62,7 +62,7 @@
 					<label for="rue">Rue : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="rue">
 				</div>
 			</div>
 			
@@ -71,7 +71,7 @@
 					<label for="code_postal">Code Postal : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="code_postal">
 				</div>
 			</div>
 		
@@ -80,7 +80,7 @@
 					<label for="ville">Ville : </label>
 				</div>
 				<div>
-					<input type="text">
+					<input type="text" name="ville">
 				</div>
 			</div>
 		</form>
