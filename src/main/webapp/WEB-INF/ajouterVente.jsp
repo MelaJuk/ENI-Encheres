@@ -10,7 +10,7 @@
  <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     
-<title>Nouvelle vente</title>
+<title>Ajouter vente</title>
 </head>
 <body>
 
@@ -93,7 +93,7 @@
            		</div>
            		
            		 <div class="col-3">
-           		<a href="listeDesEncheres">Retourner à l'accueil</a>
+           		<a href="ServletNouvelleVente">Retourner à l'accueil</a>
            		</div>
 	
 	

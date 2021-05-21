@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Utilisateur;
 
 
@@ -21,6 +22,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
 		private static final String SELECT_ALL = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur FROM UTILISATEURS";
+
 		private static final String UPDATE_PROFIL = "UPDATE UTILISATEURS \r\n"
 				+ "SET nom=?\r\n"
 				+ "    ,prenom=?\r\n"
@@ -32,6 +34,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "     \r\n"
 				+ "WHERE pseudo=?";
 		private static final String SELECT_BY_PSEUDO = ""; 
+
 
 	@Override
 	public Utilisateur selectByLogin(String login,String motDePasse) {
@@ -211,13 +214,9 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 	
 }
 
+	
 
 
 
 
-
-
-
-
-
-
+	
