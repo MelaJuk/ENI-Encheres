@@ -17,7 +17,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 	public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
-		private static final String INSERT_UTILATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,ville,code_postal,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,0,0)";
+		private static final String INSERT_UTILATEUR = "INSERT INTO UTILISATEURS(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,0,0)";
 		private static final String SELECT_BY_LOGIN = "select * from UTILISATEURS u \r\n"
 				+ "  lEFT JOIN ARTICLES_VENDUS ar on ar.no_utilisateur=u.no_utilisateur\r\n"
 				+ "  where (email= ? AND mot_de_passe=? OR pseudo=? AND mot_de_passe=?) ";
@@ -112,8 +112,8 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 			pstmt.setString(4,utilisateur.getEmail());
 			pstmt.setString(5,utilisateur.getTelephone());
 			pstmt.setString(6,utilisateur.getRue());
-			pstmt.setString(7,utilisateur.getVille());
-			pstmt.setString(8,utilisateur.getCodePostal());
+			pstmt.setString(8,utilisateur.getVille());
+			pstmt.setString(7,utilisateur.getCodePostal());
 			pstmt.setString(9,utilisateur.getMotDePasse());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();

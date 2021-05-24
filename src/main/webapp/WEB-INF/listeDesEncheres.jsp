@@ -81,7 +81,7 @@
     			<p>Mes achats</p>
     				<div>
     					<label for="achats">Enchères ouvertes</label>
-    					<input type="checkbox" name=achats" value="achat">
+    					<input type="checkbox" name="achats" value="achat">
     				</div>
     				<div>
     					<label for="achats">Mes enchères en cours</label>

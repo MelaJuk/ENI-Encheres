@@ -29,7 +29,7 @@ public class UtilisateurManager {
 	public Utilisateur ajouterUtilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String motDePasse) throws BusinessException {
 		Utilisateur utilisateur;
 		
-		if(telephone==null) {
+		if(telephone.length()==0) {
 			utilisateur = new Utilisateur(pseudo, nom, prenom, email, rue, codePostal, ville, motDePasse);
 		}else {
 			

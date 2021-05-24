@@ -39,7 +39,9 @@ public class ServletInscription extends HttpServlet {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
 			String pseudo = request.getParameter("pseudo");
 			String prenom = request.getParameter("prenom");
+			
 			String telephone = request.getParameter("telephone");
+			
 			String codepostal = request.getParameter("codePostal");
 			String rue = request.getParameter("rue");
 			String motDePasse = request.getParameter("motDePasse");
@@ -53,40 +55,55 @@ public class ServletInscription extends HttpServlet {
 			
 			
 			
-			if (utilisateurManager.loginExiste(pseudo)==1 | utilisateurManager.loginExiste(pseudo)==2 | !confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
+			if (utilisateurManager.loginExiste(pseudo)==1 | utilisateurManager.loginExiste(pseudo)==2 | !confirmation.equals(motDePasse) | !email.contains("@") | codepostal.length()>10 | !codepostal.matches("\\p{Digit}+")  | (!telephone.trim().matches("\\p{Digit}+") && telephone.trim().length()!=0)| telephone.trim().length()>15) {
 				
 				//mail
 				if(!email.contains("@")) {
-				
+					//pour l'erreur
 					request.setAttribute("email","email");
+					
 				}
 				//mot de passe
 				if(!confirmation.equals(motDePasse)){
-					
+					//pour l'erreur
 					request.setAttribute("erreurMotDePasse","erreurMotDePasse");
+					
 				}
 				
 				//codepostal est un nombre et ï¿½ 5 chiffres
 				if(!codepostal.matches("\\p{Digit}+") |codepostal.length()!=5 ){
-					
+					//pour l'erreur
 					request.setAttribute("erreurCodePostal","erreurCodePostal");
+					
 				}
 				
 				//telephone
-				if(!telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
-					request.setAttribute("erreurTelephone","erreurCodePostal");
+				if(!telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()>15) {
+					request.setAttribute("erreurTelephone","erreurTelephone");
+					
 				}
 				
 				//email déjà existant
 				if(utilisateurManager.loginExiste(email)==1) {
 					request.setAttribute("emailExist","emailExist");
+					
 				}
 				
 				//pseudo déjà existant
 				if(utilisateurManager.loginExiste(pseudo)==2) {
 					request.setAttribute("pseudo","pseudo");
+					
 				}
-				
+				//pour réafficher le codepostal
+				request.setAttribute("codePostal",codepostal);
+				request.setAttribute("telephone",telephone);
+				request.setAttribute("email",email);
+				request.setAttribute("pseudof",pseudo);
+				request.setAttribute("nom",nom);
+				request.setAttribute("prenom",prenom);
+				request.setAttribute("rue",rue);
+				request.setAttribute("ville",ville);
+				request.setAttribute("erreur","red");
 				
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 				rd.forward(request, response);	
@@ -94,7 +111,7 @@ public class ServletInscription extends HttpServlet {
 				
 				try {
 					
-					utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, telephone,rue, email, codepostal, ville, motDePasse);
+					utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom,  email,telephone, rue,codepostal, ville, motDePasse);
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
