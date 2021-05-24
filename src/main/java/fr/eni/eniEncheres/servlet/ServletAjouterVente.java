@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import fr.eni.eniEncheres.bll.ArticleManager;
 import fr.eni.eniEncheres.bll.UtilisateurManager;
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Categorie;
+import fr.eni.eniEncheres.bo.Retrait;
 import fr.eni.eniEncheres.bo.Utilisateur;
 import fr.eni.eniEncheres.dal.BusinessException;
 
@@ -42,10 +44,12 @@ public class ServletAjouterVente extends HttpServlet {
 	/**
 	 * @param categorieArticle 
 	 * @param vendeur 
+	 * @throws IOException 
+	 * @throws ServletException 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 
-		protected void doPost(HttpServletRequest request, HttpServletResponse response){
+		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 			try {
 				request.setCharacterEncoding("UTF-8");
 			} catch (UnsupportedEncodingException e) {
@@ -59,31 +63,59 @@ public class ServletAjouterVente extends HttpServlet {
 			LocalDate dateDebutEnchere=null;
 			LocalDate dateFinEnchere=null;
 			int noUtilisateur;
-			System.out.println(request.getParameter("noUtilisateur"));
+			
+			
+			
+			
 			//lecture utilisateur
-			System.out.println(request.getParameter("noUtilisateur"));
+			
 			noUtilisateur =Integer.parseInt(request.getParameter("noUtilisateur")) ;
 			
 			
 			// Lecture du nom
 			nomArticle = request.getParameter("article");
 			// lecture description
+			if(!validerNomArticle(nomArticle)) {
+				//pour l'erreur
+				request.setAttribute("nomArticle","nomArticle");
+			}
 			description= request.getParameter("description");
-			// Lecture date début enchère
 			
-			dateDebutEnchere = LocalDate.parse(request.getParameter("debut"));
+			if(!validerDescriptionArticle(description)) {
+				//pour l'erreur
+				request.setAttribute("description","description");
+			}
+			
+			
+			
+			
+			dateDebutEnchere =LocalDate.parse(request.getParameter("debut"));
 			// Lecture date fin enchère
 			dateFinEnchere = LocalDate.parse(request.getParameter("fin"));
 			// Lecture mise à prix 
 			
+			
+				if(dateDebutEnchere.isAfter(dateFinEnchere)) {
+					//pour l'erreur
+					request.setAttribute("date","date");
+				}
+			
+			
 			int miseAPrix = Integer.parseInt(request.getParameter("credit"));
 			Categorie categorie= new Categorie(request.getParameter("categories"));
 			
+			//retrait
+			Retrait retrait = new Retrait(request.getParameter("rue"),request.getParameter("codePostal"),request.getParameter("ville"));
 			
-			//Ajouter une vente
+			if(!validerNomArticle(nomArticle) |!validerDescriptionArticle(description) |dateDebutEnchere.isAfter(dateFinEnchere) ) {
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ajouterVente.jsp");
+				rd.forward(request, response);	
+				
+			}else {
+				//Ajouter une vente
 			ArticleManager articleManager = new ArticleManager();
 			try {
-				articleManager.ajouterVente(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix,categorie,noUtilisateur);
+				articleManager.ajouterVente(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix,categorie,noUtilisateur, retrait);
 				// si tout se passe bien, aller à la page de détail d'une vente
 				RequestDispatcher rd = request.getRequestDispatcher("/detailVente");
 				try {
@@ -106,8 +138,32 @@ public class ServletAjouterVente extends HttpServlet {
 				}
 			
 			}
+			}
 			
-		}		
+			
+			
+		}	
+		
+		
+		private boolean validerNomArticle(String nom) {
+			if(nom==null  || nom.equals("")|| nom.length()>50)
+			{
+				return false; 
+			}
+			else {
+				return true;
+			}
+		}
+		
+		private boolean validerDescriptionArticle(String nom) {
+			if(nom==null  || nom.equals("")|| nom.length()>150)
+			{
+				return false; 
+			}
+			else {
+				return true;
+			}
+		}
 }
 				
 					

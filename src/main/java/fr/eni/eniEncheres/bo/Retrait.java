@@ -50,4 +50,13 @@ public class Retrait {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "Retrait [rue=" + rue + ", code_postal=" + code_postal + ", ville=" + ville + "]";
+	}
+	
+	
 }

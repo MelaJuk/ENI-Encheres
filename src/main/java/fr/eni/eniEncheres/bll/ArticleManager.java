@@ -4,6 +4,7 @@ package fr.eni.eniEncheres.bll;
 import java.time.LocalDate;
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Categorie;
+import fr.eni.eniEncheres.bo.Retrait;
 import fr.eni.eniEncheres.dal.BusinessException;
 import fr.eni.eniEncheres.dal.DAOFactory;
 import fr.eni.eniEncheres.dal.VenteDAO;
@@ -22,19 +23,20 @@ public class ArticleManager {
 		
 	// MÃ©thode pour ajouter une vente
 		
-		public ArticleVendu ajouterVente(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere, int miseAPrix, Categorie categorieArticle,int noUtilisateur) throws BusinessException {
+		public ArticleVendu ajouterVente(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere, int miseAPrix, Categorie categorieArticle,int noUtilisateur,Retrait retrait) throws BusinessException {
 			BusinessException exception = new BusinessException();
 			
-			ArticleVendu articleVendu = new ArticleVendu (nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix, categorieArticle);
+			ArticleVendu articleVendu = new ArticleVendu (nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix, categorieArticle,retrait);
 			
 			
-			this.validerDescriptionArticle(articleVendu,exception);
-			this.validerNomArticle(articleVendu,exception);
-
+			
 			if(!exception.hasErreurs())
 			{
-				this.venteDAO.insert(articleVendu,noUtilisateur);
-				System.out.println(articleVendu);
+				
+				//insert l'article et retourne son numéro puis insere le lieu de retrait
+				this.venteDAO.inserRetrait(retrait,this.venteDAO.insert(articleVendu,noUtilisateur));
+				
+				
 			}
 			
 			if(exception.hasErreurs())
@@ -42,25 +44,21 @@ public class ArticleManager {
 				throw exception;
 			}
 			
+			
 			return articleVendu;
 		}
 		
 		
-		private void validerDescriptionArticle(ArticleVendu articleVendu, BusinessException exception) {
-			if(articleVendu.getDescription()==null  || articleVendu.getDescription().equals("")|| articleVendu.getDescription().length()>150)
-			{
-				 
-			}
 		
-	}
+		
+		
+		
+		
+		
+	
 
-		private void validerNomArticle(ArticleVendu articleVendu, BusinessException exception) {
-			if(articleVendu.getNomArticle()==null  || articleVendu.getNomArticle().equals("")|| articleVendu.getNomArticle().length()>50)
-			{
-				
-			}
 		
-	}
+	
 
 		
 }

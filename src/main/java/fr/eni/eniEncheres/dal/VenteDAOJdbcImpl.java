@@ -9,9 +9,11 @@ import org.eclipse.jdt.internal.compiler.classfmt.JavaBinaryNames;
 
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Categorie;
+import fr.eni.eniEncheres.bo.Retrait;
 
 public class VenteDAOJdbcImpl implements VenteDAO {
 	
+	private static final String INSERT_RETRAIT="INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES (?,?,?,?)";
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS (nom_article,description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie)"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private static final String SELECT_BY_LIBELLE_CATEGORIE = "SELECT (no_categorie) FROM CATEGORIES WHERE libelle=?";
@@ -19,7 +21,37 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 	
 	
 	@Override
-	public void insert(ArticleVendu articleVendu,int noUtilisateur)throws BusinessException{
+	public void inserRetrait(Retrait retrait,int noUtilisateur) throws BusinessException {
+			if(retrait==null) {
+				BusinessException businessException = new BusinessException();
+				throw businessException;
+			}
+			
+			try (Connection cnx = ConnectionProvider.getConnection()){
+			
+			//cnx.setAutoCommit(false);
+			PreparedStatement requete = cnx.prepareStatement(INSERT_RETRAIT);
+			requete.setInt(1,noUtilisateur);
+			requete.setString(2,retrait.getRue());
+			requete.setString(3, retrait.getCode_postal());
+			requete.setString(4, retrait.getVille());
+			requete.executeUpdate();
+			//rs.close();
+			//requete.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException();
+			System.err.println("erreur");
+		}
+			
+	}
+	
+	
+	
+	@Override
+	public int insert(ArticleVendu articleVendu,int noUtilisateur)throws BusinessException{
+		int noArticle = 0;
 		if(articleVendu==null) {
 			BusinessException businessException = new BusinessException();
 			throw businessException;
@@ -49,6 +81,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			if(rs.next())
 			{
 				articleVendu.setNoArticle(rs.getInt(1));
+				noArticle=rs.getInt(1);
 			}
 			
 			//rs.close();
@@ -60,7 +93,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			System.err.println("erreur");
 		}
 		
-		
+		return noArticle;
 		
 	}
 

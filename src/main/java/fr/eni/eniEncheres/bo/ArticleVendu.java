@@ -3,6 +3,7 @@ package fr.eni.eniEncheres.bo;
 import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleVendu implements Serializable {
@@ -35,7 +36,7 @@ public class ArticleVendu implements Serializable {
 		
 		
 		//par defaut adresse du vendeur 
-			//	this.lieuRetrait.setRue(vendeur.getRue()); 
+			//this.lieuRetrait.setRue(vendeur.getRue()); 
 				//this.lieuRetrait.setCode_postal(vendeur.getCodePostal());
 				//this.lieuRetrait.setVille(vendeur.getVille());
 					
@@ -44,6 +45,21 @@ public class ArticleVendu implements Serializable {
 	
 	
 	
+	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
+			int prixVente, Categorie categorieArticle, Retrait lieuRetrait) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.prixVente = prixVente;
+		this.categorieArticle = categorieArticle;
+		this.lieuRetrait = lieuRetrait;
+	}
+
+
+
+
 	//Petit constructeur 2 paramètres pour test
 	public ArticleVendu(String nomArticle, String description) {
 		super();
