@@ -2,6 +2,8 @@ package fr.eni.eniEncheres.bll;
 
 
 import java.time.LocalDate;
+import java.util.List;
+
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Categorie;
 import fr.eni.eniEncheres.bo.Retrait;
@@ -51,7 +53,11 @@ public class ArticleManager {
 		
 		
 		
+		//pour afficher la liste des articles
 		
+		public List<ArticleVendu> listeArticleVendus() throws BusinessException{
+			return this.venteDAO.selectAll();
+		}
 		
 		
 		

@@ -24,6 +24,14 @@ public class ArticleVendu implements Serializable {
 	
 	
 	
+	
+	public ArticleVendu() {
+		
+	}
+
+
+
+
 	// Constructeur pour test
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres, int miseAprix, Categorie categorieArticle) {
 		super();
@@ -55,6 +63,17 @@ public class ArticleVendu implements Serializable {
 		this.prixVente = prixVente;
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
+	}
+
+
+	
+	//constructeur pour afficher un article
+	public ArticleVendu(String nomArticle, LocalDate dateFinEncheres, int miseAprix, Utilisateur vendeur) {
+		super();
+		this.nomArticle = nomArticle;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAprix = miseAprix;
+		this.vendeur = vendeur;
 	}
 
 

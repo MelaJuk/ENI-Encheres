@@ -4,20 +4,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jdt.internal.compiler.classfmt.JavaBinaryNames;
 
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Categorie;
 import fr.eni.eniEncheres.bo.Retrait;
+import fr.eni.eniEncheres.bo.Utilisateur;
 
 public class VenteDAOJdbcImpl implements VenteDAO {
 	
 	private static final String INSERT_RETRAIT="INSERT INTO RETRAITS (no_article,rue,code_postal,ville) VALUES (?,?,?,?)";
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS (nom_article,description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie)"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
-	private static final String SELECT_BY_LIBELLE_CATEGORIE = "SELECT (no_categorie) FROM CATEGORIES WHERE libelle=?";
-
+	private static final String SELECT_BY_LIBELLE_CATEGORIE = "SELECT no_categorie FROM CATEGORIES WHERE libelle=?";
+	private static final String SELECT_ALL_ARTICLE = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo FROM ARTICLES_VENDUS ar\r\n"
+			+ "LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur";
 	
 	
 	@Override
@@ -127,5 +134,40 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 		
 		return noCategorie;
 	}
-
+	
+	//pour afficher la liste des articles vendus
+	@Override
+	public List<ArticleVendu> selectAll(){
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>(); 
+	
+		
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			Statement stmt = cnx.createStatement(); 
+			ResultSet rs = stmt.executeQuery(SELECT_ALL_ARTICLE); 
+			
+			while(rs.next()) {
+				ArticleVendu article = new ArticleVendu(); 
+				article.setNomArticle(rs.getString("nom_article"));
+				article.setPrixVente(rs.getInt("prix_initial"));
+				LocalDate localDate =rs.getDate("date_fin_encheres").toLocalDate();
+				Utilisateur vendeur = new Utilisateur();
+				vendeur.setPseudo(rs.getString("pseudo"));
+				article.setVendeur(vendeur);
+				article.setDateFinEncheres(localDate );
+				
+				listeArticles.add(article); 
+				
+				//rs.close();
+				//stmt.close();
+	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			BusinessException businessException = new BusinessException(); 
+			System.err.println("error");
+		} 
+		
+		return listeArticles;
+	}
 }
