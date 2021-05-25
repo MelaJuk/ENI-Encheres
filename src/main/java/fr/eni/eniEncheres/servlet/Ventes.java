@@ -27,8 +27,15 @@ public class Ventes extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArticleManager articleManager = new ArticleManager();
+		List<ArticleVendu> listArticles = null;
+		
 		try {
-			List<ArticleVendu> listArticles = articleManager.listeArticleVendus();
+			if(request.getParameter("categories").equals("toute")) {
+				listArticles = articleManager.listeArticleVendus();
+			}else {
+				listArticles =  articleManager.listeArticleVendusParCategories(request.getParameter("categories"));
+			}
+			
 			request.setAttribute("listeArticles", listArticles);
 			RequestDispatcher rd = request.getRequestDispatcher("accueil.jsp");
 			rd.forward(request, response);

@@ -232,6 +232,20 @@ public class ArticleVendu implements Serializable {
 		this.lieuRetrait = lieuRetrait;
 	}
 
+	
+
+
+	public List<Enchere> getListeEncheresArticle() {
+		return listeEncheresArticle;
+	}
+
+
+
+
+	public void setListeEncheresArticle(List<Enchere> listeEncheresArticle) {
+		this.listeEncheresArticle = listeEncheresArticle;
+	}
+
 
 
 

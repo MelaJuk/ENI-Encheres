@@ -32,7 +32,7 @@
     
     <h2>Listes des enchères</h2>
     
-    	<form role="search">
+    	<form role="search" action="<%=request.getContextPath()%>/Ventes" method="GET">
     		<div>
     			<label for="filtre">Filtres :</label>
     			<br>
@@ -43,8 +43,7 @@
     	<label for="categories">Catégories:</label>
     		
     			<select name="categories" id="categories">
-    				<option value="">---Merci de choisir une option---</option>
-    				<option value="toute">Toutes</option>
+    				<option value="toute" selected>Toutes</option>
     				<option value="informatique">Informatique</option>
     				<option value="ameublement">Ameublement</option>
     				<option value="vetement">Vêtement</option>
@@ -67,7 +66,12 @@
 								<div class="card mb-4 " style="width: 30rem; margin-right:60px" >
 									<div class="card-header text-center">${a.nomArticle}</div>
 									<div class="car-body">
-										<div class="card-text">Prix : ${a.prixVente}</div>
+										<div class="card-text">Prix : ${a.prixVente}
+										<c:if test="${!empty a.listeEncheresArticle}">
+										
+										
+										
+										</c:if></div>
 										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))}</div>
 										<div class="card-text">Vendeur : ${a.vendeur.pseudo}</div>
 									</div>
