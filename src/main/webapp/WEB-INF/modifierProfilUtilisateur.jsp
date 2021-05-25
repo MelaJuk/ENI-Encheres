@@ -75,9 +75,10 @@
 				</div>
 			
            		<input type="submit" value="Modifier"/>
+           		<a href="<%=request.getContextPath()%>/ServletSupprimerCompte"> <input type="button" value="Supprimer"/></a>
 			</div>
 		</form>
-		<a href="ServletConnexion">Retour</a>
+		<a href="">Retour</a>
 	</div>
 </body>
 </html>

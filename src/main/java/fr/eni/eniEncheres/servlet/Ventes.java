@@ -28,8 +28,23 @@ public class Ventes extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArticleManager articleManager = new ArticleManager();
 		List<ArticleVendu> listArticles = null;
+		String categorie =request.getParameter("categories");
+		String nom = request.getParameter("nom");
 		
-		try {
+		if(categorie == null) {
+			try {
+				
+				listArticles = articleManager.listeArticleVendus();
+				request.setAttribute("listeArticles", listArticles);
+				RequestDispatcher rd = request.getRequestDispatcher("accueil.jsp");
+				
+				rd.forward(request, response);
+			} catch (BusinessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			try {
 			if(request.getParameter("categories").equals("toute")) {
 				listArticles = articleManager.listeArticleVendusParNom(request.getParameter("nom"));
 			}else {
@@ -43,6 +58,8 @@ public class Ventes extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		}
+		
 		
 	}
 

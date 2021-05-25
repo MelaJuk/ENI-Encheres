@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.eniEncheres.bll.UtilisateurManager;
+import fr.eni.eniEncheres.bo.Utilisateur;
+import fr.eni.eniEncheres.dal.BusinessException;
+
 /**
  * Servlet implementation class ServletSupprimerCompte
  */
@@ -31,8 +35,18 @@ public class ServletSupprimerCompte extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		
+		HttpSession session = request.getSession(false);
+		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		Utilisateur utilisateurSupprime = (Utilisateur) session.getAttribute("sessionUtilisateur");
+		try {
+			utilisateurManager.supprimerCompteUtilisateur(utilisateurSupprime.getPseudo());
+			
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Ventes");
+		rd.forward(request, response);
 	}
 
 }

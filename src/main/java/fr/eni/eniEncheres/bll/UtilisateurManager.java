@@ -109,8 +109,8 @@ public class UtilisateurManager {
 	
 	// Supprimer un compte utilisateur
 	
-	public void supprimerCompteUtilisateur (String email) throws BusinessException {
-		
+	public boolean supprimerCompteUtilisateur (String pseudo) throws BusinessException {
+		return this.utilisateurDAO.delete(pseudo);
 	}
 	
 }

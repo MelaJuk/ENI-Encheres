@@ -34,7 +34,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 				+ "WHERE pseudo=?";
 		private static final String SELECT_BY_PSEUDO = "SELECT no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville FROM UTILISATEURS WHERE pseudo=?"; 
 
-		private static final String DELETE_COMPTE = "DELETE FROM UTILISATEURS WHERE email=?";
+		private static final String DELETE_COMPTE = "DELETE FROM UTILISATEURS WHERE pseudo=?";
 
 	@Override
 	public Utilisateur selectByLogin(String login,String motDePasse) {
@@ -213,12 +213,12 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		try {
 			Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
-<<<<<<< Updated upstream
-			
+
+			System.out.println(pseudo);
 			stmt.setString(1,pseudo);
-=======
-			stmt.setString(1, pseudo);
->>>>>>> Stashed changes
+
+			
+
 			ResultSet rs = stmt.executeQuery(); 
 			
 			
@@ -249,8 +249,8 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 
 
 	
-	@CascadeOnDelete
-	public boolean delete(String email) throws BusinessException {
+	@Override
+	public boolean delete(String pseudo) throws BusinessException {
 		
 		// 
 		boolean compteDelete = false;
@@ -263,7 +263,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 			
 			PreparedStatement requete = cnx.prepareStatement(DELETE_COMPTE);
 			
-			requete.setString(1, email);
+			requete.setString(1, pseudo);
 			
 			requete.executeUpdate();
 		}

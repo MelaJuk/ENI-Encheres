@@ -143,7 +143,7 @@
            		</div>
            		
            		<div class="col-3">
-           		<a href="index.html">Retourner à l'accueil</a>
+           		<a href="">Retourner à l'accueil</a>
 
            		</div>
            		
