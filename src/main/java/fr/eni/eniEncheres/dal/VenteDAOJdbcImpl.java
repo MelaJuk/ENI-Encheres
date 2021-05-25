@@ -28,9 +28,13 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
 			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article ORDER BY date_fin_encheres";
 	
+	private static final String SELECT_ALL_ARTICLE_NOM = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
+			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
+			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article WHERE nom_article LIKE  ?  ORDER BY date_fin_encheres";
+	
 	private static final String SELECT_BY_CATEGORIE_ARTICLE = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
 			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
-			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie WHERE libelle=? ORDER BY date_fin_encheres";
+			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie WHERE libelle=? AND nom_article LIKE  ? ORDER BY date_fin_encheres";
 	
 	
 	
@@ -190,10 +194,10 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 		return listeArticles;
 	}
 	
-	//afficher la liste des articles par catégories
+	//afficher la liste des articles par catégories et par nom d'article
 	
 	@Override
-	public List<ArticleVendu> selectByCategorie(String categorie) {
+	public List<ArticleVendu> selectByCategorieNom(String categorie,String contient) throws BusinessException {
 		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>(); 
 		Utilisateur utilisateur = new Utilisateur();
 		Connection connexion = null;
@@ -205,6 +209,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			connexion = ConnectionProvider.getConnection();
 			requete = connexion.prepareStatement(SELECT_BY_CATEGORIE_ARTICLE);
 			requete.setString(1, categorie);
+			requete.setString(2,contient + "%");
 			resultat = requete.executeQuery();
 			
 			while (resultat.next()) {
@@ -240,6 +245,58 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 			
 	}
+	
+	//afficher la liste des article par nom d'article
+	
+		
+		@Override
+		public List<ArticleVendu> selectByNom(String contient) throws BusinessException {
+			List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>(); 
+			Utilisateur utilisateur = new Utilisateur();
+			Connection connexion = null;
+			PreparedStatement requete = null;
+			ResultSet resultat = null;
+			
+			try {
+				
+				connexion = ConnectionProvider.getConnection();
+				requete = connexion.prepareStatement(SELECT_ALL_ARTICLE_NOM);
+				requete.setString(1,contient + "%");
+				resultat = requete.executeQuery();
+				
+				while (resultat.next()) {
+					ArticleVendu article = new ArticleVendu(); 
+					article.setNomArticle(resultat.getString("nom_article"));
+					article.setPrixVente(resultat.getInt("prix_initial"));
+					LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
+					
+					Utilisateur vendeur = new Utilisateur();
+					vendeur.setPseudo(resultat.getString("pseudo"));
+					article.setVendeur(vendeur);
+					article.setDateFinEncheres(localDate );
+					
+					//si l'enchère existe 
+					if( resultat.getInt("montant_enchere")!=0) {
+							Enchere enchere=new Enchere(resultat.getInt("montant_enchere"),article);
+							//ajoute l'enchere à l'article
+					article.getListeEncheresArticle().add(enchere);
+					}
+				
+					
+					listeArticles.add(article); 
+				}
+					//rs.close();
+					//stmt.close();
+				}
+				catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+				
+				return listeArticles;
+				
+				
+		}
 	
 	
 }

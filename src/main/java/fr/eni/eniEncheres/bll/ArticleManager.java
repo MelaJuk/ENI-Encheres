@@ -59,13 +59,15 @@ public class ArticleManager {
 			return this.venteDAO.selectAll();
 		}
 		
-		
-		public List<ArticleVendu> listeArticleVendusParCategories(String categorie){
-			return this.venteDAO.selectByCategorie(categorie);
+		//par categorie et par nom
+		public List<ArticleVendu> listeArticleVendusParCategorieParNom(String categorie,String contient) throws BusinessException{
+			return this.venteDAO.selectByCategorieNom(categorie,contient);
 		}
 	
-
-		
+		//par nom (commence par )
+		public List<ArticleVendu> listeArticleVendusParNom(String contient) throws BusinessException{
+			return this.venteDAO.selectByNom(contient);
+		}
 	
 
 		

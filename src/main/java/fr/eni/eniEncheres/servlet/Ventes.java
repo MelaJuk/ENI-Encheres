@@ -31,9 +31,9 @@ public class Ventes extends HttpServlet {
 		
 		try {
 			if(request.getParameter("categories").equals("toute")) {
-				listArticles = articleManager.listeArticleVendus();
+				listArticles = articleManager.listeArticleVendusParNom(request.getParameter("nom"));
 			}else {
-				listArticles =  articleManager.listeArticleVendusParCategories(request.getParameter("categories"));
+				listArticles =  articleManager.listeArticleVendusParCategorieParNom(request.getParameter("categories"),request.getParameter("nom"));
 			}
 			
 			request.setAttribute("listeArticles", listArticles);

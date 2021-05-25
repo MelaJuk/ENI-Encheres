@@ -36,7 +36,7 @@
     		<div>
     			<label for="filtre">Filtres :</label>
     			<br>
-    			<input type="search" id="filtre" name="q" placeholder="Le nom de l'article contient:" size="30">
+    			<input type="search" id="filtre" name="nom" placeholder="Le nom de l'article contient:"  value='' size="30">
     			
     		</div>
     			

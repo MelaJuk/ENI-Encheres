@@ -11,6 +11,7 @@ public interface VenteDAO {
 	public void inserRetrait(Retrait retrait,int noUtilisateur) throws BusinessException;
 	public int insert(ArticleVendu articleVendu,int noUtilisateur) throws BusinessException;
 	public List<ArticleVendu> selectAll() throws BusinessException;
-	public List<ArticleVendu> selectByCategorie(String categorie);
+	public List<ArticleVendu> selectByCategorieNom(String categorie,String contient) throws BusinessException;
+	public List<ArticleVendu> selectByNom(String contient) throws BusinessException;
 	
 }
