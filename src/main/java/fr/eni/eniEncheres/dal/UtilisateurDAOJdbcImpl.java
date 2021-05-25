@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Utilisateur;
 
 
@@ -213,9 +212,11 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		try {
 			Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
-			ResultSet rs = stmt.executeQuery(); 
+			
 			
 			stmt.setString(1, pseudo);
+			ResultSet rs = stmt.executeQuery(); 
+			
 			while (rs.next()) {
 				utilisateur.setPseudo(pseudo);
 				utilisateur.setNom(rs.getString("nom"));
