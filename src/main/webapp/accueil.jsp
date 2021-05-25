@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>ENI-Enchères</title>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ page import="java.time.format.DateTimeFormatter" %>
 <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
@@ -47,7 +48,7 @@
     				<option value="informatique">Informatique</option>
     				<option value="ameublement">Ameublement</option>
     				<option value="vetement">Vêtement</option>
-    				<option value="sport&loisirs">Sport&Loisirs</option>
+    				<option value="sportloisirs">Sport&Loisirs</option>
     		
     		
     			</select>	
@@ -67,7 +68,7 @@
 									<div class="card-header text-center">${a.nomArticle}</div>
 									<div class="car-body">
 										<div class="card-text">Prix : ${a.prixVente}</div>
-										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</div>
+										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))}</div>
 										<div class="card-text">Vendeur : ${a.vendeur.pseudo}</div>
 									</div>
 								</div>

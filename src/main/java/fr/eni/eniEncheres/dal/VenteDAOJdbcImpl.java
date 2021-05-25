@@ -73,7 +73,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 			requete.setDate(3, java.sql.Date.valueOf(articleVendu.getDateDebutEncheres()));
 			requete.setDate(4, java.sql.Date.valueOf(articleVendu.getDateFinEncheres()));	
-			System.out.println(articleVendu.getMiseAprix());
+			
 			requete.setInt(5, articleVendu.getMiseAprix());
 			requete.setInt(6, noUtilisateur);
 			articleVendu.getCategorieArticle().setNoCategorie(noCategorie(articleVendu.getCategorieArticle().getLibelle()));
