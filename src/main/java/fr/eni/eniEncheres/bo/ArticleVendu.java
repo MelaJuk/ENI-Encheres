@@ -20,6 +20,7 @@ public class ArticleVendu implements Serializable {
 	private Utilisateur vendeur;
 	private Categorie categorieArticle;
 	private Retrait lieuRetrait;
+	private Enchere enchere;
 	private List<Enchere> listeEncheresArticle; 
 	
 	
@@ -244,6 +245,13 @@ public class ArticleVendu implements Serializable {
 
 	public void setListeEncheresArticle(List<Enchere> listeEncheresArticle) {
 		this.listeEncheresArticle = listeEncheresArticle;
+	public Enchere getEnchere() {
+		return enchere;
+	}
+
+
+	public void setEnchere(Enchere enchere) {
+		this.enchere = enchere;
 	}
 
 

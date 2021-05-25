@@ -5,12 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.jdt.internal.compiler.classfmt.JavaBinaryNames;
 
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Categorie;
@@ -37,6 +34,20 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie WHERE libelle=? AND nom_article LIKE  ? ORDER BY date_fin_encheres";
 	
 	
+	/*private static final String SELECT_BY_NO_ARTICLE ="SELECT av.nom_article, av.description, c.libelle, e.montant_enchere, av.prix_initial, \r\n"
+			+ "av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
+			+ "JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
+			+ "JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
+			+ "JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
+			+ "JOIN ENCHERES e ON e.no_utilisateur = u.no_utilisateur\r\n"
+			+ "WHERE av.no_article=?" ;*/
+	private static final String SELECT_BY_NO_ARTICLE ="SELECT av.nom_article, av.description, c.libelle, av.prix_initial, \r\n"
+			+ "av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
+			+ "JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
+			+ "JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
+			+ "JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
+			+ "WHERE av.no_article=?" ;
+			
 	
 	@Override
 	public void inserRetrait(Retrait retrait,int noArticle) throws BusinessException {
@@ -169,10 +180,10 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
 				
-				//si l'enchère existe 
+				//si l'enchï¿½re existe 
 				if( rs.getInt("montant_enchere")!=0) {
 						Enchere enchere=new Enchere(rs.getInt("montant_enchere"),article);
-						//ajoute l'enchere à l'article
+						//ajoute l'enchere ï¿½ l'article
 				article.getListeEncheresArticle().add(enchere);
 				}
 			
@@ -193,8 +204,74 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 		
 		return listeArticles;
 	}
+
+
+	// pour afficher un article 
+	@Override
+	public ArticleVendu selectByNoArticle(int noArticle) {
+		ArticleVendu articleVendu = new ArticleVendu(); 
+		
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_NO_ARTICLE); 
+			stmt.setInt(1, noArticle);
+			ResultSet rs = stmt.executeQuery(); 
+			
+			while (rs.next()) {
+				articleVendu.setNoArticle(noArticle);
+				System.out.println(articleVendu.getNoArticle());
+				articleVendu.setNomArticle(rs.getString("nom_article"));
+				System.out.println(articleVendu.getNomArticle()); 
+				articleVendu.setDescription(rs.getString("description"));
+				System.out.println(articleVendu.getDescription());
+				
+				//rÃ©cupÃ©rer le libelle de la catÃ©gorie 
+				Categorie categorie = new Categorie(); 
+				categorie.setLibelle(rs.getString("libelle"));
+				articleVendu.setCategorieArticle(categorie);
+				System.out.println(articleVendu.getCategorieArticle().getLibelle());
+				
+				/*//rÃ©cupÃ©rer la meilleure offre ?
+				Enchere enchere = new Enchere(); 
+				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
+				articleVendu.setEnchere(enchere);
+				System.out.println(articleVendu.getEnchere().getMontant_enchere());*/
+				
+				
+				// mise Ã  prix, fin enchÃ¨re 
+				articleVendu.setMiseAprix(rs.getInt("prix_initial"));
+				System.out.println(articleVendu.getMiseAprix());
+				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
+				System.out.println(articleVendu.getDateFinEncheres());
+				
+
+				//retrait 
+				Retrait retrait = new Retrait(); 
+				retrait.setRue(rs.getString("rue"));
+				retrait.setCode_postal(rs.getString("code_postal"));
+				retrait.setVille(rs.getString("ville"));
+				articleVendu.setLieuRetrait(retrait);
+				System.out.println(articleVendu.getLieuRetrait().getRue());
+				System.out.println(articleVendu.getLieuRetrait().getCode_postal());
+				System.out.println(articleVendu.getLieuRetrait().getVille());
+				
+				//vendeur
+				Utilisateur vendeur = new Utilisateur(); 
+				vendeur.setPseudo(rs.getString("pseudo"));
+				articleVendu.setVendeur(vendeur);;
+				System.out.println(articleVendu.getVendeur().getPseudo());
+				
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		
+		return articleVendu ;
+	}
 	
-	//afficher la liste des articles par catégories et par nom d'article
+	//afficher la liste des articles par catï¿½gories et par nom d'article
 	
 	@Override
 	public List<ArticleVendu> selectByCategorieNom(String categorie,String contient) throws BusinessException {
@@ -223,10 +300,10 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
 				
-				//si l'enchère existe 
+				//si l'enchï¿½re existe 
 				if( resultat.getInt("montant_enchere")!=0) {
 						Enchere enchere=new Enchere(resultat.getInt("montant_enchere"),article);
-						//ajoute l'enchere à l'article
+						//ajoute l'enchere ï¿½ l'article
 				article.getListeEncheresArticle().add(enchere);
 				}
 			
@@ -275,10 +352,10 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 					article.setVendeur(vendeur);
 					article.setDateFinEncheres(localDate );
 					
-					//si l'enchère existe 
+					//si l'enchï¿½re existe 
 					if( resultat.getInt("montant_enchere")!=0) {
 							Enchere enchere=new Enchere(resultat.getInt("montant_enchere"),article);
-							//ajoute l'enchere à l'article
+							//ajoute l'enchere ï¿½ l'article
 					article.getListeEncheresArticle().add(enchere);
 					}
 				

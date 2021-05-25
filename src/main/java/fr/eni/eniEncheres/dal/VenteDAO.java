@@ -14,4 +14,7 @@ public interface VenteDAO {
 	public List<ArticleVendu> selectByCategorieNom(String categorie,String contient) throws BusinessException;
 	public List<ArticleVendu> selectByNom(String contient) throws BusinessException;
 	
+	public ArticleVendu selectByNoArticle(int noArticle);
+
+
 }

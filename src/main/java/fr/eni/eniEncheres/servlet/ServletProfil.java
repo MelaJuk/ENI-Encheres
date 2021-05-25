@@ -34,7 +34,7 @@ public class ServletProfil extends HttpServlet {
 			String pseudo = request.getParameter("pseudo"); 			
 			
 			
-			request.setAttribute("utilisateur", utilisateurManager.afficherProfil("Dudu"));
+			request.setAttribute("utilisateur", utilisateurManager.afficherProfil(pseudo));
 	
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfilUtilisateur.jsp");
 			rd.forward(request, response);

@@ -35,7 +35,7 @@ public class ArticleManager {
 			if(!exception.hasErreurs())
 			{
 				
-				//insert l'article et retourne son num�ro puis insere le lieu de retrait
+				//insert l'article et retourne son num�ro puis insere le lieu de retrait
 				this.venteDAO.inserRetrait(retrait,this.venteDAO.insert(articleVendu,noUtilisateur));
 				
 				
@@ -63,6 +63,15 @@ public class ArticleManager {
 		public List<ArticleVendu> listeArticleVendusParCategorieParNom(String categorie,String contient) throws BusinessException{
 			return this.venteDAO.selectByCategorieNom(categorie,contient);
 		}
+		// afficher une vente pour afficher :  nom article, description, cat, meilleure offre, mise à prix, fin enchère, retrait, vendeur)
+			// pour le vendeur : récupération du nom du vendeur et lien vers son profil (/afficherProfil et afficherProfilUtilisateur.jsp)
+		// return une vente en particulier : donc faire méthode selectByNoArticle 
+		
+		public ArticleVendu afficherArticle (int noArticle) {
+			return this.venteDAO.selectByNoArticle(noArticle); 
+		}
+		
+		
 	
 		//par nom (commence par )
 		public List<ArticleVendu> listeArticleVendusParNom(String contient) throws BusinessException{

@@ -7,6 +7,9 @@ public class Retrait {
 	private String ville;
 	
 	
+	public Retrait () {
+		
+	}
 	
 	public Retrait(String rue, String code_postal, String ville) {
 		super();
