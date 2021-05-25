@@ -213,7 +213,15 @@ public class Utilisateur {
 		this.administrateur = adminstrateur;
 	}
 
+	
 
+	public List<Enchere> getListeEncheresUtilisateur() {
+		return listeEncheresUtilisateur;
+	}
+
+	public void setListeEncheresUtilisateur(List<Enchere> listeEncheresUtilisateur) {
+		this.listeEncheresUtilisateur = listeEncheresUtilisateur;
+	}
 
 	@Override
 	public String toString() {

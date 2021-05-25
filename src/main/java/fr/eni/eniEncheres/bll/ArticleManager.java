@@ -60,7 +60,9 @@ public class ArticleManager {
 		}
 		
 		
-		
+		public List<ArticleVendu> listeArticleVendusParCategories(String categorie){
+			return this.venteDAO.selectByCategorie(categorie);
+		}
 	
 
 		

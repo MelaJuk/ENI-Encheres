@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>ENI-Enchères</title>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ page import="java.time.format.DateTimeFormatter" %>
 <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
@@ -31,7 +32,7 @@
     
     <h2>Listes des enchères</h2>
     
-    	<form role="search">
+    	<form role="search" action="<%=request.getContextPath()%>/Ventes" method="GET">
     		<div>
     			<label for="filtre">Filtres :</label>
     			<br>
@@ -42,12 +43,11 @@
     	<label for="categories">Catégories:</label>
     		
     			<select name="categories" id="categories">
-    				<option value="">---Merci de choisir une option---</option>
-    				<option value="toute">Toutes</option>
+    				<option value="toute" selected>Toutes</option>
     				<option value="informatique">Informatique</option>
     				<option value="ameublement">Ameublement</option>
     				<option value="vetement">Vêtement</option>
-    				<option value="sport&loisirs">Sport&Loisirs</option>
+    				<option value="sportloisirs">Sport&Loisirs</option>
     		
     		
     			</select>	
@@ -66,8 +66,13 @@
 								<div class="card mb-4 " style="width: 30rem; margin-right:60px" >
 									<div class="card-header text-center">${a.nomArticle}</div>
 									<div class="car-body">
-										<div class="card-text">Prix : ${a.prixVente}</div>
-										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres}</div>
+										<div class="card-text">Prix : ${a.prixVente}
+										<c:if test="${!empty a.listeEncheresArticle}">
+										
+										
+										
+										</c:if></div>
+										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))}</div>
 										<div class="card-text">Vendeur : ${a.vendeur.pseudo}</div>
 									</div>
 								</div>

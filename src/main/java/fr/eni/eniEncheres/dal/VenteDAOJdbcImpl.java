@@ -14,6 +14,7 @@ import org.eclipse.jdt.internal.compiler.classfmt.JavaBinaryNames;
 
 import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Categorie;
+import fr.eni.eniEncheres.bo.Enchere;
 import fr.eni.eniEncheres.bo.Retrait;
 import fr.eni.eniEncheres.bo.Utilisateur;
 
@@ -23,8 +24,14 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS (nom_article,description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie)"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private static final String SELECT_BY_LIBELLE_CATEGORIE = "SELECT no_categorie FROM CATEGORIES WHERE libelle=?";
-	private static final String SELECT_ALL_ARTICLE = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo FROM ARTICLES_VENDUS ar\r\n"
-			+ "LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur";
+	private static final String SELECT_ALL_ARTICLE = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
+			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
+			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article ORDER BY date_fin_encheres";
+	
+	private static final String SELECT_BY_CATEGORIE_ARTICLE = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
+			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
+			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie WHERE libelle=? ORDER BY date_fin_encheres";
+	
 	
 	
 	@Override
@@ -73,7 +80,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 			requete.setDate(3, java.sql.Date.valueOf(articleVendu.getDateDebutEncheres()));
 			requete.setDate(4, java.sql.Date.valueOf(articleVendu.getDateFinEncheres()));	
-			System.out.println(articleVendu.getMiseAprix());
+			
 			requete.setInt(5, articleVendu.getMiseAprix());
 			requete.setInt(6, noUtilisateur);
 			articleVendu.getCategorieArticle().setNoCategorie(noCategorie(articleVendu.getCategorieArticle().getLibelle()));
@@ -152,10 +159,21 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setPrixVente(rs.getInt("prix_initial"));
 				LocalDate localDate =rs.getDate("date_fin_encheres").toLocalDate();
+				
 				Utilisateur vendeur = new Utilisateur();
 				vendeur.setPseudo(rs.getString("pseudo"));
 				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
+				
+				//si l'enchère existe 
+				if( rs.getInt("montant_enchere")!=0) {
+						Enchere enchere=new Enchere(rs.getInt("montant_enchere"),article);
+						//ajoute l'enchere à l'article
+				article.getListeEncheresArticle().add(enchere);
+				}
+			
+				
+				
 				
 				listeArticles.add(article); 
 				
@@ -172,6 +190,56 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 		return listeArticles;
 	}
 	
-	//inserer une enchere
+	//afficher la liste des articles par catégories
+	
+	@Override
+	public List<ArticleVendu> selectByCategorie(String categorie) {
+		List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>(); 
+		Utilisateur utilisateur = new Utilisateur();
+		Connection connexion = null;
+		PreparedStatement requete = null;
+		ResultSet resultat = null;
+		
+		try {
+			
+			connexion = ConnectionProvider.getConnection();
+			requete = connexion.prepareStatement(SELECT_BY_CATEGORIE_ARTICLE);
+			requete.setString(1, categorie);
+			resultat = requete.executeQuery();
+			
+			while (resultat.next()) {
+				ArticleVendu article = new ArticleVendu(); 
+				article.setNomArticle(resultat.getString("nom_article"));
+				article.setPrixVente(resultat.getInt("prix_initial"));
+				LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
+				
+				Utilisateur vendeur = new Utilisateur();
+				vendeur.setPseudo(resultat.getString("pseudo"));
+				article.setVendeur(vendeur);
+				article.setDateFinEncheres(localDate );
+				
+				//si l'enchère existe 
+				if( resultat.getInt("montant_enchere")!=0) {
+						Enchere enchere=new Enchere(resultat.getInt("montant_enchere"),article);
+						//ajoute l'enchere à l'article
+				article.getListeEncheresArticle().add(enchere);
+				}
+			
+				
+				listeArticles.add(article); 
+			}
+				//rs.close();
+				//stmt.close();
+			}
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			
+			return listeArticles;
+			
+			
+	}
+	
 	
 }
