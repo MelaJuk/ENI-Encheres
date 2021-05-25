@@ -12,38 +12,15 @@
 		<h1>Profil utilisateur</h1>
 		
 		<div>
-		
-			<div>
-				<p>Pseudo : ${utilisateur.pseudo}</p>
-			</div>
-		
-			<div>
-				<p>Nom : ${utilisateur.nom} </p>
-			</div>
+			<p>Pseudo : ${utilisateur.pseudo}</p>
+			<p>Nom : ${utilisateur.nom} </p>
+			<p>Prénom : ${utilisateur.prenom}</p>
+			<p>Email : ${utilisateur.email}</p>
+			<p>Téléphone :  ${utilisateur.telephone}</p>
+			<p>Rue :  ${utilisateur.rue}</p>
+			<p>Code Postal : ${utilisateur.codePostal}</p>
+			<p>Ville : ${utilisateur.ville}</p>
 			
-			<div>
-				<p>Prénom : ${utilisateur.prenom}</p>
-			</div>
-		
-			<div>
-				<p>Email : ${utilisateur.email}</p>
-			</div>
-			
-			<div>
-				<p>Téléphone :  ${utilisateur.telephone}</p>
-			</div>
-		
-			<div>
-				<p>Rue :  ${utilisateur.rue}</p>
-			</div>
-			
-			<div>
-				<p>Code Postal : ${utilisateur.codePostal}</p>
-			</div>
-		
-			<div>
-				<p>Ville : ${utilisateur.ville}</p>
-			</div>
 			<div>
 				<a href="Ventes">Retour</a>
 			</div>
