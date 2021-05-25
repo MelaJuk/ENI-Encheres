@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+    <%@ page import="java.time.LocalDate" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,7 @@
     				<option value="informatique" selected>Informatique</option>
     				<option value="ameublement">Ameublement</option>
     				<option value="vetement">Vêtement</option>
-    				<option value="sportloisirs">SportLoisirs</option>
+    				<option value="sportloisir">SportLoisirs</option>
     			</select>	
     			
     		<div class="col-2">
@@ -71,12 +71,12 @@
            
            <div class="col-2">
            	<label for="debut">Début de l'enchère:</label>	
-           	<input type="date" id="debut" name="debut" value"" min="" max="" >
+           	<input type="date" id="debut" name="debut" value="<%=LocalDate.now() %>"    min="<%=LocalDate.now() %>" max="" required >
            </div>
           
             <div class="col-2">
            	<label for="fin">Fin de l'enchère:</label>	
-           	<input type="date" id="fin" name="fin" value"" min="" max="" >
+           	<input type="date" id="fin" name="fin" value="<%=LocalDate.now() %>"  min="<%=LocalDate.now() %>" max="" required>
            </div>
     			
     			

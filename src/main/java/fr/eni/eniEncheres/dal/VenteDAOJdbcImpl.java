@@ -28,7 +28,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 	
 	
 	@Override
-	public void inserRetrait(Retrait retrait,int noUtilisateur) throws BusinessException {
+	public void inserRetrait(Retrait retrait,int noArticle) throws BusinessException {
 			if(retrait==null) {
 				BusinessException businessException = new BusinessException();
 				throw businessException;
@@ -38,7 +38,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 			//cnx.setAutoCommit(false);
 			PreparedStatement requete = cnx.prepareStatement(INSERT_RETRAIT);
-			requete.setInt(1,noUtilisateur);
+			requete.setInt(1,noArticle);
 			requete.setString(2,retrait.getRue());
 			requete.setString(3, retrait.getCode_postal());
 			requete.setString(4, retrait.getVille());
@@ -73,6 +73,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 			requete.setDate(3, java.sql.Date.valueOf(articleVendu.getDateDebutEncheres()));
 			requete.setDate(4, java.sql.Date.valueOf(articleVendu.getDateFinEncheres()));	
+			System.out.println(articleVendu.getMiseAprix());
 			requete.setInt(5, articleVendu.getMiseAprix());
 			requete.setInt(6, noUtilisateur);
 			articleVendu.getCategorieArticle().setNoCategorie(noCategorie(articleVendu.getCategorieArticle().getLibelle()));
@@ -170,4 +171,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 		
 		return listeArticles;
 	}
+	
+	//inserer une enchere
+	
 }

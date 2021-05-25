@@ -30,16 +30,10 @@ public class ServletProfil extends HttpServlet {
 		
 		if (request.getServletPath().equals("/afficherProfil")) {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
-			String pseudo = request.getParameter("pseudo"); 
-			String nom = request.getParameter("nom");
-			String prenom = request.getParameter("prenom");
-			String email = request.getParameter("email");
-			String telephone = request.getParameter("telephone");
-			String rue = request.getParameter("rue");
-			String codepostal = request.getParameter("codePostal");
-			String ville = request.getParameter("ville");
 			
-			request.setAttribute("utilisateur", utilisateurManager.afficherProfil(pseudo));
+			
+			
+			request.setAttribute("utilisateur", utilisateurManager.afficherProfil("Dudu"));
 	
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfilUtilisateur.jsp");
 			rd.forward(request, response);

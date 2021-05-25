@@ -54,13 +54,13 @@ public class ArticleVendu implements Serializable {
 	
 	
 	public ArticleVendu(String nomArticle, String description, LocalDate dateDebutEncheres, LocalDate dateFinEncheres,
-			int prixVente, Categorie categorieArticle, Retrait lieuRetrait) {
+			int miseAprix, Categorie categorieArticle, Retrait lieuRetrait) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
-		this.prixVente = prixVente;
+		this.miseAprix = miseAprix;
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
 	}

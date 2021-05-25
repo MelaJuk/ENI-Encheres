@@ -63,7 +63,7 @@ public class ServletAjouterVente extends HttpServlet {
 			LocalDate dateDebutEnchere=null;
 			LocalDate dateFinEnchere=null;
 			int noUtilisateur;
-			
+			int miseAprix=0;
 			
 			
 			
@@ -101,7 +101,8 @@ public class ServletAjouterVente extends HttpServlet {
 				}
 			
 			
-			int miseAPrix = Integer.parseInt(request.getParameter("credit"));
+				miseAprix = Integer.parseInt(request.getParameter("credit"));
+			
 			Categorie categorie= new Categorie(request.getParameter("categories"));
 			
 			//retrait
@@ -115,7 +116,8 @@ public class ServletAjouterVente extends HttpServlet {
 				//Ajouter une vente
 			ArticleManager articleManager = new ArticleManager();
 			try {
-				articleManager.ajouterVente(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAPrix,categorie,noUtilisateur, retrait);
+				System.out.println(miseAprix);
+				articleManager.ajouterVente(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAprix,categorie,noUtilisateur, retrait);
 				// si tout se passe bien, aller à la page de détail d'une vente
 				RequestDispatcher rd = request.getRequestDispatcher("/detailVente");
 				try {

@@ -6,11 +6,28 @@ public class Enchere {
 
 	private LocalDate dateEnchere; 
 	private int montant_enchere;
-	
+	private Utilisateur acheteur;;
+	private ArticleVendu article;
 	
 	public Enchere() {
 
 	}
+
+	
+	
+	
+
+
+
+	public Enchere(int montant_enchere, ArticleVendu article) {
+		this.montant_enchere = montant_enchere;
+		this.article = article;
+	}
+
+
+
+
+
 
 
 	public Enchere(LocalDate dateEnchere, int montant_enchere) {

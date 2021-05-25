@@ -213,9 +213,11 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 		try {
 			Connection cnx = ConnectionProvider.getConnection();
 			PreparedStatement stmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
+			
+			stmt.setString(1,pseudo);
 			ResultSet rs = stmt.executeQuery(); 
 			
-			stmt.setString(1, pseudo);
+			
 			while (rs.next()) {
 				utilisateur.setPseudo(pseudo);
 				utilisateur.setNom(rs.getString("nom"));
