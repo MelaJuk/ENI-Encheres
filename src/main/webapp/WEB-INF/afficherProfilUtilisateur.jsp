@@ -43,6 +43,10 @@
 			<div>
 				<p>Ville : ${utilisateur.ville}</p>
 			</div>
+			<div>
+				<a href="Ventes">Retour</a>
+			</div>
+			
 		</div>
 	</div>
 </body>
