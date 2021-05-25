@@ -107,4 +107,10 @@ public class UtilisateurManager {
 		return this.utilisateurDAO.selectByPseudo(pseudo); 
 	}
 	
+	// Supprimer un compte utilisateur
+	
+	public void supprimerCompteUtilisateur (String email) throws BusinessException {
+		
+	}
+	
 }

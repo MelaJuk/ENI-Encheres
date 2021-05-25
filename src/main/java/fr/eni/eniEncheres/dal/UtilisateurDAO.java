@@ -12,12 +12,12 @@ public interface UtilisateurDAO {
 	public Utilisateur selectByPseudo (String pseudo); 
 	
 	//Supprimer un compte utilisateur
-	//public void delete(String peudo) throws BusinessException;
+	public boolean delete(String email) throws BusinessException;
 
 	
 	
 
-//	public void delete(int id) throws BusinessException;
+
 
 //	public Utilisateur selectById(int id) throws BusinessException;
 	
