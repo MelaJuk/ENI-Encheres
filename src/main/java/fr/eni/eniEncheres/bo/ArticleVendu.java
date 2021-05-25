@@ -234,17 +234,6 @@ public class ArticleVendu implements Serializable {
 	}
 
 	
-
-
-	public List<Enchere> getListeEncheresArticle() {
-		return listeEncheresArticle;
-	}
-
-
-
-
-	public void setListeEncheresArticle(List<Enchere> listeEncheresArticle) {
-		this.listeEncheresArticle = listeEncheresArticle;
 	public Enchere getEnchere() {
 		return enchere;
 	}
@@ -253,6 +242,17 @@ public class ArticleVendu implements Serializable {
 	public void setEnchere(Enchere enchere) {
 		this.enchere = enchere;
 	}
+
+	public List<Enchere> getListeEncheresArticle() {
+		return listeEncheresArticle;
+	}
+
+
+	public void setListeEncheresArticle(List<Enchere> listeEncheresArticle) {
+		this.listeEncheresArticle = listeEncheresArticle;
+	}
+		
+	
 
 
 
