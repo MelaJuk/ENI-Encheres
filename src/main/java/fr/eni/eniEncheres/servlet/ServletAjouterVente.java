@@ -119,7 +119,7 @@ public class ServletAjouterVente extends HttpServlet {
 				System.out.println(miseAprix);
 				articleManager.ajouterVente(nomArticle, description, dateDebutEnchere, dateFinEnchere, miseAprix,categorie,noUtilisateur, retrait);
 				// si tout se passe bien, aller à la page de détail d'une vente
-				RequestDispatcher rd = request.getRequestDispatcher("/detailVente");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
 				try {
 					rd.forward(request, response);
 				} catch (ServletException | IOException e) {
@@ -131,7 +131,7 @@ public class ServletAjouterVente extends HttpServlet {
 			
 			
 				// si cela ne fonctionne pas, on retourne à la liste des enchères
-				RequestDispatcher rd = request.getRequestDispatcher("/listeDesEncheres");
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/listeDesEncheres.jsp");
 				try {
 					rd.forward(request, response);
 				} catch (ServletException | IOException e1) {
