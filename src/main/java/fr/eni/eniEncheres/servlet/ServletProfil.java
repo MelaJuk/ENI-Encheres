@@ -31,16 +31,15 @@ public class ServletProfil extends HttpServlet {
 		
 		if (request.getServletPath().equals("/afficherProfil")) {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
-			HttpSession session = request.getSession(false);
-
-			Utilisateur utilisateur =(Utilisateur) session.getAttribute("sessionUtilisateur");
-			String pseudo = utilisateur.getPseudo();
+			String pseudo = request.getParameter("pseudo");
+			System.out.println(pseudo);
 			
 			
 			request.setAttribute("utilisateur", utilisateurManager.afficherProfil(pseudo));
 	
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfilUtilisateur.jsp");
 			rd.forward(request, response);
+			
 		}
 		if (request.getServletPath().equals("/modifierProfil")) {
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/modifierProfilUtilisateur.jsp");
@@ -65,53 +64,53 @@ public class ServletProfil extends HttpServlet {
 			String codepostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
 			
-		if ( !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
-				
-				//mail
-				if(!email.contains("@")) {
-				
-					request.setAttribute("email","email");
-				}
-				
-				
-				//codepostal est un nombre et � 5 chiffres
-				if(!codepostal.matches("\\p{Digit}+") |codepostal.length()!=5 ){
+			if ( !email.contains("@") | codepostal.length()!=5 | !codepostal.matches("\\p{Digit}+") | !telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
 					
-					request.setAttribute("erreurCodePostal","erreurCodePostal");
+					//mail
+					if(!email.contains("@")) {
+					
+						request.setAttribute("email","email");
+					}
+					
+					
+					//codepostal est un nombre et � 5 chiffres
+					if(!codepostal.matches("\\p{Digit}+") |codepostal.length()!=5 ){
+						
+						request.setAttribute("erreurCodePostal","erreurCodePostal");
+					}
+					
+					//telephone
+					if(!telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
+						request.setAttribute("erreurTelephone","erreurCodePostal");
+					}
+					
+					//email d�j� existant
+					if(utilisateurManager.loginExiste(email)==1) {
+						request.setAttribute("emailExist","emailExist");
+					}
+					//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
+					//rd.forward(request, response);		
+					
+			}else {
+				HttpSession session = request.getSession(false);
+				
+				try {
+					utilisateurManager.modifierProfil((Utilisateur) session.getAttribute("sessionUtilisateur"), nom, prenom, email, telephone, rue, codepostal, ville);
+					Utilisateur modifUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
+					modifUtilisateur.setNom(nom);
+					modifUtilisateur.setPrenom(prenom);
+					modifUtilisateur.setEmail(email);
+					modifUtilisateur.setTelephone(telephone);
+					modifUtilisateur.setRue(rue);
+					modifUtilisateur.setCodePostal(codepostal);
+					modifUtilisateur.setVille(ville);
+					session.setAttribute("sessionUtilisateur",modifUtilisateur);
+					
+				} catch (BusinessException e) {
+					
+					e.printStackTrace();
 				}
-				
-				//telephone
-				if(!telephone.trim().matches("\\p{Digit}+") | telephone.trim().length()!=10) {
-					request.setAttribute("erreurTelephone","erreurCodePostal");
-				}
-				
-				//email d�j� existant
-				if(utilisateurManager.loginExiste(email)==1) {
-					request.setAttribute("emailExist","emailExist");
-				}
-				//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
-				//rd.forward(request, response);		
-				
-		}else {
-			HttpSession session = request.getSession(false);
-			
-			try {
-				utilisateurManager.modifierProfil((Utilisateur) session.getAttribute("sessionUtilisateur"), nom, prenom, email, telephone, rue, codepostal, ville);
-				Utilisateur modifUtilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
-				modifUtilisateur.setNom(nom);
-				modifUtilisateur.setPrenom(prenom);
-				modifUtilisateur.setEmail(email);
-				modifUtilisateur.setTelephone(telephone);
-				modifUtilisateur.setRue(rue);
-				modifUtilisateur.setCodePostal(codepostal);
-				modifUtilisateur.setVille(ville);
-				session.setAttribute("sessionUtilisateur",modifUtilisateur);
-				
-			} catch (BusinessException e) {
-				
-				e.printStackTrace();
 			}
-		}
 			
 		}
 		

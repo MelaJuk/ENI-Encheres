@@ -101,7 +101,7 @@
 										
 										</c:if></div>
 										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))}</div>
-										<div class="card-text"><c:if test="${!empty sessionScope.sessionUtilisateur}"><a href= "afficherProfil"></c:if> Vendeur : ${a.vendeur.pseudo} <c:if test="${!empty sessionScope.sessionUtilisateur}"> </a> </c:if></div>
+										<div class="card-text"><c:if test="${!empty sessionScope.sessionUtilisateur}"><a href= "afficherProfil?pseudo=${a.vendeur.pseudo}"></c:if> Vendeur : ${a.vendeur.pseudo} <c:if test="${!empty sessionScope.sessionUtilisateur}"> </a> </c:if></div>
 									</div>
 								</div>
 								</div>	

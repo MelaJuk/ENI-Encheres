@@ -223,7 +223,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 			
 			
 			while (rs.next()) {
-				utilisateur.setPseudo("pseudo");
+				utilisateur.setPseudo(pseudo);
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom")); 
 				utilisateur.setEmail(rs.getString("email")); 
