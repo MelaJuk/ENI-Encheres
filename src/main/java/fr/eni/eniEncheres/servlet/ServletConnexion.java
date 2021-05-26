@@ -38,7 +38,7 @@ public class ServletConnexion extends HttpServlet {
 			/* R�cup�ration et destruction de la session en cours */
 			 HttpSession session = request.getSession();
 		     session.invalidate();   
-		     RequestDispatcher rd = request.getRequestDispatcher("index.html");
+		     RequestDispatcher rd = request.getRequestDispatcher("Ventes");
 		     rd.forward(request, response);
 		}else {
 			RequestDispatcher rd = request.getRequestDispatcher(VUE);
@@ -75,7 +75,7 @@ public class ServletConnexion extends HttpServlet {
 			} else {
 				session.setAttribute(ATT_SESSION_USER, utilisateur);
 				
-				RequestDispatcher rd = request.getRequestDispatcher(VUE_USER);
+				RequestDispatcher rd = request.getRequestDispatcher("Ventes");
 				rd.forward(request, response);
 			}
 		

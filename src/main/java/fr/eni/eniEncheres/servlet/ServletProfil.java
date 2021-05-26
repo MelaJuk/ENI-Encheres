@@ -31,7 +31,10 @@ public class ServletProfil extends HttpServlet {
 		
 		if (request.getServletPath().equals("/afficherProfil")) {
 			UtilisateurManager utilisateurManager = new UtilisateurManager();
-			String pseudo = request.getParameter("pseudo"); 			
+			HttpSession session = request.getSession(false);
+
+			Utilisateur utilisateur =(Utilisateur) session.getAttribute("sessionUtilisateur");
+			String pseudo = utilisateur.getPseudo();
 			
 			
 			request.setAttribute("utilisateur", utilisateurManager.afficherProfil(pseudo));

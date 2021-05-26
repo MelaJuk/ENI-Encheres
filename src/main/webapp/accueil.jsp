@@ -10,7 +10,7 @@
 
 </head>
 <body>
-
+	<div class="container">
 	<h1>ENI-Enchères</h1>
 	
 	
@@ -19,12 +19,27 @@
         
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+          	<c:if test="${empty sessionScope.sessionUtilisateur}">
             <li class="nav-item active">
               <a class="nav-link" href="ServletInscription">S'inscrire</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="ServletConnexion">Se connecter</a>
             </li>
+            </c:if>
+            <c:if test="${!empty sessionScope.sessionUtilisateur}">
+             <li class="nav-item active">
+              <a class="nav-link" href="#">Enchères</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ServletAjouterVente">Vendre un article</a>
+              <li class="nav-item">
+              <a class="nav-link" href="modifierProfil">Mon profil</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ServletDeconnexion">Déconnexion</a>
+            </li>
+            </c:if>
           </ul>
         </div>
       </div>
@@ -53,8 +68,21 @@
     			</select>	
     			
     			<input type="submit" value="Rechercher" style="width: 320px;height: 70px">
-
-    		
+					<c:if test="${!empty sessionScope.sessionUtilisateur}">
+				<p>Mes achats</p>
+    				<div>
+    					<label for="achats">Enchères ouvertes</label>
+    					<input type="checkbox" name="achats" value="achat">
+    				</div>
+    				<div>
+    					<label for="achats">Mes enchères en cours</label>
+    					<input type="checkbox" name=achats" value="achat">
+    				</div>
+    				<div>
+    					<label for="achats">Mes enchères emportées</label>
+    					<input type="checkbox" name=achats" value="achat">
+    				</div>
+    		</c:if>
 		</form>
 		<div class="container listeArticle">
 			<c:if test="${!empty listeArticles}">
@@ -73,7 +101,7 @@
 										
 										</c:if></div>
 										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))}</div>
-										<div class="card-text">Vendeur : ${a.vendeur.pseudo}</div>
+										<div class="card-text"><c:if test="${!empty sessionScope.sessionUtilisateur}"><a href= "afficherProfil"></c:if> Vendeur : ${a.vendeur.pseudo} <c:if test="${!empty sessionScope.sessionUtilisateur}"> </a> </c:if></div>
 									</div>
 								</div>
 								</div>	
@@ -85,7 +113,7 @@
 			</c:if>
 		</div>
 		
-	
+	</div>
 </body>
 </html>
 
