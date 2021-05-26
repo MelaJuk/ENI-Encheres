@@ -1,6 +1,6 @@
 	<%@include file="entete.jsp" %>
 
-	<h1>Dï¿½tail vente</h1>
+	<h1>Détail vente</h1>
 	
 	<p> Test </p>
 
@@ -13,10 +13,10 @@
      <div>
      	<p>Article : ${articleVendu.nomArticle}</p>
      	<p>Description : ${articleVendu.description}</p>
-     	<p>CatÃ©gorie : ${articleVendu.categorieArticle.libelle}</p>
+     	<p>Catégorie : ${articleVendu.categorieArticle.libelle}</p>
      	<p>Meilleure offre : ${articleVendu.enchere.montant_enchere}</p>
-     	<p>Mise Ã  prix : ${articleVendu.miseAprix}</p>
-     	<p>Fin de l'enchÃ¨re : ${articleVendu.dateFinEncheres}</p>
+     	<p>Mise à  prix : ${articleVendu.miseAprix}</p>
+     	<p>Fin de l'enchère : ${articleVendu.dateFinEncheres}</p>
      	<p>Retrait : ${articleVendu.lieuRetrait.rue} ${articleVendu.lieuRetrait.code_postal} ${articleVendu.lieuRetrait.ville}</p>
      	<p> Vendeur : 
      		<a href="/afficherProfil">${articleVendu.vendeur.pseudo}</a>
@@ -28,9 +28,9 @@
      			<div>
      				<label for="montant_enchere">Ma proposition : </label>
      				<select name="montant_enchere" size="1">
-     					<option value="10" selected>10 crï¿½dits</option>
-     					<option value="20" selected>20 crï¿½dits</option>
-     					<option value="30" selected>30 crï¿½dits</option>	
+     					<option value="10" selected>10 crédits</option>
+     					<option value="20" selected>20 crédits</option>
+     					<option value="30" selected>30 crédits</option>	
      				</select>
      			</div>
      			<div>
