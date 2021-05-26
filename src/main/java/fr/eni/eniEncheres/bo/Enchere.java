@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Enchere {
 
+	private int noEnchere; 
 	private LocalDate dateEnchere; 
 	private int montant_enchere;
 	private Utilisateur acheteur;;
@@ -22,7 +23,19 @@ public class Enchere {
 		this.dateEnchere = dateEnchere;
 		this.montant_enchere = montant_enchere;
 	}
+	
+	public Enchere(int montant_enchere) {
+		super();
+		this.montant_enchere = montant_enchere;
+	}
 
+	public int getNoEnchere() {
+		return noEnchere;
+	}
+
+	public void setNoEnchere(int noEnchere) {
+		this.noEnchere = noEnchere;
+	}
 
 	public LocalDate getDateEnchere() {
 		return dateEnchere;

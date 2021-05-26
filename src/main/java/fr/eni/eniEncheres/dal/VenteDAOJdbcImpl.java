@@ -41,20 +41,8 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "			JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
 			+ "			JOIN ENCHERES e ON e.no_article = av.no_article\r\n"
 			+ "			WHERE av.no_article=?" ;
-			
-	/*private static final String SELECT_BY_NO_ARTICLE ="SELECT av.nom_article, av.description, c.libelle, av.prix_initial, \r\n"
-			+ "av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
-			+ "JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
-			+ "JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
-			+ "JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
-			+ "WHERE av.no_article=?" ;*/
-	private static final String SELECT_BY_NO_ARTICLE ="SELECT av.nom_article, av.description, c.libelle, av.prix_initial, \r\n"
-			+ "av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
-			+ "JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
-			+ "JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
-			+ "JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
-			+ "WHERE av.no_article=?" ;
 	
+
 	private static final String SELECT_ALL_ENCHERE_OUVERTES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0), date_debut_encheres AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
 			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
 			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"

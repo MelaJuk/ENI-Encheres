@@ -28,7 +28,7 @@ public class ServletEnchere extends HttpServlet {
 	
 		//test
 		ArticleManager articleManager = new ArticleManager(); 
-		request.setAttribute("articleVendu", articleManager.afficherArticle(12));
+		request.setAttribute("articleVendu", articleManager.afficherArticle(12)); 
 		
 		/*ArticleManager articleManager = new ArticleManager(); 
 		// a corriger car NumberFormatException 
