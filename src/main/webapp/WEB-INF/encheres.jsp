@@ -5,7 +5,7 @@
     
     <h2>Listes des enchères</h2>
     
-    	<form role="search" action="<%=request.getContextPath()%>/Ventes" method="GET">
+    	<form role="search" action="<%=request.getContextPath()%>/afficherListeEnchere" method="GET">
     		<div>
     			<label for="filtre">Filtres :</label>
     			<br>
@@ -30,7 +30,7 @@
 				<p>Mes achats</p>
     				<div>
     					<label for="achats">Enchères ouvertes</label>
-    					<input type="checkbox"  name="encheres" value="eouvertes" >
+    					<input type="checkbox"  name="encheres" value="eouvertes" checked >
     				</div>
     				<div>
     					<label for="achats">Mes enchères en cours</label>
@@ -57,11 +57,11 @@
     		</c:if>
 		</form>
 		<div class="container listeArticle">
-			<c:if test="${!empty listeArticles}">
+			<c:if test="${!empty listeEncheres}">
 			
 				<div class="card-deck" style="margin-top:20px">
 					
-					<c:forEach var="a" items="${listeArticles}">
+					<c:forEach var="a" items="${listeEncheres}">
 							<div class="row">		
 								<div class="card mb-4 " style="width: 30rem; margin-right:60px" >
 									<div class="card-header text-center">${a.nomArticle}</div>

@@ -48,13 +48,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
 			+ "WHERE av.no_article=?" ;
 	
-	private static final String SELECT_ALL_ENCHERE_OUVERTES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0), date_debut_encheres AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
-			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
-			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
-			+ "			WHERE libelle LIKE ISNULL(?,'%') AND nom_article LIKE ? nom_article AND DATEDIFF(day,date_debut_encheres,GETDATE())>=0  \r\n"
-			+ "			ORDER BY date_fin_encheres";
 	
-	private static final String SELECT_MES_ENCHERE_ENCOURS="";
 	
 	@Override
 	public void inserRetrait(Retrait retrait,int noArticle) throws BusinessException {
@@ -333,8 +327,8 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 	//afficher la liste des article par nom d'article
 	
 		
-		@Override
-		public List<ArticleVendu> selectByNom(String contient) throws BusinessException {
+	@Override
+	public List<ArticleVendu> selectByNom(String contient) throws BusinessException {
 			List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>(); 
 			Connection connexion = null;
 			PreparedStatement requete = null;
@@ -383,54 +377,6 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 		
 		
 		
-		@Override
-		public List<ArticleVendu> selectALLEnchereOuvertes(String libelle, String contient) throws BusinessException {
-			List<ArticleVendu> listeArticles = new ArrayList<ArticleVendu>(); 
-			Connection connexion = null;
-			PreparedStatement requete = null;
-			ResultSet resultat = null;
-			
-			try {
-				
-				connexion = ConnectionProvider.getConnection();
-				requete = connexion.prepareStatement(SELECT_ALL_ENCHERE_OUVERTES);
-				requete.setString(1,libelle);
-				requete.setString(2, contient +"%");
-				resultat = requete.executeQuery();
-				
-				while (resultat.next()) {
-					ArticleVendu article = new ArticleVendu(); 
-					article.setNomArticle(resultat.getString("nom_article"));
-					article.setPrixVente(resultat.getInt("prix_initial"));
-					LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
-					
-					Utilisateur vendeur = new Utilisateur();
-					vendeur.setPseudo(resultat.getString("pseudo"));
-					article.setVendeur(vendeur);
-					article.setDateFinEncheres(localDate );
-					
-					//si l'ench�re existe 
-					if( resultat.getInt("montant_enchere")!=0) {
-							Enchere enchere=new Enchere(resultat.getInt("montant_enchere"),article);
-							//ajoute l'enchere � l'article
-					article.getListeEncheresArticle().add(enchere);
-					}
-				
-					
-					listeArticles.add(article); 
-				}
-					//rs.close();
-					//stmt.close();
-				}
-				catch (SQLException e) {
-					e.printStackTrace();
-				}
-
-				
-				return listeArticles;
-				
-				
-		}
 	
 	
 }

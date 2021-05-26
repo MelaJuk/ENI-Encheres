@@ -30,16 +30,6 @@ public class Ventes extends HttpServlet {
 		List<ArticleVendu> listArticles = null;
 		String categorie =request.getParameter("categories");
 		String nom = request.getParameter("nom");
-		String encheres = request.getParameter("encheres");
-		
-		if(encheres == "eouvertes") {
-			try {
-				listArticles = articleManager.listeArticleEnchereParCategorie(request.getParameter("categories"),request.getParameter("nom"));
-			} catch (BusinessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		
 		if(categorie == null) {
 			try {
@@ -69,10 +59,6 @@ public class Ventes extends HttpServlet {
 			e.printStackTrace();
 		}
 		}
-		
-		
-		
-		
 		
 		
 

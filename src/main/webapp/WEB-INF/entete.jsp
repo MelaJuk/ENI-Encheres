@@ -34,7 +34,7 @@
             <c:if test="${!empty sessionScope.sessionUtilisateur}">
             
              <li class="nav-item active">
-              <a class="nav-link" href="ServletEncheres">Enchères</a>
+              <a class="nav-link" href="afficherListeEnchere">Enchères</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="ServletAjouterVente">Vendre un article</a>

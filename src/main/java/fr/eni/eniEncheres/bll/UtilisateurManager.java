@@ -113,4 +113,7 @@ public class UtilisateurManager {
 		return this.utilisateurDAO.delete(pseudo);
 	}
 	
+	public int numeroUtilisateurByPseudo(String pseudo) throws BusinessException{
+		return this.utilisateurDAO.selectByPseudo(pseudo).getNoUtilisateur();
+	}
 }
