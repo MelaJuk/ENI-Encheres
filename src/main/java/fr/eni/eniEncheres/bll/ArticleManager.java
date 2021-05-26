@@ -77,7 +77,13 @@ public class ArticleManager {
 		public List<ArticleVendu> listeArticleVendusParNom(String contient) throws BusinessException{
 			return this.venteDAO.selectByNom(contient);
 		}
-	
+		
+		
+		//enchere en cours et par categorie
+		
+		public List<ArticleVendu> listeArticleEnchereParCategorie(String libelle,String contient) throws BusinessException{
+			return this.venteDAO.selectALLEnchereOuvertes(libelle, contient);
+		}
 
 		
 }

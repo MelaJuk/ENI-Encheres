@@ -1,13 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Modifier profil utilisateur</title>
-</head>
-<body>
-	<div>
+	<%@include file="entete.jsp" %>
 		<h1>${sessionScope.sessionUtilisateur.pseudo}</h1>
 		
 		<form action="<%=request.getContextPath()%>/modifierProfil" method="post">
@@ -19,11 +10,11 @@
 				<div>
 					<input type="text" name="nom" value="${sessionScope.sessionUtilisateur.nom}">
 				</div>
-			</div>
+			
 		
 			<div>
 				<div>
-					<label for="prenom">PrÃ©nom : </label>
+					<label for="prenom">Prénom : </label>
 				</div>
 				<div>
 					<input type="text" name="prenom" value="${sessionScope.sessionUtilisateur.prenom}">
@@ -41,7 +32,7 @@
 			
 			<div>
 				<div>
-					<label for="telephone">TÃ©lÃ©phone : </label>
+					<label for="telephone">Téléphone : </label>
 				</div>
 				<div>
 					<input type="text"  name="telephone" value="${sessionScope.sessionUtilisateur.telephone}">

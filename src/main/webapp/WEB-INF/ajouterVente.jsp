@@ -1,24 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="java.time.LocalDate" %> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-
- <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
-<title>Ajouter vente</title>
-</head>
-<body>
-
-	<h1>ENI-EnchÃ¨res</h1>
+	<%@include file="entete.jsp" %>
 	<h1>Nouvelle vente</h1>
-	
+	<div>
 	<form action="<%=request.getContextPath()%>/ServletAjouterVente" method="POST">
-		 <div class="form-group row">
+		 <div class="form-group">
 			<div class="col-2">
                 <label for="prenom" >Article:</label>
 				<input type="text" class="form-control" name="article" placeholder="Nom de l'article" required="required">    
@@ -31,38 +15,38 @@
 				 <textarea name="description" rows="5" cols="33" placeholder="Description de votre article"></textarea> 
            </div>
            
-           <label for="categories">CatÃ©gories:</label>
+           <label for="categories">Catégories:</label>
     		
     			<select name="categories" id="categories">
     				<option value="informatique" selected>Informatique</option>
     				<option value="ameublement">Ameublement</option>
-    				<option value="vetement">VÃªtement</option>
+    				<option value="vetement">Vêtement</option>
     				<option value="sportloisir">SportLoisirs</option>
     			</select>	
     			
     		<div class="col-2">
-                <label for="prix">Mise Ã  prix:</label>	
+                <label for="prix">Mise à prix:</label>	
                 <select name="credit" size="1">
-                	<option value="10" selected>10 crÃ©dits</option>
-                	<option value="20">20 crÃ©dits</option>
-                	<option value="30">30 crÃ©dits</option>
-                	<option value="40">40 crÃ©dits</option>
-                	<option value="50">50 crÃ©dits</option>
-                	<option value="60">60 crÃ©dits</option>
-                	<option value="70">70 crÃ©dits</option>
-                	<option value="80">80 crÃ©dits</option>
-                	<option value="90">90 crÃ©dits</option>
-                	<option value="100">100 crÃ©dits</option>
-                	<option value="110">110 crÃ©dits</option>
-                	<option value="120">120 crÃ©dits</option>
-                	<option value="130">130 crÃ©dits</option>
-                	<option value="140">140 crÃ©dits</option>
-                	<option value="150">150 crÃ©dits</option>
-                	<option value="160">160 crÃ©dits</option>
-                	<option value="170">170 crÃ©dits</option>
-                	<option value="180">180 crÃ©dits</option>
-                	<option value="190">190 crÃ©dits</option>
-                	<option value="200">200 crÃ©dits</option>
+                	<option value="10" selected>10 crédits</option>
+                	<option value="20">20 crédits</option>
+                	<option value="30">30 crédits</option>
+                	<option value="40">40 crédits</option>
+                	<option value="50">50 crédits</option>
+                	<option value="60">60 crédits</option>
+                	<option value="70">70 crédits</option>
+                	<option value="80">80 crédits</option>
+                	<option value="90">90 crédits</option>
+                	<option value="100">100 crédits</option>
+                	<option value="110">110 crédits</option>
+                	<option value="120">120 crédits</option>
+                	<option value="130">130 crédits</option>
+                	<option value="140">140 crédits</option>
+                	<option value="150">150 crédits</option>
+                	<option value="160">160 crédits</option>
+                	<option value="170">170 crédits</option>
+                	<option value="180">180 crédits</option>
+                	<option value="190">190 crédits</option>
+                	<option value="200">200 crédits</option>
                 	
                 
                 </select>
@@ -70,12 +54,12 @@
            </div>
            
            <div class="col-2">
-           	<label for="debut">DÃ©but de l'enchÃ¨re:</label>	
+           	<label for="debut">Début de l'enchère:</label>	
            	<input type="date" id="debut" name="debut" value="<%=LocalDate.now() %>"    min="<%=LocalDate.now() %>" max="" required >
            </div>
           
             <div class="col-2">
-           	<label for="fin">Fin de l'enchÃ¨re:</label>	
+           	<label for="fin">Fin de l'enchère:</label>	
            	<input type="date" id="fin" name="fin" value="<%=LocalDate.now() %>"  min="<%=LocalDate.now() %>" max="" required>
            </div>
     			
@@ -113,12 +97,12 @@
            		</div>
            		
            		 <div class="col-3">
-           		<a href="ServletNouvelleVente">Retourner Ã  l'accueil</a>
+           		<a href="ServletNouvelleVente">Retourner à l'accueil</a>
            		</div>
 	
 	
 	</form>
-	
+	</div>
 	
 
 </body>

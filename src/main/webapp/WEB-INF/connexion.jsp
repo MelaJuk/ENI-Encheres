@@ -1,19 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <!-- Bootstrap core CSS -->
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<title>Connexion</title>
-</head>
-<body>
-
-	<div class="container">
+	<%@include file="entete.jsp" %>
 		<h1 class="text-center">Connexion</h1>
 	
 		<form action="<%=request.getContextPath()%>/ServletConnexion" method="post">
@@ -38,7 +23,7 @@
            		<div class="col-2">
            		<input type="submit" value="Connexion"/>
            		<c:if test="${erreur=='erreur'}">
-           		<p>Erreur Ã  la connexion</p>
+           		<p>Erreur à la connexion</p>
            		</c:if>
            		</div>
            		
@@ -48,7 +33,7 @@
 	           			<label for="souvenir">Se souvenir de moi</label>
 	           		</div>
 	           		<div class="row">
-	           			<a href="">Mot de passe oubliÃ©</a>
+	           			<a href="">Mot de passe oublié</a>
 	           		</div>
            		</div>
            </div>
@@ -56,12 +41,12 @@
             <div class="form-group row">
            		
                 <div class="col-3 text-center">
-                   <a href="ServletInscription">CrÃ©er un compte</a>
+                   <a href="ServletInscription">Créer un compte</a>
                 </div>
            </div>
            
            <div class="col-3">
-           		<a href="index.html">Retourner Ã  l'accueil</a>
+           		<a href="index.html">Retourner à l'accueil</a>
            		</div>
            
 		

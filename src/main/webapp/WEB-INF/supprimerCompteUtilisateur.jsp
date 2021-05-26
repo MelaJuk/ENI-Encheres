@@ -1,28 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <!-- Bootstrap core CSS -->
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-   
-<title>Supprimer compte utilisateur</title>
-</head>
-<body>
-
-	<div class="container">
+<%@include file="entete.jsp" %>
 		<h1 class="text-center">Supprimer mon compte</h1>
 		
 		<form action="<%=request.getContextPath()%>/ServletSupprimerCompte" method="post">
 		
 		
-			<p class="text-center">ÃŠtes-vous sÃ»re de vouloir supprimer votre compte?
+			<p class="text-center">Êtes-vous sûre de vouloir supprimer votre compte?
 			
 			<div class="col-center">
            		<div class="col-5">
@@ -32,7 +14,7 @@
            </div>          
         </form>
 
-	<a href="index.html">Annuler et retourner Ã  l'accueil</a>
+	<a href="Ventes">Annuler et retourner à l'accueil</a>
 
 </body>
 </html>

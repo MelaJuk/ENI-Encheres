@@ -1,52 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>ENI-Enchères</title>
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <%@ page import="java.time.format.DateTimeFormatter" %>
-<!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-</head>
-<body>
-	<div class="container">
-	<h1>ENI-Enchères</h1>
 	
 	
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-          	<c:if test="${empty sessionScope.sessionUtilisateur}">
-            <li class="nav-item active">
-              <a class="nav-link" href="ServletInscription">S'inscrire</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="ServletConnexion">Se connecter</a>
-            </li>
-            </c:if>
-            <c:if test="${!empty sessionScope.sessionUtilisateur}">
-             <li class="nav-item">
-              <a class="nav-link" href="Ventes">Accueil</a>
-            </li>
-             <li class="nav-item active">
-              <a class="nav-link" href="ServletEncheres">Enchères</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="ServletAjouterVente">Vendre un article</a>
-              <li class="nav-item">
-              <a class="nav-link" href="modifierProfil">Mon profil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="ServletDeconnexion">Déconnexion</a>
-            </li>
-            </c:if>
-          </ul>
-        </div>
-      </div>
-    </nav>
+	<%@include file="entete.jsp" %>
     
     <h2>Listes des enchères</h2>
     
@@ -71,7 +26,35 @@
     			</select>	
     			
     			<input type="submit" value="Rechercher" style="width: 320px;height: 70px">
-					
+					<c:if test="${!empty sessionScope.sessionUtilisateur}">
+				<p>Mes achats</p>
+    				<div>
+    					<label for="achats">Enchères ouvertes</label>
+    					<input type="checkbox"  name="encheres" value="eouvertes" >
+    				</div>
+    				<div>
+    					<label for="achats">Mes enchères en cours</label>
+    					<input type="checkbox" name="encheres" value="eencours" value="achat">
+    				</div>
+    				<div>
+    					<label for="achats">Mes enchères emportées</label>
+    					<input type="checkbox" name="encheres" value="eemportees" value="achat">
+    				</div>
+    				
+    				<p>Mes ventes</p>
+    					<div>
+    					<label for="encours">Mes ventes en cours</label>
+    					<input type="checkbox" name="ventes" value="vencours" >
+    				</div>
+    				<div>
+    					<label for="nondebutes">Ventes non débutées</label>
+    					<input type="checkbox" name="ventes" value="vndebutees">
+    				</div>
+    				<div>
+    					<label for="vterminees">Mes enchères emportées</label>
+    					<input type="checkbox"  name="ventes" value="vterminees">
+    				</div>
+    		</c:if>
 		</form>
 		<div class="container listeArticle">
 			<c:if test="${!empty listeArticles}">
@@ -105,5 +88,3 @@
 	</div>
 </body>
 </html>
-
-
