@@ -34,12 +34,19 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie WHERE libelle=? AND nom_article LIKE  ? ORDER BY date_fin_encheres";
 	
 	
-	/*private static final String SELECT_BY_NO_ARTICLE ="SELECT av.nom_article, av.description, c.libelle, e.montant_enchere, av.prix_initial, \r\n"
+	private static final String SELECT_BY_NO_ARTICLE = "SELECT av.nom_article, av.description, c.libelle, e.montant_enchere, av.prix_initial, \r\n"
+			+ "			av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
+			+ "			JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
+			+ "			JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
+			+ "			JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
+			+ "			JOIN ENCHERES e ON e.no_article = av.no_article\r\n"
+			+ "			WHERE av.no_article=?" ;
+			
+	/*private static final String SELECT_BY_NO_ARTICLE ="SELECT av.nom_article, av.description, c.libelle, av.prix_initial, \r\n"
 			+ "av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
 			+ "JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
 			+ "JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
 			+ "JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
-			+ "JOIN ENCHERES e ON e.no_utilisateur = u.no_utilisateur\r\n"
 			+ "WHERE av.no_article=?" ;*/
 	private static final String SELECT_BY_NO_ARTICLE ="SELECT av.nom_article, av.description, c.libelle, av.prix_initial, \r\n"
 			+ "av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
@@ -55,6 +62,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "			ORDER BY date_fin_encheres";
 	
 	private static final String SELECT_MES_ENCHERE_ENCOURS="";
+			
 	
 	@Override
 	public void inserRetrait(Retrait retrait,int noArticle) throws BusinessException {
@@ -226,30 +234,26 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 			while (rs.next()) {
 				articleVendu.setNoArticle(noArticle);
-				System.out.println(articleVendu.getNoArticle());
 				articleVendu.setNomArticle(rs.getString("nom_article"));
-				System.out.println(articleVendu.getNomArticle()); 
 				articleVendu.setDescription(rs.getString("description"));
-				System.out.println(articleVendu.getDescription());
+				System.out.println(articleVendu.getNomArticle());
 				
 				//récupérer le libelle de la catégorie 
 				Categorie categorie = new Categorie(); 
 				categorie.setLibelle(rs.getString("libelle"));
 				articleVendu.setCategorieArticle(categorie);
-				System.out.println(articleVendu.getCategorieArticle().getLibelle());
 				
-				/*//récupérer la meilleure offre ?
+				
+				//récupérer l'enchère en cours sur l'article
 				Enchere enchere = new Enchere(); 
-				enchere.setMontant_enchere(rs.getInt("montant_enchere"));
-				articleVendu.setEnchere(enchere);
-				System.out.println(articleVendu.getEnchere().getMontant_enchere());*/
-				
+				if (rs.getInt("montant_enchere")!=0) {
+					enchere.setMontant_enchere(rs.getInt("montant_enchere"));
+					articleVendu.setEnchere(enchere);
+				}
 				
 				// mise à prix, fin enchère 
 				articleVendu.setMiseAprix(rs.getInt("prix_initial"));
-				System.out.println(articleVendu.getMiseAprix());
 				articleVendu.setDateFinEncheres(rs.getDate("date_fin_encheres").toLocalDate());
-				System.out.println(articleVendu.getDateFinEncheres());
 				
 
 				//retrait 
@@ -258,15 +262,13 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				retrait.setCode_postal(rs.getString("code_postal"));
 				retrait.setVille(rs.getString("ville"));
 				articleVendu.setLieuRetrait(retrait);
-				System.out.println(articleVendu.getLieuRetrait().getRue());
-				System.out.println(articleVendu.getLieuRetrait().getCode_postal());
-				System.out.println(articleVendu.getLieuRetrait().getVille());
 				
 				//vendeur
 				Utilisateur vendeur = new Utilisateur(); 
 				vendeur.setPseudo(rs.getString("pseudo"));
 				articleVendu.setVendeur(vendeur);;
-				System.out.println(articleVendu.getVendeur().getPseudo());
+				
+				System.out.println(articleVendu);
 				
 			}
 					
@@ -274,7 +276,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			e.printStackTrace();
 		} 
 		
-		
+	
 		return articleVendu ;
 	}
 	

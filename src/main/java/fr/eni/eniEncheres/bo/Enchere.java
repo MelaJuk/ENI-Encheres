@@ -12,23 +12,11 @@ public class Enchere {
 	public Enchere() {
 
 	}
-
 	
-	
-	
-
-
-
 	public Enchere(int montant_enchere, ArticleVendu article) {
 		this.montant_enchere = montant_enchere;
 		this.article = article;
 	}
-
-
-
-
-
-
 
 	public Enchere(LocalDate dateEnchere, int montant_enchere) {
 		this.dateEnchere = dateEnchere;
