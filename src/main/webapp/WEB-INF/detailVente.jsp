@@ -6,19 +6,21 @@
 
 
                 <c:if test="${!empty ArticleManager.articleVendu}">
-                    <%-- Si la vente est créée, alors on affiche un récapitulatif de la vente. --%>
-                    <p class="succes">Vous venez de mettre en vente l'objet : ${ArticleManager.articleVendu.nomArticle}</p>
+                    <%-- Si la vente est crÃ©Ã©e, alors on affiche un rÃ©capitulatif de la vente. --%>
+                    <p class="succes">Vous venez de mettre en vente l'objet : ${articleVendu.nomArticle}</p>
                 </c:if>
      
      <div>
-     	<p >Article : ${ArticleManager.articleVendu.nomArticle}</p>
-     	<p >Description : ${ArticleManager.articleVendu.nomArticle}</p>
-     	<p >Catégorie : ${ArticleManager.articleVendu.nomArticle}</p>
-     	<p >Meilleure offre : ${ArticleManager.articleVendu.nomArticle}</p>
-     	<p >Mise à prix : ${ArticleManager.articleVendu.nomArticle}</p>
-     	<p >Fin de l'enchère : ${ArticleManager.articleVendu.nomArticle}</p>
-     	<p >Retrait : ${ArticleManager.articleVendu.nomArticle}</p>
-     	<p >Vendeur : ${ArticleManager.articleVendu.nomArticle}</p>
+     	<p>Article : ${articleVendu.nomArticle}</p>
+     	<p>Description : ${articleVendu.description}</p>
+     	<p>Catégorie : ${articleVendu.categorieArticle.libelle}</p>
+     	<p>Meilleure offre : ${articleVendu.enchere.montant_enchere}</p>
+     	<p>Mise à  prix : ${articleVendu.miseAprix}</p>
+     	<p>Fin de l'enchère : ${articleVendu.dateFinEncheres}</p>
+     	<p>Retrait : ${articleVendu.lieuRetrait.rue} ${articleVendu.lieuRetrait.code_postal} ${articleVendu.lieuRetrait.ville}</p>
+     	<p> Vendeur : 
+     		<a href="/afficherProfil">${articleVendu.vendeur.pseudo}</a>
+     	</p>
      	
      	
      	<div>
@@ -33,7 +35,7 @@
      			</div>
      			<div>
      			<input type="hidden" name="noUtilisateur" value="${sessionScope.noUtilisateur }">
-     			<input type="submit" value="Enchérir">
+     			<input type="submit" value="Enchï¿½rir">
      			</div>
      		</form>
      	</div>

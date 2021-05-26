@@ -31,6 +31,17 @@ public class ServletEnchere extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		//test
+		ArticleManager articleManager = new ArticleManager(); 
+		request.setAttribute("articleVendu", articleManager.afficherArticle(12)); 
+		
+		/*ArticleManager articleManager = new ArticleManager(); 
+		// a corriger car NumberFormatException 
+		int noArticle = Integer.parseInt("noArticle"); 
+		request.setAttribute("articleVendu", articleManager.afficherArticle(noArticle));
+		*/
+				
+				
 		// afficher les détails de la vente en cours 
 		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp"); 
 		//rd.forward(request, response);
@@ -95,18 +106,17 @@ public class ServletEnchere extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// lire les parametres 
-		//int noUtilisateur=null; 
+		// pour récupérer l'utilisateur de la session --> besoin d'un utilisateur
+		//UtilisateurManager utilisateurManager = new UtilisateurManager(); 
 		
-		// récupération de l'utilisateur (acheteur)
-		//noUtilisateur =Integer.parseInt(request.getParameter("noUtilisateur")) ;
+		// pour récupérer la proposition d'enchère --> besoin d'un article 
+		//ArticleManager articleManager = new ArticleManager(); 
 		
-		//récupération de la méthode afficherVente dans ArticleManager pour afficher :  nom article, description, cat, meilleure offre, mise à prix, fin enchère, retrait, vendeur)
-	
+		// récupération de l'utilisateur (acheteur, celui qui enchérit)
+		//noUtilisateur =Integer.parseInt(request.getParameter("noUtilisateur")) 
 		
-		//récupération du nom du vendeur et lien vers son profil (/afficherProfil et afficherProfilUtilisateur.jsp)
 		
-		//ajouter une proposition d'enchères (récupération des info du form)
+		//ajouter une proposition d'enchères (récupération de montant_enchere
 		
 		
 		
