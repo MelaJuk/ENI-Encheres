@@ -133,12 +133,13 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
 				System.out.println(resultat.getInt("montant"));
-				//si l'ench�re existe 
+				
+				/*//si l'ench�re existe 
 				if( resultat.getInt("montant")!=0) {
 						Enchere enchere=new Enchere(resultat.getInt("montant"),article);
 						//ajoute l'enchere � l'article
 				article.getListeEncheresArticle().add(enchere);
-				}
+				}*/
 			
 				
 				listeArticles.add(article); 
