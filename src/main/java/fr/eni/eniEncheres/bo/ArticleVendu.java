@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleVendu implements Serializable {
@@ -42,7 +43,7 @@ public class ArticleVendu implements Serializable {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAprix = miseAprix;
 		this.categorieArticle = categorieArticle;
-		
+		this.listeEncheresArticle = new ArrayList<Enchere>() ;
 		
 		//par defaut adresse du vendeur 
 			//this.lieuRetrait.setRue(vendeur.getRue()); 
@@ -64,6 +65,7 @@ public class ArticleVendu implements Serializable {
 		this.miseAprix = miseAprix;
 		this.categorieArticle = categorieArticle;
 		this.lieuRetrait = lieuRetrait;
+		this.listeEncheresArticle = new ArrayList<Enchere>() ;
 	}
 
 
@@ -75,6 +77,7 @@ public class ArticleVendu implements Serializable {
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAprix = miseAprix;
 		this.vendeur = vendeur;
+		this.listeEncheresArticle = new ArrayList<Enchere>() ;
 	}
 
 

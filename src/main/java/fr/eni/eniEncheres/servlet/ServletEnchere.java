@@ -170,7 +170,13 @@ public class ServletEnchere extends HttpServlet {
 		
 		// vérifier les condition de l'enchère 
 		// récupérer l'ancienne enchère 
-		montantEnchere = Integer.parseInt(request.getParameter("montant_enchere")); 
+		if(request.getParameter("montant_enchere")!=null) {
+			montantEnchere = Integer.parseInt(request.getParameter("montant_enchere")); 
+		}else{
+			montantEnchere=0;
+		}
+		
+		
 		request.setAttribute("montant_enchere", "montant_enchere"); 
 		System.out.println(montantEnchere);
 		

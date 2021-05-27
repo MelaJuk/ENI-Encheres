@@ -15,7 +15,7 @@
 	     	<p>Description : ${articleVendu.description}</p>
 	     	<p>Catégorie : ${articleVendu.categorieArticle.libelle}</p>
 	     	<p>Meilleure offre : ${articleVendu.enchere.montant_enchere}
-	     		<input type="hidden" name="montant_enchere" value="${articleVendu.enchere.montant_enchere}">
+	     		<input type="hidden" name="montant_enchere" value="<c:if test="${empty articleVendu.enchere}">0</c:if><c:if test="${!empty articleVendu.enchere}">${articleVendu.enchere.montant_enchere}</c:if>">
 	     	</p>
 	     	<p>Mise à  prix : ${articleVendu.miseAprix}</p>
 	     	<p>Fin de l'enchère : ${articleVendu.dateFinEncheres}</p>
