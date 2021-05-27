@@ -48,58 +48,93 @@ public class ServletEnchere extends HttpServlet {
 		
 		if(request.getServletPath().equals("/afficherListeEnchere")) {
 			EnchereManager enchereManager = new EnchereManager();
+			
 			List<ArticleVendu> listeEncheres = null;
+			List<ArticleVendu> listeVentes = null;
 			String categorie =request.getParameter("categories");
 			String nom = request.getParameter("nom");
 			String achats = request.getParameter("encheres");
 			HttpSession session = request.getSession(false);
 			Utilisateur utilisateur = (Utilisateur) session.getAttribute("sessionUtilisateur");
 			UtilisateurManager utilateurManager = new UtilisateurManager();
-		
+			String choix = request.getParameter("choix");
+			String ventes = request.getParameter("ventes");
+			
 			int noUtilisateur;
 			if(categorie==null || categorie.equalsIgnoreCase("toute")) {
-					categorie="%";
-				}
-				System.out.println(categorie);
-			try {
-				noUtilisateur = utilateurManager.numeroUtilisateurByPseudo(utilisateur.getPseudo());
-				if (achats == null) {
-				achats = "eouvertes";
-				}
-				
-				
-			switch (achats) {
-			  case "eencours" :
-				listeEncheres =enchereManager.listeArticleEnchereParAcheteur(categorie,nom, noUtilisateur);
-			
-			  break;
-			  
-			  case "eemportees" : 
-				  break;
-				  
-			  case "eouvertes":
-				
-					listeEncheres =enchereManager.listeArticleEnchereOuverte(categorie,nom);
-				
-				}
-			
-				
-				
-				
-			} catch (BusinessException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				categorie="%";
+			}
+			if(choix==null) {
+				choix="mesAchats";
 			}
 			
+			try {
+				
+
+				if(choix.equalsIgnoreCase("mesAchats")) {
+					 
+					if (achats == null) {
+					achats = "eouvertes";
+					}
 			
+					switch (achats) {
+					  case "eencours" :
+						
+						noUtilisateur = utilateurManager.numeroUtilisateurByPseudo(utilisateur.getPseudo());
+						listeEncheres =enchereManager.listeArticleEnchereParAcheteur(categorie,nom, noUtilisateur);
+					
+					  break;
+					  
+					  case "eemportees" : 
+						  break;
+						  
+					  case "eouvertes":
+						
+							listeEncheres =enchereManager.listeArticleEnchereOuverte(categorie,nom);
+							break;
+					default : break;
+						
+						}
 			
+				}else {
+					if (ventes == null) {
+						ventes = "vencours";
+						}
+					noUtilisateur = utilateurManager.numeroUtilisateurByPseudo(utilisateur.getPseudo());
+					
+					switch (ventes) {
+					  case "vencours" :
+						
+						  listeEncheres = articleManager.listeArticleVendusParCategorieParNomParPseudo(categorie, nom,noUtilisateur);
+						  break;
+					  
+					  
+					  case "vndebutees" :  listeEncheres = articleManager.listeArticleVendusParCategorieParNomParPseudoNonDebutees(categorie, nom,noUtilisateur);
+						  break;
+						  
+					  case "vterminees": listeEncheres = articleManager.listeArticleVendusParCategorieParNomParPseudoTerminees(categorie, nom,noUtilisateur);
+						
+							
+							break;
+					default : break;
+						
+						}
+				
+					
+				
+				}	
 				request.setAttribute("listeEncheres", listeEncheres);
-			
-				RequestDispatcher r = request.getRequestDispatcher("/WEB-INF/encheres.jsp");
+			RequestDispatcher r = request.getRequestDispatcher("/WEB-INF/encheres.jsp");
 				r.forward(request, response);
-			
-			
+				} catch (BusinessException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
 		}
+			
+				
+		
 	}
 
 	/**

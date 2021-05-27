@@ -79,6 +79,20 @@ public class ArticleManager {
 		}
 		
 		
-		
-		
+		//par categorie et par nom par vendeur
+				public List<ArticleVendu> listeArticleVendusParCategorieParNomParPseudo(String categorie,String contient,int noUtililsateur) throws BusinessException{
+					return this.venteDAO.selectALLVentesByUtilisateur(categorie, contient, noUtililsateur);
+				}
+				
+				
+				//par categorie et par nom par vendeur non commencé
+				public List<ArticleVendu> listeArticleVendusParCategorieParNomParPseudoNonDebutees(String categorie,String contient,int noUtililsateur) throws BusinessException{
+					return this.venteDAO.selectALLVentesByUtilisateurNonDebutees(categorie, contient, noUtililsateur);
+				}	
+				
+				
+				//par categorie et par nom par vendeur terminee
+				public List<ArticleVendu> listeArticleVendusParCategorieParNomParPseudoTerminees(String categorie,String contient,int noUtililsateur) throws BusinessException{
+					return this.venteDAO.selectALLVentesByUtilisateurTerminees(categorie, contient, noUtililsateur);
+				}			
 }

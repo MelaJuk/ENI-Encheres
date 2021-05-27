@@ -27,34 +27,47 @@
     			
     			<input type="submit" value="Rechercher" style="width: 320px;height: 70px">
 					<c:if test="${!empty sessionScope.sessionUtilisateur}">
-				<p>Mes achats</p>
-    				<div>
-    					<label for="achats">Enchères ouvertes</label>
-    					<input type="checkbox"  name="encheres" value="eouvertes" checked >
-    				</div>
-    				<div>
-    					<label for="achats">Mes enchères en cours</label>
-    					<input type="checkbox" name="encheres" value="eencours" value="achat">
-    				</div>
-    				<div>
-    					<label for="achats">Mes enchères emportées</label>
-    					<input type="checkbox" name="encheres" value="eemportees" value="achat">
-    				</div>
-    				
-    				<p>Mes ventes</p>
-    					<div>
-    					<label for="encours">Mes ventes en cours</label>
-    					<input type="checkbox" name="ventes" value="vencours" >
-    				</div>
-    				<div>
-    					<label for="nondebutes">Ventes non débutées</label>
-    					<input type="checkbox" name="ventes" value="vndebutees">
-    				</div>
-    				<div>
-    					<label for="vterminees">Mes enchères emportées</label>
-    					<input type="checkbox"  name="ventes" value="vterminees">
-    				</div>
+					 
+					 <div class="row">
+					 	<div class="col-6">
+							 <input type="radio"  name="choix" value="mesAchats" checked>
+		   					<label for="mesAchats">Mes achats</label><br/>
+							
+					
+		    				<div>
+		    					<label for="achats">Enchères ouvertes</label>
+		    					<input type="checkbox"  name="encheres" value="eouvertes" checked >
+		    				</div>
+		    				<div>
+		    					<label for="achats">Mes enchères en cours</label>
+		    					<input type="checkbox" name="encheres" value="eencours" >
+		    				</div>
+		    				<div>
+		    					<label for="achats">Mes enchères emportées</label>
+		    					<input type="checkbox" name="encheres" value="eemportees">
+		    				</div>
+						</div> 
+							 <div class="col-6">
+
+			    				<input type="radio"  name="choix" value="mesVentes" >
+			   					<label for="mesVentes">Mes ventes</label><br/>
+			    				
+			    					<div>
+			    					<label for="encours">Mes ventes en cours</label>
+			    					<input type="checkbox" name="ventes" value="vencours" checked>
+			    				</div>
+			    				<div>
+			    					<label for="nondebutes">Ventes non débutées</label>
+			    					<input type="checkbox" name="ventes" value="vndebutees">
+			    				</div>
+			    				<div>
+			    					<label for="vterminees">Mes enchères emportées</label>
+			    					<input type="checkbox"  name="ventes" value="vterminees">
+			    				</div>
+			    			</div>
+			    	</div>
     		</c:if>
+    	
 		</form>
 		<div class="container listeArticle">
 			<c:if test="${!empty listeEncheres}">
@@ -64,7 +77,7 @@
 					<c:forEach var="a" items="${listeEncheres}">
 							<div class="row">		
 								<div class="card mb-4 " style="width: 30rem; margin-right:60px" >
-									<div class="card-header text-center">${a.nomArticle}</div>
+									<div class="card-header text-center"><a href="/ServletAjouterEnchere?noArticle=${a.noArticle}">${a.nomArticle}<a></a></div>
 									<div class="car-body">
 										<div class="card-text">Prix : ${a.prixVente}
 										<c:if test="${!empty a.listeEncheresArticle}">
