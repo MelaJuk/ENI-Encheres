@@ -1,6 +1,7 @@
 package fr.eni.eniEncheres.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -150,6 +151,7 @@ public class ServletEnchere extends HttpServlet {
 		int noUtilisateur; 
 		int nvlleEnchere; 
 		int noArticle ; 
+		int montantEnchere; 
 		
 		// récupérer et affecter l'utilisateur de la session 
 		noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur")); 
@@ -161,14 +163,33 @@ public class ServletEnchere extends HttpServlet {
 		noArticle = Integer.parseInt(request.getParameter("noArticle")); 
 		request.setAttribute("noArticle", "noArticle"); 
 		
-		//récupérer le montant de l'enchère
+		//récupérer le montant de la nouvelle enchère
 		nvlleEnchere = Integer.parseInt(request.getParameter("montant_nvlle_enchere"));
 		request.setAttribute("montant_nvlle_enchere", "montant_nvlle_enchere"); 
 		
 		
-		// test jusque là 
-		
 		// vérifier les condition de l'enchère 
+		// récupérer l'ancienne enchère 
+		montantEnchere = Integer.parseInt(request.getParameter("montant_enchere")); 
+		request.setAttribute("montant_enchere", "montant_enchere"); 
+		System.out.println(montantEnchere);
+		
+		// vérifier que la nouvelle est supérieur 
+		if (nvlleEnchere > montantEnchere) {
+			// ajouter l'enchère 
+			EnchereManager enchereManager = new EnchereManager(); 
+			try {
+				enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, noUtilisateur);
+			} catch (BusinessException e) {
+				e.printStackTrace();
+			} 
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/validationEnchere.jsp"); 
+			rd.forward(request, response);
+		} else {
+			PrintWriter out = response.getWriter(); 
+			out.println("Le montant de votre enchère doit etre supérieur à l'enchère actuelle");
+			out.close();
+		}
 		
 		// ajouter l'enchère 
 		EnchereManager enchereManager = new EnchereManager(); 
@@ -182,16 +203,6 @@ public class ServletEnchere extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	// valider montant enchère 
-	/*private boolean validerMontantEnchere(Enchere montanEnchere) {
 	
-		if () {
-			return false ; 
-		} else {
-			return true ; 
-		}
-	}*/
-	
-	//valider crédit suffisant 
 	
 }

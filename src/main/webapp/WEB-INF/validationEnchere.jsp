@@ -8,6 +8,10 @@
 </head>
 <body>
 
-	<h1>L'insertion de l'enchère a fonctionné </h1>
+	<h1>Votre enchère a bien été prise en compte </h1>
+	<div>
+		<a href="afficherListeEnchere">Retourner à la liste des enchères</a>
+	
+	</div>
 </body>
 </html>
