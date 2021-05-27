@@ -16,13 +16,13 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	
 	private static final String INSERT_ENCHERE="INSERT INTO ENCHERES (date_enchere, montant_enchere, no_article, no_utilisateur) VALUES (?,?,?,?)";
-	private static final String SELECT_MES_ENCHERE_ENCOURS="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0), date_debut_encheres AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
+	private static final String SELECT_MES_ENCHERE_ENCOURS="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0), date_debut_encheres AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
 			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
 			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
 			+ "			WHERE libelle LIKE ? AND nom_article LIKE ? nom_article AND DATEDIFF(day,date_debut_encheres,GETDATE())>=0 AND DATEDIFF(day,date_fin_encheres,GETDATE())<=0 AND e.no_utilisateur=? \r\n"
 			+ "			ORDER BY date_fin_encheres";
 	
-	private static final String SELECT_ALL_ENCHERE_OUVERTES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0) AS montant, date_debut_encheres AS montant_enchere FROM ARTICLES_VENDUS ar \r\n"
+	private static final String SELECT_ALL_ENCHERE_OUVERTES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0) AS montant, date_debut_encheres AS montant_enchere FROM ARTICLES_VENDUS ar \r\n"
 			+ "						LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur \r\n"
 			+ "						LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
 			+ "						WHERE libelle LIKE ? AND nom_article LIKE ? AND DATEDIFF(day,date_debut_encheres,GETDATE())>=0 AND DATEDIFF(day,date_fin_encheres,GETDATE())<=0 \r\n"
@@ -62,6 +62,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				ArticleVendu article = new ArticleVendu(); 
 				article.setNomArticle(resultat.getString("nom_article"));
 				article.setPrixVente(resultat.getInt("prix_initial"));
+				article.setNoArticle(resultat.getInt("noArticle"));
 				LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
 				
 				Utilisateur vendeur = new Utilisateur();
@@ -124,6 +125,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				ArticleVendu article = new ArticleVendu(); 
 				article.setNomArticle(resultat.getString("nom_article"));
 				article.setPrixVente(resultat.getInt("prix_initial"));
+				article.setNoArticle(resultat.getInt("noArticle"));
 				LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
 				
 				Utilisateur vendeur = new Utilisateur();

@@ -81,7 +81,7 @@
 					<c:forEach var="a" items="${listeArticles}">
 							<div class="row">		
 								<div class="card mb-4 " style="width: 30rem; margin-right:60px" >
-									<div class="card-header text-center"><a href="/ServletAjouterEnchere?noArticle=${a.noArticle}">${a.nomArticle}<a></div>
+									<div class="card-header text-center"><c:if test="${!empty sessionScope.sessionUtilisateur}"><a href="ServletAjouterEnchere?noArticle=${a.noArticle}"></c:if>${a.nomArticle}<c:if test="${!empty sessionScope.sessionUtilisateur}"> </a> </c:if></div>
 									<div class="car-body">
 										<div class="card-text">Prix : ${a.prixVente}
 										<c:if test="${!empty a.listeEncheresArticle}">

@@ -32,14 +32,13 @@ public class ServletEnchere extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		ArticleManager articleManager = new ArticleManager();
 		if(request.getServletPath().equals("/ServletAjouterEnchere")) {
 			//test
-			ArticleManager articleManager = new ArticleManager(); 
-		
-			//request.setAttribute("articleVendu", articleManager.afficherArticle(12)); 
-		
-			int noArticle = Integer.parseInt("noArticle"); 
+			
+			
+			
+			int noArticle = Integer.parseInt(request.getParameter("noArticle")); 
 			request.setAttribute("articleVendu", articleManager.afficherArticle(noArticle));
 			
 					
