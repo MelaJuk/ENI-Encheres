@@ -86,7 +86,7 @@ public class ServletEnchere extends HttpServlet {
 					switch (achats) {
 					  case "eencours" :
 						
-						noUtilisateur = utilateurManager.numeroUtilisateurByPseudo(utilisateur.getPseudo());
+						noUtilisateur = utilateurManager.numeroUtilisateurByPseudo(utilisateur.getPseudo());System.out.println(noUtilisateur);
 						listeEncheres =enchereManager.listeArticleEnchereParAcheteur(categorie,nom, noUtilisateur);
 					
 					  break;

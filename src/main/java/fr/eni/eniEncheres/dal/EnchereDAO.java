@@ -14,7 +14,10 @@ public interface EnchereDAO {
 
 		public List<ArticleVendu> selectALLEnchereOuvertes(String libelle, String contient)
 				throws BusinessException;
-		public void insertEnchere (Enchere enchere, int noArticle, int noUtilisateur) throws BusinessException ; 
+		public void insertEnchere (Enchere enchere, int noArticle, int noUtilisateur) throws BusinessException ;
+
+		//public List<ArticleVendu> selectALLEnchereByAcheteur(String libelle, String contient, String pseudo)
+				//throws BusinessException; 
 		
 		}
 

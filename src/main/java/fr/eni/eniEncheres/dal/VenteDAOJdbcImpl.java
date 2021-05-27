@@ -21,17 +21,23 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 	private static final String INSERT_VENTE = "INSERT INTO ARTICLES_VENDUS (nom_article,description, date_debut_encheres, date_fin_encheres, prix_initial, no_utilisateur, no_categorie)"
 			+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private static final String SELECT_BY_LIBELLE_CATEGORIE = "SELECT no_categorie FROM CATEGORIES WHERE libelle=?";
-	private static final String SELECT_ALL_ARTICLE = "SELECT   nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
-			+ "			RIGHT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
-			+ "			RIGHT JOIN ENCHERES e ON e.no_article=ar.no_article ORDER BY date_fin_encheres";
-	
-	private static final String SELECT_ALL_ARTICLE_NOM = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
+	private static final String SELECT_ALL_ARTICLE = "SELECT   nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
 			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
-			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article WHERE nom_article LIKE  ?  ORDER BY date_fin_encheres";
+			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article "
+			+"          GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo"
+			+ "         ORDER BY date_fin_encheres";
 	
-	private static final String SELECT_BY_CATEGORIE_ARTICLE = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
+	private static final String SELECT_ALL_ARTICLE_NOM = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
 			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
-			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie WHERE libelle=? AND nom_article LIKE  ? ORDER BY date_fin_encheres";
+			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article WHERE nom_article LIKE  ? "
+			+ "         GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo  ORDER BY date_fin_encheres";
+	
+	private static final String SELECT_BY_CATEGORIE_ARTICLE = "SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
+			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
+			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie "
+			+ "         WHERE libelle=? AND nom_article LIKE  ? "
+			+"          GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo"
+			+ "         ORDER BY date_fin_encheres";
 	
 	
 	private static final String SELECT_BY_NO_ARTICLE = "SELECT av.nom_article, av.description,av.no_article, c.libelle, e.montant_enchere, av.prix_initial, \r\n"
