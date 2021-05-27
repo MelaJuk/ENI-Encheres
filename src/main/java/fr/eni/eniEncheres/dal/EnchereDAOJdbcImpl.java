@@ -15,7 +15,7 @@ import fr.eni.eniEncheres.bo.Utilisateur;
 public class EnchereDAOJdbcImpl implements EnchereDAO {
 
 	
-	
+	private static final String INSERT_ENCHERE="INSERT INTO ENCHERES (date_enchere, montant_enchere, no_article, no_utilisateur) VALUES (?,?,?,?)";
 	private static final String SELECT_MES_ENCHERE_ENCOURS="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article,ISNULL(e.montant_enchere,0), date_debut_encheres AS montant_enchere FROM ARTICLES_VENDUS ar\r\n"
 			+ "			LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur\r\n"
 			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
@@ -154,12 +154,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			
 	}
 
-
-
-
-
-	private static final String INSERT_ENCHERE="INSERT INTO ENCHERES (date_enchere, montant_enchere, no_article, no_utilisateur) VALUES (?,?,?,?)";
-	
 	
 	// insérer une nouvelle enchère 
 	@Override

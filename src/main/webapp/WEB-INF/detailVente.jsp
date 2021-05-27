@@ -27,15 +27,18 @@
      		<form action="<%=request.getContextPath()%>/ServletAjouterEnchere" method="post">
      			<div>
      				<label for="montant_enchere">Ma proposition : </label>
-     				<select name="montant_enchere" size="1">
+     				<select name="montant_nvlle_enchere" size="1">
      					<option value="10" selected>10 crédits</option>
      					<option value="20" selected>20 crédits</option>
      					<option value="30" selected>30 crédits</option>	
+     					<option value="40" selected>40 crédits</option>	
      				</select>
      			</div>
      			<div>
-     			<input type="hidden" name="noUtilisateur" value="${sessionScope.noUtilisateur }">
-     			<input type="submit" value="Enchï¿½rir">
+     			<input type="hidden" name="">
+     			<input type="hidden" name="noArticle" value="${articleVendu.noArticle}">
+     			<input type="hidden" name="noUtilisateur" value="${sessionScope.sessionUtilisateur.noUtilisateur}">
+     			<input type="submit" value="Enchérir">
      			</div>
      		</form>
      	</div>
