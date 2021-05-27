@@ -152,20 +152,19 @@ public class ServletEnchere extends HttpServlet {
 		int noArticle ; 
 		
 		// récupérer et affecter l'utilisateur de la session 
-		//noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur")); 
+		noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur")); 
 		
-		//request.setAttribute("noUtilisateur", "noUtilisateur"); 
-		//System.out.println(noUtilisateur);
+		request.setAttribute("noUtilisateur", "noUtilisateur"); 
+		
 		
 		//  récupérer l'article concerné 
 		noArticle = Integer.parseInt(request.getParameter("noArticle")); 
 		request.setAttribute("noArticle", "noArticle"); 
-		System.out.println(noArticle);
 		
 		//récupérer le montant de l'enchère
 		nvlleEnchere = Integer.parseInt(request.getParameter("montant_nvlle_enchere"));
 		request.setAttribute("montant_nvlle_enchere", "montant_nvlle_enchere"); 
-		System.out.println(nvlleEnchere);
+		
 		
 		// test jusque là 
 		
@@ -174,13 +173,13 @@ public class ServletEnchere extends HttpServlet {
 		// ajouter l'enchère 
 		EnchereManager enchereManager = new EnchereManager(); 
 		try {
-			System.out.println("test");
-			enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, 1);
+			
+			enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, noUtilisateur);
 		} catch (BusinessException e) {
 			e.printStackTrace();
 		} 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jspTest.jsp"); 
-		
+		rd.forward(request, response);
 	}
 
 	// valider montant enchère 

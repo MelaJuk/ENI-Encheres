@@ -187,7 +187,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			while(rs.next()) {
 				ArticleVendu article = new ArticleVendu(); 
 				article.setNomArticle(rs.getString("nom_article"));
-				article.setPrixVente(rs.getInt("prix_initial"));
+				article.setMiseAprix(rs.getInt("prix_initial"));
 				article.setNoArticle(rs.getInt("noArticle"));
 				LocalDate localDate =rs.getDate("date_fin_encheres").toLocalDate();
 				
@@ -305,7 +305,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				ArticleVendu article = new ArticleVendu(); 
 				article.setNomArticle(resultat.getString("nom_article"));
 				article.setNoArticle(resultat.getInt("noArticle"));
-				article.setPrixVente(resultat.getInt("prix_initial"));
+				article.setMiseAprix(resultat.getInt("prix_initial"));
 				LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
 				
 				Utilisateur vendeur = new Utilisateur();
@@ -356,7 +356,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				while (resultat.next()) {
 					ArticleVendu article = new ArticleVendu(); 
 					article.setNomArticle(resultat.getString("nom_article"));
-					article.setPrixVente(resultat.getInt("prix_initial"));
+					article.setMiseAprix(resultat.getInt("prix_initial"));
 					article.setNoArticle(resultat.getInt("noArticle"));
 					LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
 					

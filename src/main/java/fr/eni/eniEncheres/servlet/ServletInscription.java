@@ -112,6 +112,8 @@ public class ServletInscription extends HttpServlet {
 				try {
 					
 					utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom,  email,telephone, rue,codepostal, ville, motDePasse);
+					RequestDispatcher rd = request.getRequestDispatcher("ServletConnexion");
+					rd.forward(request, response);	
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

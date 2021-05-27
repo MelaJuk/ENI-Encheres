@@ -61,7 +61,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			while (resultat.next()) {
 				ArticleVendu article = new ArticleVendu(); 
 				article.setNomArticle(resultat.getString("nom_article"));
-				article.setPrixVente(resultat.getInt("prix_initial"));
+				article.setMiseAprix(resultat.getInt("prix_initial"));
 				article.setNoArticle(resultat.getInt("noArticle"));
 				LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
 				
@@ -124,7 +124,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			while (resultat.next()) {
 				ArticleVendu article = new ArticleVendu(); 
 				article.setNomArticle(resultat.getString("nom_article"));
-				article.setPrixVente(resultat.getInt("prix_initial"));
+				article.setMiseAprix(resultat.getInt("prix_initial"));
 				article.setNoArticle(resultat.getInt("noArticle"));
 				LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
 				
@@ -134,11 +134,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 				article.setDateFinEncheres(localDate );
 				System.out.println(resultat.getInt("montant"));
 				//si l'ench�re existe 
-				if( resultat.getInt("montant")!=0) {
-						Enchere enchere=new Enchere(resultat.getInt("montant"),article);
-						//ajoute l'enchere � l'article
-				article.getListeEncheresArticle().add(enchere);
-				}
+//				if( resultat.getInt("montant")!=0) {
+//						Enchere enchere=new Enchere(resultat.getInt("montant"),article);
+//						//ajoute l'enchere � l'article
+//				article.getListeEncheresArticle().add(enchere);
+//				}
 			
 				
 				listeArticles.add(article); 
