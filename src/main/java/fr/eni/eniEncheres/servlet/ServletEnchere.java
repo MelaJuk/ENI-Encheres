@@ -36,13 +36,12 @@ public class ServletEnchere extends HttpServlet {
 		if(request.getServletPath().equals("/ServletAjouterEnchere")) {
 			//test
 			ArticleManager articleManager = new ArticleManager(); 
-			request.setAttribute("articleVendu", articleManager.afficherArticle(12)); 
-			
-			/*ArticleManager articleManager = new ArticleManager(); 
-			// a corriger car NumberFormatException 
+		
+			//request.setAttribute("articleVendu", articleManager.afficherArticle(12)); 
+		
 			int noArticle = Integer.parseInt("noArticle"); 
 			request.setAttribute("articleVendu", articleManager.afficherArticle(noArticle));
-			*/
+			
 					
 					
 			// afficher les détails de la vente en cours 
