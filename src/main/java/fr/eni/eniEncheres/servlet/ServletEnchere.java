@@ -1,6 +1,7 @@
 package fr.eni.eniEncheres.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,7 @@ import fr.eni.eniEncheres.bll.ArticleManager;
 import fr.eni.eniEncheres.bll.EnchereManager;
 import fr.eni.eniEncheres.bll.UtilisateurManager;
 import fr.eni.eniEncheres.bo.ArticleVendu;
+import fr.eni.eniEncheres.bo.Enchere;
 import fr.eni.eniEncheres.bo.Utilisateur;
 import fr.eni.eniEncheres.dal.BusinessException;
 
@@ -31,20 +33,22 @@ public class ServletEnchere extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		//test
-		ArticleManager articleManager = new ArticleManager(); 
-		request.setAttribute("articleVendu", articleManager.afficherArticle(12)); 
+		if(request.getServletPath().equals("/ServletAjouterEnchere")) {
+			//test
+			ArticleManager articleManager = new ArticleManager(); 
 		
-		/*ArticleManager articleManager = new ArticleManager(); 
-		// a corriger car NumberFormatException 
-		int noArticle = Integer.parseInt("noArticle"); 
-		request.setAttribute("articleVendu", articleManager.afficherArticle(noArticle));
-		*/
-				
-				
-		// afficher les détails de la vente en cours 
-		//RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp"); 
-		//rd.forward(request, response);
+			//request.setAttribute("articleVendu", articleManager.afficherArticle(12)); 
+		
+			int noArticle = Integer.parseInt("noArticle"); 
+			request.setAttribute("articleVendu", articleManager.afficherArticle(noArticle));
+			
+					
+					
+			// afficher les détails de la vente en cours 
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp"); 
+			rd.forward(request, response);
+		}
+	
 		
 		if(request.getServletPath().equals("/afficherListeEnchere")) {
 			EnchereManager enchereManager = new EnchereManager();
@@ -141,20 +145,53 @@ public class ServletEnchere extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// pour récupérer l'utilisateur de la session --> besoin d'un utilisateur
-		//UtilisateurManager utilisateurManager = new UtilisateurManager(); 
+		// lire les paramètres 
+		int noUtilisateur; 
+		int nvlleEnchere; 
+		int noArticle ; 
 		
-		// pour récupérer la proposition d'enchère --> besoin d'un article 
-		//ArticleManager articleManager = new ArticleManager(); 
+		// récupérer et affecter l'utilisateur de la session 
+		//noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur")); 
 		
-		// récupération de l'utilisateur (acheteur, celui qui enchérit)
-		//noUtilisateur =Integer.parseInt(request.getParameter("noUtilisateur")) 
+		//request.setAttribute("noUtilisateur", "noUtilisateur"); 
+		//System.out.println(noUtilisateur);
 		
+		//  récupérer l'article concerné 
+		noArticle = Integer.parseInt(request.getParameter("noArticle")); 
+		request.setAttribute("noArticle", "noArticle"); 
+		System.out.println(noArticle);
 		
-		//ajouter une proposition d'enchères (récupération de montant_enchere
+		//récupérer le montant de l'enchère
+		nvlleEnchere = Integer.parseInt(request.getParameter("montant_nvlle_enchere"));
+		request.setAttribute("montant_nvlle_enchere", "montant_nvlle_enchere"); 
+		System.out.println(nvlleEnchere);
 		
+		// test jusque là 
 		
+		// vérifier les condition de l'enchère 
+		
+		// ajouter l'enchère 
+		EnchereManager enchereManager = new EnchereManager(); 
+		try {
+			System.out.println("test");
+			enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, 1);
+		} catch (BusinessException e) {
+			e.printStackTrace();
+		} 
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jspTest.jsp"); 
 		
 	}
 
+	// valider montant enchère 
+	/*private boolean validerMontantEnchere(Enchere montanEnchere) {
+	
+		if () {
+			return false ; 
+		} else {
+			return true ; 
+		}
+	}*/
+	
+	//valider crédit suffisant 
+	
 }

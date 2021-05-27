@@ -97,7 +97,7 @@
            		</div>
            		
            		 <div class="col-3">
-           		<a href="ServletNouvelleVente">Retourner à l'accueil</a>
+           		<a href="/afficherListeEnchere">Retourner à l'accueil</a>
            		</div>
 	
 	

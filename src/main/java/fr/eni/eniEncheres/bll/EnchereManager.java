@@ -6,6 +6,7 @@ import fr.eni.eniEncheres.bo.ArticleVendu;
 import java.time.LocalDate;
 
 import fr.eni.eniEncheres.bo.Enchere;
+import fr.eni.eniEncheres.bo.Utilisateur;
 import fr.eni.eniEncheres.dal.BusinessException;
 import fr.eni.eniEncheres.dal.DAOFactory;
 import fr.eni.eniEncheres.dal.EnchereDAO;
@@ -23,20 +24,21 @@ public class EnchereManager {
 	
 	public Enchere encherir (LocalDate dateEnchere, int montant_enchere, int noArticle, int noUtilisateur)throws BusinessException {
 		BusinessException exception = new BusinessException(); 
-		Enchere enchere = new Enchere(montant_enchere); 
+		Enchere enchere = new Enchere(dateEnchere, montant_enchere); 
 		
-		if (!exception.hasErreurs()) {
 			// ajouter l'enchère en ajoutant les numéros 
-			if (enchere.getNoEnchere()!=0) {
+		
 				//vérification des conditions d'enchère
-				validerEnchere(enchere); 
+				//validerEnchere(enchere); // mettre dans un if pour traiter une éventuelle exception ? 
+				//test 
+				System.out.println("salut");
 				//insérer l'enchère
 				this.enchereDAO.insertEnchere(enchere, noArticle, noUtilisateur);
-			}
+				//débiter l'enchirisseur 
+				
+				// re créditer enchérisseur précédent 
 			
-		} else {
-			throw exception; 
-		}
+		
 		return enchere; 
 	}
 
@@ -44,6 +46,7 @@ public class EnchereManager {
 		// enchère proposé > enchère actuelle
 		// &&
 		// crédit > enchère proposée
+		
 	}
 	
 	public void debitAcheteur () {
