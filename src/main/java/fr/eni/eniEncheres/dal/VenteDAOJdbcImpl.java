@@ -52,22 +52,25 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 
 
 	
-	private static final String SELECT_VENTE_BY_NOUTILISATEUR="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0) AS montant, date_debut_encheres  FROM ARTICLES_VENDUS ar \r\n"
+	private static final String SELECT_VENTE_BY_NOUTILISATEUR="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant, date_debut_encheres  FROM ARTICLES_VENDUS ar \r\n"
 			+ "						LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur \r\n"
 			+ "						LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
 			+ "						WHERE libelle LIKE ? AND nom_article LIKE ? AND DATEDIFF(day,date_debut_encheres,GETDATE())>=0 AND DATEDIFF(day,date_fin_encheres,GETDATE())<=0 AND ar.no_utilisateur=? \r\n"
+			+"          GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo, date_debut_encheres "
 			+ "						ORDER BY date_fin_encheres";
 	
-	private static final String SELECT_VENTE_BY_NOUTILISATEUR_NON_DEBUTEES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0) AS montant, date_debut_encheres FROM ARTICLES_VENDUS ar \r\n"
+	private static final String SELECT_VENTE_BY_NOUTILISATEUR_NON_DEBUTEES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant, date_debut_encheres FROM ARTICLES_VENDUS ar \r\n"
 			+ "						LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur \r\n"
 			+ "						LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
 			+ "						WHERE libelle LIKE ? AND nom_article LIKE ? AND DATEDIFF(day,date_debut_encheres,GETDATE())<0 AND DATEDIFF(day,date_fin_encheres,GETDATE())<=0 AND ar.no_utilisateur=? \r\n"
+			+"          GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo, date_debut_encheres "
 			+ "						ORDER BY date_fin_encheres";
 	
-	private static final String SELECT_VENTE_BY_NOUTILISATEUR_TERMINEES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,ISNULL(e.montant_enchere,0) AS montant, date_debut_encheres FROM ARTICLES_VENDUS ar \r\n"
+	private static final String SELECT_VENTE_BY_NOUTILISATEUR_TERMINEES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant, date_debut_encheres FROM ARTICLES_VENDUS ar \r\n"
 			+ "						LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur \r\n"
 			+ "						LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
 			+ "						WHERE libelle LIKE ? AND nom_article LIKE ?DATEDIFF(day,date_fin_encheres,GETDATE())>0 AND ar.no_utilisateur=? \r\n"
+			+"          GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo, date_debut_encheres "
 			+ "						ORDER BY date_fin_encheres";
 	
 	@Override
@@ -441,7 +444,12 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				vendeur.setPseudo(resultat.getString("pseudo"));
 				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
-				System.out.println(resultat.getInt("montant"));
+				
+				if(article.getListeEncheresArticle()==null) {
+					List<Enchere> listeEnchere = new ArrayList<Enchere>();
+					article.setListeEncheresArticle(listeEnchere);
+					
+				}
 				//si l'ench�re existe 
 				if( resultat.getInt("montant")!=0) {
 						Enchere enchere=new Enchere(resultat.getInt("montant"),article);
@@ -497,22 +505,24 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				ArticleVendu article = new ArticleVendu(); 
 				article.setNomArticle(resultat.getString("nom_article"));
 				article.setPrixVente(resultat.getInt("prix_initial"));
-				System.out.println(resultat.getInt("ar.no_article"));
 				article.setNoArticle(resultat.getInt("noArticle"));
 				LocalDate localDate =resultat.getDate("date_fin_encheres").toLocalDate();
 				
 				Utilisateur vendeur = new Utilisateur();
-				//vendeur.setPseudo(resultat.getString("pseudo"));
-				//article.setVendeur(vendeur);
+				vendeur.setPseudo(resultat.getString("pseudo"));
+				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
-				System.out.println(resultat.getInt("montant"));
+				if(article.getListeEncheresArticle()==null) {
+					List<Enchere> listeEnchere = new ArrayList<Enchere>();
+					article.setListeEncheresArticle(listeEnchere);
+					
+				}
 				//si l'ench�re existe 
 				if( resultat.getInt("montant")!=0) {
 						Enchere enchere=new Enchere(resultat.getInt("montant"),article);
 						//ajoute l'enchere � l'article
 				article.getListeEncheresArticle().add(enchere);
 				}
-			
 				
 				listeArticles.add(article); 
 			}
@@ -569,7 +579,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				vendeur.setPseudo(resultat.getString("pseudo"));
 				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
-				System.out.println(resultat.getInt("montant"));
+				
 				//si l'ench�re existe 
 				if( resultat.getInt("montant")!=0) {
 						Enchere enchere=new Enchere(resultat.getInt("montant"),article);

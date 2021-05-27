@@ -36,15 +36,15 @@
 					
 		    				<div>
 		    					<label for="achats">Enchères ouvertes</label>
-		    					<input type="checkbox"  name="encheres" value="eouvertes" checked >
+		    					<input type="radio"  name="encheres" value="eouvertes" checked >
 		    				</div>
 		    				<div>
 		    					<label for="achats">Mes enchères en cours</label>
-		    					<input type="checkbox" name="encheres" value="eencours" >
+		    					<input type="radio" name="encheres" value="eencours" >
 		    				</div>
 		    				<div>
 		    					<label for="achats">Mes enchères emportées</label>
-		    					<input type="checkbox" name="encheres" value="eemportees">
+		    					<input type="radio" name="encheres" value="eemportees">
 		    				</div>
 						</div> 
 							 <div class="col-6">
@@ -54,15 +54,15 @@
 			    				
 			    					<div>
 			    					<label for="encours">Mes ventes en cours</label>
-			    					<input type="checkbox" name="ventes" value="vencours" checked>
+			    					<input type="radio" name="ventes" value="vencours" checked>
 			    				</div>
 			    				<div>
 			    					<label for="nondebutes">Ventes non débutées</label>
-			    					<input type="checkbox" name="ventes" value="vndebutees">
+			    					<input type="radio" name="ventes" value="vndebutees">
 			    				</div>
 			    				<div>
-			    					<label for="vterminees">Mes enchères emportées</label>
-			    					<input type="checkbox"  name="ventes" value="vterminees">
+			    					<label for="vterminees">Ventes terminées</label>
+			    					<input type="radio"  name="ventes" value="vterminees">
 			    				</div>
 			    			</div>
 			    	</div>
