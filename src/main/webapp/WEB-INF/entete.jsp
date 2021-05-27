@@ -23,7 +23,7 @@
               <a class="nav-link" href="Ventes">Accueil</a>
             </li>
           	<c:if test="${empty sessionScope.sessionUtilisateur}">
-            <li class="nav-item active">
+            <li class="nav-item ">
               <a class="nav-link" href="ServletInscription">S'inscrire</a>
             </li>
             <li class="nav-item">
@@ -33,7 +33,7 @@
            
             <c:if test="${!empty sessionScope.sessionUtilisateur}">
             
-             <li class="nav-item active">
+             <li class="nav-item">
               <a class="nav-link" href="afficherListeEnchere">Enchères</a>
             </li>
             <li class="nav-item">

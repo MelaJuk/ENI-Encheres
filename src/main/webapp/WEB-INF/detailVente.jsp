@@ -2,7 +2,7 @@
 
 	<h1>Détail vente</h1>
 	
-	<p> Test </p>
+	
 
 
                 <c:if test="${!empty ArticleManager.articleVendu}">
@@ -30,10 +30,9 @@
 	     			<div>
 	     				<label for="montant_enchere">Ma proposition : </label>
 	     				<select name="montant_nvlle_enchere" size="1">
-	     					<option value="10" selected>10 crédits</option>
-	     					<option value="20" selected>20 crédits</option>
-	     					<option value="30" selected>30 crédits</option>	
-	     					<option value="40" selected>40 crédits</option>	
+	     				<c:forEach var="i" begin="${articleVendu.enchere.montant_enchere}" end="1000" step="10">
+	     					<option value="<c:out value="${ i }" />" ><c:out value="${ i }" /> crédits</option>
+	     				</c:forEach>
 	     				</select>
 	     			</div>
 	     			<div>
