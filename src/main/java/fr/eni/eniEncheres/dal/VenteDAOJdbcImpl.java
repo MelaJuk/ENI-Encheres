@@ -34,12 +34,12 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "			LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie WHERE libelle=? AND nom_article LIKE  ? ORDER BY date_fin_encheres";
 	
 	
-	private static final String SELECT_BY_NO_ARTICLE = "SELECT av.nom_article, av.description,av.no_article as noArticle, c.libelle, e.montant_enchere, av.prix_initial, \r\n"
+	private static final String SELECT_BY_NO_ARTICLE = "SELECT av.nom_article, av.description,av.no_article, c.libelle, e.montant_enchere, av.prix_initial, \r\n"
 			+ "			av.date_fin_encheres, r.rue, r.code_postal,r.ville, u.pseudo FROM ARTICLES_VENDUS av \r\n"
-			+ "			JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
-			+ "			JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
-			+ "			JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
-			+ "			JOIN ENCHERES e ON e.no_article = av.no_article\r\n"
+			+ "			LEFT JOIN CATEGORIES c ON c.no_categorie = av.no_categorie \r\n"
+			+ "			LEFT  JOIN RETRAITS r ON r.no_article = av.no_article\r\n"
+			+ "			LEFT  JOIN UTILISATEURS u ON u.no_utilisateur = av.no_utilisateur \r\n"
+			+ "			LEFT  JOIN ENCHERES e ON e.no_article = av.no_article\r\n"
 			+ "			WHERE av.no_article=?" ;
 	
 	
@@ -235,9 +235,10 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 			while (rs.next()) {
 				articleVendu.setNoArticle(noArticle);
+				
 				articleVendu.setNomArticle(rs.getString("nom_article"));
 				articleVendu.setDescription(rs.getString("description"));
-				articleVendu.setNoArticle(rs.getInt("noArticle"));
+				
 				System.out.println(articleVendu.getNomArticle());
 				
 				//récupérer le libelle de la catégorie 
@@ -245,7 +246,7 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				categorie.setLibelle(rs.getString("libelle"));
 				articleVendu.setCategorieArticle(categorie);
 				
-				
+				System.out.println(articleVendu);
 				//récupérer l'enchère en cours sur l'article
 				Enchere enchere = new Enchere(); 
 				if (rs.getInt("montant_enchere")!=0) {

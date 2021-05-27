@@ -45,7 +45,7 @@ public class ServletSupprimerCompte extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Ventes");
+		RequestDispatcher rd = request.getRequestDispatcher("Ventes");
 		rd.forward(request, response);
 	}
 

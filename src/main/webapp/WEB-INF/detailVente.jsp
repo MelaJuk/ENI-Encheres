@@ -19,7 +19,7 @@
      	<p>Fin de l'enchère : ${articleVendu.dateFinEncheres}</p>
      	<p>Retrait : ${articleVendu.lieuRetrait.rue} ${articleVendu.lieuRetrait.code_postal} ${articleVendu.lieuRetrait.ville}</p>
      	<p> Vendeur : 
-     		<a href="/afficherProfil">${articleVendu.vendeur.pseudo}</a>
+     		<a href="afficherProfil?=">${articleVendu.vendeur.pseudo}</a>
      	</p>
      	
      	

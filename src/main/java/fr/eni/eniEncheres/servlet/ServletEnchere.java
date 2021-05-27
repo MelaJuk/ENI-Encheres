@@ -39,6 +39,8 @@ public class ServletEnchere extends HttpServlet {
 			
 			
 			int noArticle = Integer.parseInt(request.getParameter("noArticle")); 
+			System.out.println(noArticle);
+			System.out.println(articleManager.afficherArticle(noArticle));
 			request.setAttribute("articleVendu", articleManager.afficherArticle(noArticle));
 			
 					

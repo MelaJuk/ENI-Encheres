@@ -68,6 +68,7 @@ public class ArticleManager {
 		// return une vente en particulier : donc faire méthode selectByNoArticle 
 		
 		public ArticleVendu afficherArticle (int noArticle) {
+			
 			return this.venteDAO.selectByNoArticle(noArticle); 
 		}
 		
