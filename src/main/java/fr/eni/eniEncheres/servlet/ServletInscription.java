@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.eniEncheres.bll.UtilisateurManager;
+import fr.eni.eniEncheres.bo.Utilisateur;
 import fr.eni.eniEncheres.dal.BusinessException;
 
 
@@ -112,8 +114,26 @@ public class ServletInscription extends HttpServlet {
 				try {
 					
 					utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom,  email,telephone, rue,codepostal, ville, motDePasse);
-					RequestDispatcher rd = request.getRequestDispatcher("ServletConnexion");
-					rd.forward(request, response);	
+					HttpSession session = request.getSession();
+				
+					
+					try {
+						
+						
+						Utilisateur utilisateur = utilisateurManager.connection(pseudo, motDePasse); 
+						
+						
+							session.setAttribute("sessionUtilisateur", utilisateur);
+							
+							RequestDispatcher rd = request.getRequestDispatcher("Ventes");
+							rd.forward(request, response);
+						
+					
+						
+					}catch (Exception e) {
+						// TODO: handle exception
+					}
+					
 				} catch (BusinessException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
