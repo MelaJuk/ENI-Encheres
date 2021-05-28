@@ -27,29 +27,10 @@ public class EnchereManager {
 		Enchere enchere = new Enchere(dateEnchere, montant_enchere); 
 				//insérer l'enchère
 				this.enchereDAO.insertEnchere(enchere, noArticle, noUtilisateur);
-			
-			
 		
 		return enchere; 
 	}
 
-	/*public void validerEnchere(Enchere enchere) {
-		// enchère proposé > enchère actuelle
-		// &&
-		// crédit > enchère proposée
-		
-	}*/
-	
-	public void debitAcheteur () {
-		// si enchère validée acheteur débité 
-		// crédit acheteur - montant enchère proposée
-	}
-	
-	public void creditEncherisseur () {
-		// si enchère validée enchérisseur précédent est recrédité
-		// crédit enchérisseur précédent + montant enchère précédente 
-	}
-	
 	public void modifierCreditUtilisateur (int credit,int noUtilisateur) throws BusinessException {
 		this.enchereDAO.updateCreditUtilisateur(credit,noUtilisateur);
 	}

@@ -158,8 +158,6 @@ public class ServletEnchere extends HttpServlet {
 	
 		Utilisateur utilisateur = new Utilisateur(); 
 		
-		
-		
 		// récupérer et affecter l'utilisateur de la session 
 		noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur")); 
 		
@@ -197,8 +195,9 @@ public class ServletEnchere extends HttpServlet {
 					// ajouter enchère 
 					enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, noUtilisateur);
 					// débiter acheteur 
-					
+					enchereManager.modifierCreditUtilisateur(-nvlleEnchere, noUtilisateur); 
 					//re créditer ancien enchérisseur 
+					
 					
 				} catch (BusinessException e) {
 					e.printStackTrace();

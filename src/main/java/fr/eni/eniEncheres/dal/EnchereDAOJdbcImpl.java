@@ -33,6 +33,7 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	private static final String UPDATE_CREDIT_UTILISATEUR="UPDATE UTILISATEURS SET credit=credit+? WHERE no_utilisateur=? ";
 	private static final String UPDATE_PRIX_VENTE="UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=? ";
 	
+	
 	@Override
 	public List<ArticleVendu> selectALLEnchereByAcheteur(String libelle, String contient, int noUtilisateur)
 			throws BusinessException{
@@ -207,9 +208,6 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	}
 	
 	
-	public void insertCredit (int noUtilisateur, int credit) {
-		
-	}
 
 	@Override
 	public void updateCreditUtilisateur(int credit,int noUtilisateur) throws BusinessException  {
