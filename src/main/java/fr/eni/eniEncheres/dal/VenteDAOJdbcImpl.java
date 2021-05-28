@@ -49,9 +49,6 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			+ "			WHERE av.no_article=?" ;
 	
 	
-
-
-	
 	private static final String SELECT_VENTE_BY_NOUTILISATEUR="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant, date_debut_encheres  FROM ARTICLES_VENDUS ar \r\n"
 			+ "						LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur \r\n"
 			+ "						LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"

@@ -25,29 +25,20 @@ public class EnchereManager {
 	public Enchere encherir (LocalDate dateEnchere, int montant_enchere, int noArticle, int noUtilisateur)throws BusinessException {
 		BusinessException exception = new BusinessException(); 
 		Enchere enchere = new Enchere(dateEnchere, montant_enchere); 
-		
-			// ajouter l'enchère en ajoutant les numéros 
-		
-				//vérification des conditions d'enchère
-				//validerEnchere(enchere); // mettre dans un if pour traiter une éventuelle exception ? 
-				//test 
-				System.out.println("salut");
 				//insérer l'enchère
 				this.enchereDAO.insertEnchere(enchere, noArticle, noUtilisateur);
-				//débiter l'enchirisseur 
-				
-				// re créditer enchérisseur précédent 
+			
 			
 		
 		return enchere; 
 	}
 
-	public void validerEnchere(Enchere enchere) {
+	/*public void validerEnchere(Enchere enchere) {
 		// enchère proposé > enchère actuelle
 		// &&
 		// crédit > enchère proposée
 		
-	}
+	}*/
 	
 	public void debitAcheteur () {
 		// si enchère validée acheteur débité 
