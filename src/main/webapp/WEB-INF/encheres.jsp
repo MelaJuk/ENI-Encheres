@@ -77,7 +77,10 @@
 					<c:forEach var="a" items="${listeEncheres}">
 							<div class="row">		
 								<div class="card mb-4 " style="width: 30rem; margin-right:60px" >
-									<div class="card-header text-center"><a href="ServletAjouterEnchere?noArticle=${a.noArticle}">${a.nomArticle}<a></a></div>
+									<div class="card-header text-center"><a href="ServletAjouterEnchere?noArticle=${a.noArticle}">${a.nomArticle}<a></a>
+										<c:if  test="${ventestermines=='vterminees'}"><a href="ValiderVente?noArticle=${a.noArticle}&credit=${a.prixVente}">Valider la vente</a></c:if>
+									
+									</div>
 									<div class="car-body">
 										<div class="card-text">Prix : ${a.prixVente}
 										<c:if test="${!empty a.listeEncheresArticle}">
@@ -86,7 +89,10 @@
 										
 										</c:if></div>
 										<div class="card-text">Fin de l'enchère : ${a.dateFinEncheres.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))}</div>
-										<div class="card-text"><c:if test="${!empty sessionScope.sessionUtilisateur}"><a href= "afficherProfil?pseudo=${a.vendeur.pseudo}"></c:if> Vendeur : ${a.vendeur.pseudo} <c:if test="${!empty sessionScope.sessionUtilisateur}"> </a> </c:if></div>
+										<div class="card-text"><c:if test="${!empty sessionScope.sessionUtilisateur}"><a href= "afficherProfil?pseudo=${a.vendeur.pseudo}"></c:if> Vendeur : ${a.vendeur.pseudo} <c:if test="${!empty sessionScope.sessionUtilisateur}"> </a> </c:if>
+										
+										
+										</div>
 									</div>
 								</div>
 								</div>	

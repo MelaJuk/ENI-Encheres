@@ -95,5 +95,13 @@ public class ArticleManager {
 				//par categorie et par nom par vendeur terminee
 				public List<ArticleVendu> listeArticleVendusParCategorieParNomParPseudoTerminees(String categorie,String contient,int noUtililsateur) throws BusinessException{
 					return this.venteDAO.selectALLVentesByUtilisateurTerminees(categorie, contient, noUtililsateur);
-				}			
+				}	
+				
+				
+				//prix vente
+				public int afficherPrixVente(int noArticle) {
+					return this.venteDAO.selectPrixVente(noArticle);
+				}
 }
+
+

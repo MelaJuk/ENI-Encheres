@@ -40,8 +40,7 @@ public class ServletEnchere extends HttpServlet {
 			
 			
 			int noArticle = Integer.parseInt(request.getParameter("noArticle")); 
-			System.out.println(noArticle);
-			System.out.println(articleManager.afficherArticle(noArticle));
+			
 			request.setAttribute("articleVendu", articleManager.afficherArticle(noArticle));
 			
 					
@@ -86,7 +85,7 @@ public class ServletEnchere extends HttpServlet {
 					switch (achats) {
 					  case "eencours" :
 						
-						noUtilisateur = utilateurManager.numeroUtilisateurByPseudo(utilisateur.getPseudo());System.out.println(noUtilisateur);
+						noUtilisateur = utilateurManager.numeroUtilisateurByPseudo(utilisateur.getPseudo());
 						listeEncheres =enchereManager.listeArticleEnchereParAcheteur(categorie,nom, noUtilisateur);
 					
 					  break;
@@ -129,6 +128,7 @@ public class ServletEnchere extends HttpServlet {
 					
 				
 				}	
+				request.setAttribute("ventestermines",ventes);
 				request.setAttribute("listeEncheres", listeEncheres);
 			RequestDispatcher r = request.getRequestDispatcher("/WEB-INF/encheres.jsp");
 				r.forward(request, response);

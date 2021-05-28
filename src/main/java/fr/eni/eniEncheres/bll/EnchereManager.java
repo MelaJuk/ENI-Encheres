@@ -59,10 +59,13 @@ public class EnchereManager {
 		// crédit enchérisseur précédent + montant enchère précédente 
 	}
 	
-	public void creditVendeur () {
-		// si enchère terminée le crédit du vendeur est crédité du montant de l'enchère
+	public void modifierCreditUtilisateur (int credit,int noUtilisateur) throws BusinessException {
+		this.enchereDAO.updateCreditUtilisateur(credit,noUtilisateur);
 	}
 	
+	public void modifierPrixVente(int prixVente, int noArticle) throws BusinessException {
+		this.enchereDAO.updateArticlePrixVente(prixVente, noArticle);
+	}
 	
 	// afficher la liste des enchères
 	//enchere en cours et par categorie d'un utilisateur

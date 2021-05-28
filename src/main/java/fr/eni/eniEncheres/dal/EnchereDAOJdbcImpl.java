@@ -30,7 +30,8 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 			+"                      GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo,date_debut_encheres "
 			+ "						ORDER BY date_fin_encheres";
 	
-	
+	private static final String UPDATE_CREDIT_UTILISATEUR="UPDATE UTILISATEURS SET credit=credit+? WHERE no_utilisateur=? ";
+	private static final String UPDATE_PRIX_VENTE="UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=? ";
 	
 	@Override
 	public List<ArticleVendu> selectALLEnchereByAcheteur(String libelle, String contient, int noUtilisateur)
@@ -205,7 +206,44 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 	
 	}
 
+	@Override
+	public void updateCreditUtilisateur(int credit,int noUtilisateur) throws BusinessException  {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(UPDATE_CREDIT_UTILISATEUR); 
+			stmt.setInt(1,credit); 
+			stmt.setInt(2,noUtilisateur); 
+		
+			stmt.executeUpdate(); 
+			//ResultSet rs = stmt.getGeneratedKeys(); 
+		
+ 			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+	}
 	
+	
+	@Override
+	public void updateArticlePrixVente(int prixVente, int noArticle) throws BusinessException  {
+		try {
+			Connection cnx = ConnectionProvider.getConnection();
+			PreparedStatement stmt = cnx.prepareStatement(UPDATE_PRIX_VENTE); 
+			stmt.setInt(1,prixVente); 
+			stmt.setInt(2,noArticle); 
+		
+			stmt.executeUpdate(); 
+			//ResultSet rs = stmt.getGeneratedKeys(); 
+		
+ 			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+	}
 	
 	
 	

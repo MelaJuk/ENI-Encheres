@@ -69,9 +69,14 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 	private static final String SELECT_VENTE_BY_NOUTILISATEUR_TERMINEES="SELECT nom_article , prix_initial,date_fin_encheres,pseudo,ar.no_article as noArticle,MAX(ISNULL(e.montant_enchere,0)) AS montant, date_debut_encheres FROM ARTICLES_VENDUS ar \r\n"
 			+ "						LEFT JOIN UTILISATEURS u ON u.no_utilisateur=ar.no_utilisateur \r\n"
 			+ "						LEFT JOIN ENCHERES e ON e.no_article=ar.no_article  LEFT JOIN CATEGORIES c ON c.no_categorie=ar.no_categorie \r\n"
-			+ "						WHERE libelle LIKE ? AND nom_article LIKE ?DATEDIFF(day,date_fin_encheres,GETDATE())>0 AND ar.no_utilisateur=? \r\n"
+			+ "						WHERE libelle LIKE ? AND nom_article LIKE ? AND DATEDIFF(day,date_fin_encheres,GETDATE())>0  AND ar.no_utilisateur=? \r\n"
 			+"          GROUP BY ar.no_article,nom_article,prix_initial,date_fin_encheres,pseudo, date_debut_encheres "
 			+ "						ORDER BY date_fin_encheres";
+	
+	private static final String SELECT_PRIX_VENTE = "SELECT prix_vente FROM ARTICLES_VENDUS WHERE no_article=?";
+	
+	
+	
 	
 	@Override
 	public void inserRetrait(Retrait retrait,int noArticle) throws BusinessException {
@@ -580,6 +585,11 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 				article.setVendeur(vendeur);
 				article.setDateFinEncheres(localDate );
 				
+				if(article.getListeEncheresArticle()==null) {
+					List<Enchere> listeEnchere = new ArrayList<Enchere>();
+					article.setListeEncheresArticle(listeEnchere);
+					
+				}
 				//si l'ench�re existe 
 				if( resultat.getInt("montant")!=0) {
 						Enchere enchere=new Enchere(resultat.getInt("montant"),article);
@@ -603,5 +613,29 @@ public class VenteDAOJdbcImpl implements VenteDAO {
 			
 	}
 	
+	@Override
+	public int selectPrixVente(int noArticle) {
+		Connection connexion = null;
+		PreparedStatement requete = null;
+		ResultSet resultat = null;
+	
+			try {
+			
+			connexion = ConnectionProvider.getConnection();
+			requete = connexion.prepareStatement(SELECT_PRIX_VENTE);
+			requete.setInt(1,noArticle);
+			resultat = requete.executeQuery();
+			
+			while (resultat.next()) {
+				
+				return resultat.getInt("prix_vente");
+			}
+			
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			return 0;
+	}
 	
 }

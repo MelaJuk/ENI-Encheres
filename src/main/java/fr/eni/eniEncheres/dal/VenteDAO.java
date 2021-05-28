@@ -20,7 +20,7 @@ public interface VenteDAO {
 	public List<ArticleVendu> selectALLVentesByUtilisateurTerminees(String libelle, String contient, int noUtilisateur)
 			throws BusinessException;
 	
-	
+	public int selectPrixVente(int noArticle);
 
 
 }
