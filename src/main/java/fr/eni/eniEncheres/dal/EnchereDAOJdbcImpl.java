@@ -204,6 +204,11 @@ public class EnchereDAOJdbcImpl implements EnchereDAO {
 		} 
 	
 	}
+	
+	
+	public void insertCredit (int noUtilisateur, int credit) {
+		
+	}
 
 	
 	

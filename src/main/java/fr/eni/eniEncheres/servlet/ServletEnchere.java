@@ -20,6 +20,8 @@ import fr.eni.eniEncheres.bo.ArticleVendu;
 import fr.eni.eniEncheres.bo.Enchere;
 import fr.eni.eniEncheres.bo.Utilisateur;
 import fr.eni.eniEncheres.dal.BusinessException;
+import fr.eni.eniEncheres.dal.DAOFactory;
+import fr.eni.eniEncheres.dal.UtilisateurDAO;
 
 /**
  * Servlet implementation class ServletEnchere
@@ -147,11 +149,16 @@ public class ServletEnchere extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		// lire les paramètres 
 		int noUtilisateur; 
 		int nvlleEnchere; 
 		int noArticle ; 
 		int montantEnchere; 
+	
+		Utilisateur utilisateur = new Utilisateur(); 
+		
+		
 		
 		// récupérer et affecter l'utilisateur de la session 
 		noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur")); 
@@ -179,34 +186,37 @@ public class ServletEnchere extends HttpServlet {
 		
 		request.setAttribute("montant_enchere", "montant_enchere"); 
 		System.out.println(montantEnchere);
+		System.out.println();
 		
-		// vérifier que la nouvelle est supérieur 
+		// vérifier que la nouvelle enchere est supérieure et que crédit suffisant 
 		if (nvlleEnchere > montantEnchere) {
-			// ajouter l'enchère 
-			EnchereManager enchereManager = new EnchereManager(); 
-			try {
-				enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, noUtilisateur);
-			} catch (BusinessException e) {
-				e.printStackTrace();
-			} 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/validationEnchere.jsp"); 
-			rd.forward(request, response);
+			if (utilisateur.getCredit()>nvlleEnchere) {
+				// ajouter l'enchère 
+				EnchereManager enchereManager = new EnchereManager(); 
+				try {
+					// ajouter enchère 
+					enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, noUtilisateur);
+					// débiter acheteur 
+					
+					//re créditer ancien enchérisseur 
+					
+				} catch (BusinessException e) {
+					e.printStackTrace();
+				} 
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/validationEnchere.jsp"); 
+				rd.forward(request, response);
+			} else {
+				PrintWriter out = response.getWriter(); 
+				out.println("Le montant de votre crédit est insuffisant");
+				out.close();
+			}
+			
 		} else {
 			PrintWriter out = response.getWriter(); 
 			out.println("Le montant de votre enchère doit etre supérieur à l'enchère actuelle");
 			out.close();
 		}
 		
-		// ajouter l'enchère 
-		EnchereManager enchereManager = new EnchereManager(); 
-		try {
-			
-			enchereManager.encherir(LocalDate.now(), nvlleEnchere, noArticle, noUtilisateur);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		} 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jspTest.jsp"); 
-		rd.forward(request, response);
 	}
 
 	
