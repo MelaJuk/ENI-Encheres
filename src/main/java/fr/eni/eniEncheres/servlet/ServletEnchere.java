@@ -155,18 +155,19 @@ public class ServletEnchere extends HttpServlet {
 		int nvlleEnchere; 
 		int noArticle ; 
 		int montantEnchere; 
+		
 	
 		Utilisateur utilisateur = new Utilisateur(); 
 		
 		// récupérer et affecter l'utilisateur de la session 
 		noUtilisateur = Integer.parseInt(request.getParameter("noUtilisateur")); 
-		
 		request.setAttribute("noUtilisateur", "noUtilisateur"); 
 		
-		
+	
 		//  récupérer l'article concerné 
 		noArticle = Integer.parseInt(request.getParameter("noArticle")); 
 		request.setAttribute("noArticle", "noArticle"); 
+		
 		
 		//récupérer le montant de la nouvelle enchère
 		nvlleEnchere = Integer.parseInt(request.getParameter("montant_nvlle_enchere"));
@@ -197,6 +198,7 @@ public class ServletEnchere extends HttpServlet {
 					// débiter acheteur 
 					enchereManager.modifierCreditUtilisateur(-nvlleEnchere, noUtilisateur); 
 					//re créditer ancien enchérisseur 
+					// too late !
 					
 					
 				} catch (BusinessException e) {
